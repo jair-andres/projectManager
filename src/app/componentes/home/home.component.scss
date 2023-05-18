@@ -4,6 +4,9 @@ body{
 *, *:before, *:after {
     box-sizing: inherit;
 }
+.navbar-brand{
+    margin-left: 10px;
+}
 a.nav-link.active:hover{
     background-color: aqua;
 }
@@ -35,6 +38,7 @@ h5{
     padding: 40px;
     border-radius: 1rem;
     margin-top: 20px;
+    margin-bottom: 20px;
     background-color: rgba(250, 235, 215, 0.747);
     box-shadow: 0px 5px 15px 0px rgba(112,112,112,0.48);
 
@@ -66,4 +70,14 @@ h5{
     display: flex;
     justify-content:flex-end;   
     margin-top: 15px;
+}
+.ultimosbtn{
+    display: flex;
+    justify-content:flex-end;   
+}
+button.btn.btn-info {
+    border: solid 1px black;
+}
+button.btn.btn-info:hover {
+    background-color: aqua;
 }
