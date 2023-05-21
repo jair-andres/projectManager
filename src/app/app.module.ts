@@ -11,6 +11,8 @@ import { MainComponent } from './componentes/main/main.component';
 import { CarouselComponent } from './componentes/carousel/carousel.component';
 import { ArgumentsComponent } from './componentes/arguments/arguments.component';
 import { InfoComponent } from './componentes/info/info.component';
+import { ConectateComponent } from './componentes/conectate/conectate.component';
+import { RegistrateComponent } from './componentes/registrate/registrate.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { InfoComponent } from './componentes/info/info.component';
     MainComponent,
     CarouselComponent,
     ArgumentsComponent,
-    InfoComponent
+    InfoComponent,
+    ConectateComponent,
+    RegistrateComponent
   ],
   imports: [
     BrowserModule,
