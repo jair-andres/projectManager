@@ -14,7 +14,6 @@ const routes: Routes = [
   {path:"registrate",component:RegistrateComponent,pathMatch:"full"},
   {path:"contactanos",component:ContactanosComponent,pathMatch:"full"}
 
-
 ];
 
 @NgModule({
