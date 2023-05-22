@@ -19,6 +19,7 @@ import { LoginComponent } from './componentes/login/login.component';
 import { AdminUsersComponent } from './componentes/admin-users/admin-users.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MensajesComponent } from './componentes/mensajes/mensajes.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { HttpClientModule } from '@angular/common/http';
     ContactanosComponent,
     RegisterUserComponent,
     LoginComponent,
-    AdminUsersComponent
+    AdminUsersComponent,
+    MensajesComponent
   ],
   imports: [
     BrowserModule,
