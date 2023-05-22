@@ -106,10 +106,28 @@ usuariosController.Eliminar = function(request, response) {
 
 usuariosController.Login = function(request, response) {
 
+    // usuariosModel.CargarTodas(null, function(respuesta) {
+    //     if (respuesta.state == false) {
+    //         response.json({state:true,mensaje:"se presento un error al guardar"})
+    //     }else {
+    //         response.json(respuesta)
+    //         var users = [response.json(respuesta)]
+    //     }
+    // })
+    
+
     var users = [
         { email: "john@gmail.com", password: "123456789" },
         { email: "pedro@gmail.com", password: "123456" }
     ]
+
+    var users = usuariosModel.CargarTodas(null, function(respuesta) {
+        if (respuesta.state == false) {
+            response.json({state:true,mensaje:"se presento un error al guardar"})
+        }else {
+            response.json(respuesta)
+        }
+    })
 
     var post = {
         email: request.body.email,

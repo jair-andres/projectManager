@@ -1,12 +1,13 @@
 <app-menu></app-menu>
+<app-mensajes></app-mensajes>
 <div class="container w-50 bg-warning bg-opacity-25 p-4 rounded-4 shadow my-5">
     <h3>Ingresar</h3>
     <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" [(ngModel)]="email">
         <label for="floatingInput">Email address</label>
     </div>
     <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" [(ngModel)]="password">
         <label for="floatingPassword">Password</label>
     </div>
 
@@ -16,7 +17,7 @@
             ¿Olvidaste tu Contraseña?
         </a>
         <a type="button" class="p-2 btn btn-primary" routerLink="/registrate">No tengo cuenta</a>
-        <button type="button" class="p-2 btn btn-primary ms-4">Ingresar</button>
+        <button type="button" class="p-2 btn btn-primary ms-4" (click)="Conectar()">Ingresar</button>
     </div>
 </div>
 <app-footer></app-footer>
