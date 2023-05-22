@@ -13,6 +13,7 @@ import { ArgumentsComponent } from './componentes/arguments/arguments.component'
 import { InfoComponent } from './componentes/info/info.component';
 import { ConectateComponent } from './componentes/conectate/conectate.component';
 import { RegistrateComponent } from './componentes/registrate/registrate.component';
+import { ContactanosComponent } from './componentes/contactanos/contactanos.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { RegistrateComponent } from './componentes/registrate/registrate.compone
     ArgumentsComponent,
     InfoComponent,
     ConectateComponent,
-    RegistrateComponent
+    RegistrateComponent,
+    ContactanosComponent
   ],
   imports: [
     BrowserModule,
