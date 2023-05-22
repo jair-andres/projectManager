@@ -14,6 +14,11 @@ import { InfoComponent } from './componentes/info/info.component';
 import { ConectateComponent } from './componentes/conectate/conectate.component';
 import { RegistrateComponent } from './componentes/registrate/registrate.component';
 import { ContactanosComponent } from './componentes/contactanos/contactanos.component';
+import { RegisterUserComponent } from './componentes/register-user/register-user.component';
+import { LoginComponent } from './componentes/login/login.component';
+import { AdminUsersComponent } from './componentes/admin-users/admin-users.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,11 +33,16 @@ import { ContactanosComponent } from './componentes/contactanos/contactanos.comp
     InfoComponent,
     ConectateComponent,
     RegistrateComponent,
-    ContactanosComponent
+    ContactanosComponent,
+    RegisterUserComponent,
+    LoginComponent,
+    AdminUsersComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
