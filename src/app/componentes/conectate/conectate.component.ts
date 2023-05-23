@@ -14,9 +14,10 @@ export class ConectateComponent {
   email:String = ""
   password:String = ""
 
-  Conectar(login:String){
+  Conectar(){
     // console.log(login)
-    this.email = login
+    console.log(this.email)
+    console.log(this.password)
 
     let post = {
       hots:this.peticion.urllocal,

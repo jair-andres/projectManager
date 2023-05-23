@@ -162,8 +162,15 @@ usuariosController.Login = function(request, response) {
         if(respuesta.state == false) {
             response.json({state:false,mensaje:"Error y/o Usuario o Password Invalido"})
         } else {
-            // response.json(respuesta, {state:true,mensaje:`Bienvenido`})
-            response.json(respuesta)
+            if(respuesta.datos.length == 0){
+                response.json({state:false,mensaje:"Usuario o Password Invalido"})
+            } else {
+                if(respuesta?.datos[0]?.email == post.email & respuesta?.datos[0]?.password == post.password){
+                    response.json({state:true, mensaje:`Bienvenido ${respuesta?.datos[0]?.nombre}`, datos:respuesta?.datos[0]})
+                } else {
+                    response.json({state:false,mensaje:'Usuario o Password Invalido'})
+                }
+            }
         }
     })
 }

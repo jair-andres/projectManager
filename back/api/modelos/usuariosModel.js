@@ -90,14 +90,28 @@ usuariosModel.Eliminar =  function(post, callback) {
     })
 }
 
+// usuariosModel.Login = function(post, callback){
+//     MyModel.find({email: post.email},{nombre:1,email:1,password:1},(error, documentos) =>{
+//         if(error){
+//             console.log(error)
+//             return callback({state:false})
+//         } else {
+//             if(documentos[0]?.email == post.email & documentos[0]?.password == post.password){
+//                 return callback({state:true, mensaje:`Bienvenido ${documentos[0]?.nombre}`, datos:documentos, infos:post})
+//             } else {
+//                 return callback({state:false,mensaje:'Usuario o Password Invalido'})
+//             }
+            
+//         }
+//     })
+// }
 usuariosModel.Login = function(post, callback){
-    MyModel.find({email: post.email},{nombre:1,password:1},(error, documentos) =>{
+    MyModel.find({email: post.email},{nombre:1,email:1,password:1},(error, documentos) =>{
         if(error){
             console.log(error)
             return callback({state:false})
         } else {
-            return callback({state:true, mensaje:`Bienvenido ${documentos[0]?.nombre}`,datos:documentos})
-            // return callback("Hola")
+            return callback({state:true, datos:documentos})
         }
     })
 }
