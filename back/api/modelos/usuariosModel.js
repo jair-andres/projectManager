@@ -90,5 +90,17 @@ usuariosModel.Eliminar =  function(post, callback) {
     })
 }
 
+usuariosModel.Login = function(post, callback) {
+  MyModel.find({email: post.email, password: post.password},{_id:1,email:1},(error,documentos) =>{
+      if (error) {
+          console.log(error)
+          return callback({state:false})
+      }
+      else {
+          return callback({state:true,datos:documentos})
+      }
+  })
+}
+
 
 module.exports.usuariosModel = usuariosModel

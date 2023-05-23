@@ -105,60 +105,28 @@ usuariosController.Eliminar = function(request, response) {
 }
 
 usuariosController.Login = function(request, response) {
+  var post = {
+    email: request.body.email,
+    password: request.body.password
+  }
 
-    // usuariosModel.CargarTodas(null, function(respuesta) {
-    //     if (respuesta.state == false) {
-    //         response.json({state:true,mensaje:"se presento un error al guardar"})
-    //     }else {
-    //         response.json(respuesta)
-    //         var users = [response.json(respuesta)]
-    //     }
-    // })
-    
+  if(post.email == undefined || post.email == null || post.email.trim() == ""){
+    response.json({state:false, mensaje:"el campo en obligatorio email"})
+    return false
+  }
 
-    var users = [
-        { email: "john@gmail.com", password: "123456789" },
-        { email: "pedro@gmail.com", password: "123456" }
-    ]
+  if(post.password == undefined || post.password == null || post.password.trim() == ""){
+    response.json({state:false, mensaje:"el campo en obligatorio password"})
+    return false
+  }
 
-    var users = usuariosModel.CargarTodas(null, function(respuesta) {
-        if (respuesta.state == false) {
-            response.json({state:true,mensaje:"se presento un error al guardar"})
-        }else {
-            response.json(respuesta)
-        }
-    })
-
-    var post = {
-        email: request.body.email,
-        password: request.body.password
+  usuariosModel.Login(post, function(respuesta) {
+    if (respuesta.state == false) {
+      response.json({state:true,mensaje:"se presento un error al guardar"})
+    }else {
+      response.json(respuesta)
     }
-
-    if (post.email == undefined || post.email.trim() == "" || post.email == null) {
-        response.json({ state: false, mensaje: "el campo email es obligatorio" })
-        return false
-    }
-
-    if (post.password == undefined || post.password.trim() == "" || post.password == null) {
-        response.json({ state: false, mensaje: "el campo password es obligatorio" })
-        return false
-    }
-
-
-    if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(post.email) == false) {
-        response.json({ state: false, mensaje: "el campo email no coincide con email valido" })
-        return false
-    }
-
-
-    var position = users.findIndex((item) => item.email.toUpperCase() == post.email.toUpperCase() && item.password.toUpperCase() == post.password.toUpperCase())
-    console.log(position)
-
-    if (position == -1) {
-        response.json({ state: false, mensaje: "Usuario o Password Invalido" })
-    } else {
-        response.json({ state: true, mensaje: "Datos Correctos..." })
-    }
+  })
 }
 
 module.exports.usuariosController = usuariosController
