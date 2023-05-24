@@ -149,62 +149,6 @@ usuariosController.Login = function (request, response) {
     email: request.body.email,
     password: request.body.password,
   };
-  // console.log('post',post)
-  if (
-    post.email == undefined ||
-    post.email.trim() == "" ||
-    post.email == null
-  ) {
-    response.json({ state: false, mensaje: "el campo email es obligatorio" });
-    return false;
-  }
-  if (
-    post.password == undefined ||
-    post.password.trim() == "" ||
-    post.password == null
-  ) {
-    response.json({
-      state: false,
-      mensaje: "el campo password es obligatorio",
-    });
-    return false;
-  }
-
-  usuariosModel.Login(post, function (respuesta) {
-    if (respuesta.state == false) {
-      response.json({
-        state: false,
-        mensaje: "Error y/o Usuario o Password Invalido",
-      });
-    } else {
-      if (respuesta.datos.length == 0) {
-        response.json({ state: false, mensaje: "Usuario o Password Invalido" });
-      } else {
-        if (
-          (respuesta?.datos[0]?.email == post.email) &
-          (respuesta?.datos[0]?.password == post.password)
-        ) {
-          response.json({
-            state: true,
-            mensaje: `Bienvenido ${respuesta?.datos[0]?.nombre}`,
-            datos: respuesta?.datos[0],
-          });
-        } else {
-          response.json({
-            state: false,
-            mensaje: "Usuario o Password Invalido",
-          });
-        }
-      }
-    }
-  });
-};
-
-usuariosController.Login = function (request, response) {
-  var post = {
-    email: request.body.email,
-    password: request.body.password,
-  };
 
   if (
     post.email == undefined ||
