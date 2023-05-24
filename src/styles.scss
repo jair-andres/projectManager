@@ -1,60 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+
+@import "./node_modules/bootstrap/scss/functions";
+@import "./node_modules/bootstrap/scss/variables";
+@import "./node_modules/bootstrap/scss/mixins";
+
+
+// $theme-colors: (
+//   "primary": $primary,
+// );
+
+// Create your own map
+$custom-colors: (
+  "blue":       $blue,
+  "indigo":     $indigo,
+  "purple":     $purple,
+  "pink":       $pink,
+  "red":        $red,
+  "orange":     $orange,
+  "yellow":     $yellow,
+  "green":      $green,
+  "teal":       $teal,
+  "cyan":       $cyan,
+  "black":      $black,
+  "white":      $white,
+  "gray":       $gray-600,
+  "gray-dark":  $gray-800
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
 
-@each $color, $value in $colors {
-    .bg-#{$color}{
-        background-color: $value !important;
-    }
-    .border-#{$color}{
-        background-color: $value !important;
-    }
-    .link-#{$color}{
-        background-color: $value !important;
-    }
-
-    .text-#{$color}{
-        color: $value !important;
-    }
-
-    .text-bg-#{$color}{
-        background-color: $value !important;
-    }
-
-    $alert-background: shift-color($value, $alert-bg-scale);
-    $alert-border: shift-color($value, $alert-border-scale);
-    $alert-color: shift-color($value, $alert-color-scale);
-    @if (contrast-ratio($alert-background, $alert-color) < $min-contrast-ratio) {
-        $alert-color: mix($value, color-contrast($alert-background), abs($alert-color-scale));
-    }
-    .alert-#{$color} {
-        @include alert-variant($alert-background, $alert-border, $alert-color);
-    }
-
-    .btn-#{$color} {
-        @if $color == "white" {
-          @include button-variant(
-            $value,
-            $value,
-            $hover-background: shade-color($value, $btn-hover-bg-shade-amount),
-            $hover-border: shade-color($value, $btn-hover-border-shade-amount),
-            $active-background: shade-color($value, $btn-active-bg-shade-amount),
-            $active-border: shade-color($value, $btn-active-border-shade-amount)
-          );
-        } @else if $color == "black" {
-          @include button-variant(
-            $value,
-            $value,
-            $hover-background: tint-color($value, $btn-hover-bg-tint-amount),
-            $hover-border: tint-color($value, $btn-hover-border-tint-amount),
-            $active-background: tint-color($value, $btn-active-bg-tint-amount),
-            $active-border: tint-color($value, $btn-active-border-tint-amount)
-          );
-        } @else {
-          @include button-variant($value, $value);
-        }
-    }
-    .btn-outline-#{$color} {
-        @include button-outline-variant($value);
-    }
-
-}
