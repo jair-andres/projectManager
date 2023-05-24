@@ -3,25 +3,23 @@ import { MensajesService } from 'src/app/servicios/mensajes.service';
 import { PeticionUsuariosService } from 'src/app/servicios/peticion-usuarios.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class LoginComponent {
+export class RegisterComponent {
   constructor(private peticion:PeticionUsuariosService, private msg:MensajesService){}
 
+  nombre:String = ""
   email:String = ""
   password:String = ""
 
-  Login(){
-    // console.log(login)
-    console.log(this.email)
-    console.log(this.password)
-
+  Guardar(){
     let post = {
       hots:this.peticion.urllocal,
-      path:"Usuarios/Login",
+      path:"Usuarios/Guardar",
       payload:{
+        nombre:this.nombre,
         email:this.email,
         password:this.password
       }
