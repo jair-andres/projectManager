@@ -48,6 +48,17 @@ var bodyParser = require('body-parser')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
+var session = require('express-session')({
+  secret:config.palabraClave,
+  resave:true,
+  saveUninitialized:true,
+  cookie: {path:'/',httpOnly:true,maxAge:30000},
+  name: "CookieProjectManager",
+  rolling:true
+})
+
+app.use(session)
+
 require("./back/routes.js")
 
 app.listen(config.puerto, function() {

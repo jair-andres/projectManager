@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { MensajesService } from 'src/app/servicios/mensajes.service';
 import { PeticionUsuariosService } from 'src/app/servicios/peticion-usuarios.service';
 
@@ -9,7 +10,11 @@ import { PeticionUsuariosService } from 'src/app/servicios/peticion-usuarios.ser
 })
 export class ConectateComponent {
 
-  constructor(private peticion:PeticionUsuariosService, private msg:MensajesService){}
+  constructor(
+    private peticion:PeticionUsuariosService,
+    private msg:MensajesService,
+    private route:Router
+    ){}
 
   email:String = ""
   password:String = ""
@@ -30,6 +35,7 @@ export class ConectateComponent {
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
+        this.route.navigate(['home'])
       }
     })
   }

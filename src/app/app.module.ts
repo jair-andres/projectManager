@@ -18,8 +18,9 @@ import { RegisterUserComponent } from './componentes/register-user/register-user
 import { LoginComponent } from './componentes/login/login.component';
 import { AdminUsersComponent } from './componentes/admin-users/admin-users.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MensajesComponent } from './componentes/mensajes/mensajes.component';
+import { InterceptorService } from './interceptor/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,13 @@ import { MensajesComponent } from './componentes/mensajes/mensajes.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:InterceptorService,
+      multi:true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
