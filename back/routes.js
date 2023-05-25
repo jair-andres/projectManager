@@ -13,7 +13,7 @@ app.post('/Usuarios/Guardar',validarSession,function(request, response) {
   usuariosController.Guardar(request, response)
 })
 
-app.post('/Usuarios/CargarTodas',function(request, response) {
+app.post('/Usuarios/CargarTodas',validarSession,function(request, response) {
   usuariosController.CargarTodas(request, response)
 })
 
@@ -29,12 +29,16 @@ app.post("/Usuarios/Login", function(request, response) {
   usuariosController.Login(request, response)
 })
 
+app.post("/miData", function(request, response) {
+  response.json({email:request.session.email,rol:request.session.rol})
+})
+
 //prueba
 app.post("/state", function(request, response) {
   response.json(request.session)
 })
 
-app.post("/logout", function(request, response) {
+app.post("/Usuarios/logout", function(request, response) {
   request.session.destroy()
   response.json({state:true,mensaje:"cerrado la sesion"})
 })

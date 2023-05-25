@@ -24,7 +24,7 @@ export class PeticionUsuariosService {
       .toPromise()
       .then((res:any) => {
         console.log(res);
-        if (res.erorr == true) {
+        if (res.error == true) {
           this.msg.Load(res.mensaje, "danger", 10000)
           this.route.navigate(['nosotros'])
         }
