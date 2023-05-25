@@ -1,6 +1,8 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-info">
+<nav class="navbar navbar-expand-md navbar-dark bg-purple-dark">
     <div class="container-fluid px-2">
-        <a class="navbar-brand me-2" href="#">ProjectManager</a>
+        <a class="navbar-brand me-2" href="#">
+            <img src="{{logo}}" alt="Project_Manager_Logo" width="250">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -8,19 +10,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav w-100 me-auto mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" routerLink="/home">Inicio</a>
+                    <a class="font-monospace nav-link active" aria-current="page" routerLink="/home">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/contact">Contactanos</a>
+                    <a class="font-monospace nav-link" routerLink="/contact">Contactanos</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/aboutus">Nosotros</a>
-                </li>
-                <li class="nav-item ms-auto fw-bold">
-                    <a class="nav-link" routerLink="/login">Conéctate</a>
+                <li class="nav-item me-auto">
+                    <a class="font-monospace nav-link" routerLink="/aboutus">Nosotros</a>
                 </li>
                 <li class="nav-item fw-bold">
-                    <a class="nav-link" routerLink="/register">Regístrate</a>
+                    <a class="font-monospace nav-link" routerLink="/login">Conéctate</a>
+                </li>
+                <li class="nav-item fw-bold">
+                    <a class="font-monospace nav-link" routerLink="/register">Regístrate</a>
                 </li>
             </ul>
         </div>

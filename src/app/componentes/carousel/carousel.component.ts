@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./carousel.component.scss']
 })
 export class CarouselComponent {
-  imagen1:string="../../../assets/images/imagen1.png"
-  imagen2:string="../../../assets/images/imagen2.png"
+  carousel01:string="../../../assets/img/carousel_1.jpg"
+  carousel02:string="../../../assets/img/carousel_2.jpg"
+  carousel03:string="../../../assets/img/carousel_3.jpg"
 }
