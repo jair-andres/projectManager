@@ -10,9 +10,9 @@ import { PeticionUsuariosService } from 'src/app/servicios/peticion-usuarios.ser
 export class RegisterComponent {
   constructor(private peticion:PeticionUsuariosService, private msg:MensajesService){}
 
-  nombre:String = ""
-  email:String = ""
-  password:String = ""
+  nombre:string = ""
+  email:string = ""
+  password:string = ""
 
   Guardar(){
     let post = {

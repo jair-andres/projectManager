@@ -10,8 +10,8 @@ import { PeticionUsuariosService } from 'src/app/servicios/peticion-usuarios.ser
 export class LoginComponent {
   constructor(private peticion:PeticionUsuariosService, private msg:MensajesService){}
 
-  email:String = ""
-  password:String = ""
+  email:string = ""
+  password:string = ""
 
   Login(){
     // console.log(login)
