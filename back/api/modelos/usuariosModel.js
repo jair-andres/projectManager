@@ -12,9 +12,9 @@ var usuariosSchema = new Schema({
 
 const MyModel = mongoose.model("usuarios", usuariosSchema)
 
-usuariosModel.validarEmail = function(post, callback){
+usuariosModel.validarEmailyNombre = function(post, callback){
 
-    MyModel.find({email: post.email},{nombre:1,_id:0},(error,documento) => {
+    MyModel.find({$or: [ {email: post.email}, {nombre: post.nombre} ]},{nombre:1,_id:0},(error,documento) => {
         if (error) {
             console.log(error)
             return callback({state:false})
@@ -91,7 +91,7 @@ usuariosModel.Eliminar =  function(post, callback) {
 }
 
 usuariosModel.Login = function(post, callback) {
-    MyModel.find({email: post.email, password: post.password},{_id:1,email:1,nombre:1},(error,documentos) =>{
+    MyModel.find({email: post.email, password: post.password},{_id:1,email:1,nombre:1,rol:1},(error,documentos) =>{
         if (error) {
             console.log(error)
             return callback({state:false})

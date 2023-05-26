@@ -1,25 +1,29 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { MensajesService } from 'src/app/servicios/mensajes.service';
 import { PeticionUsuariosService } from 'src/app/servicios/peticion-usuarios.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: 'app-conectate',
+  templateUrl: './conectate.component.html',
+  styleUrls: ['./conectate.component.scss']
 })
-export class RegisterComponent {
-  constructor(private peticion:PeticionUsuariosService, private msg:MensajesService){}
+export class ConectateComponent {
 
-  nombre:string = ""
-  email:string = ""
-  password:string = ""
+  constructor(
+    private peticion:PeticionUsuariosService,
+    private msg:MensajesService,
+    private route:Router
+    ){}
 
-  Guardar(){
+  email:String = ""
+  password:String = ""
+
+  Conectar(){
     let post = {
       hots:this.peticion.urllocal,
-      path:"Usuarios/Guardar",
+      path:"Usuarios/Login",
       payload:{
-        nombre:this.nombre,
         email:this.email,
         password:this.password
       }
@@ -31,8 +35,9 @@ export class RegisterComponent {
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
-        window.location.href = "http://localhost:4200/conectate"
+        this.route.navigate(['home'])
       }
     })
   }
+
 }

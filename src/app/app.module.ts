@@ -12,11 +12,13 @@ import { InfoComponent } from './componentes/info/info.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { AdminUsersComponent } from './componentes/admin-users/admin-users.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { AboutusComponent } from './componentes/aboutus/aboutus.component';
 import { RegisterComponent } from './componentes/register/register.component';
 import { ContactComponent } from './componentes/contact/contact.component';
 import { NotificationComponent } from './componentes/notification/notification.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { InterceptorService } from './interceptor/interceptor.service';
+import { UploadFilesComponent } from './componentes/upload-files/upload-files.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { NotificationComponent } from './componentes/notification/notification.c
     AboutusComponent,
     RegisterComponent,
     ContactComponent,
-    NotificationComponent
+    NotificationComponent,
+    UploadFilesComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,13 @@ import { NotificationComponent } from './componentes/notification/notification.c
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:InterceptorService,
+      multi:true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
