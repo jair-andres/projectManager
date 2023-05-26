@@ -42,3 +42,10 @@ app.post("/Usuarios/logout", function(request, response) {
   request.session.destroy()
   response.json({state:true,mensaje:"cerrado la sesion"})
 })
+
+// prueba archivos
+var filesController = require("./api/controladores/filesController.js").filesController
+
+app.get("/files/:carpeta/:carpeta/:id", function(request, response) {
+  filesController.SubirArchivos(request, response)
+})

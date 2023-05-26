@@ -4,8 +4,11 @@ var config = require("./back/config.js").config
 
 var cors = require('cors')
 
-
 const mongoose = require('mongoose')
+
+global.path = require('path')
+global.appRoot = path.resolve(__dirname)
+global.multer = require('multer')
 
 app.all('*', function(request, response, next) {
 
@@ -60,6 +63,8 @@ var session = require('express-session')({
 app.use(session)
 
 require("./back/routes.js")
+
+app.use('./back/perfiles',express.static(__dirname + './back/perfiles'))
 
 app.listen(config.puerto, function() {
     console.log("servidor funcionando puerto 3000");

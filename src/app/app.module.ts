@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MensajesComponent } from './componentes/mensajes/mensajes.component';
 import { InterceptorService } from './interceptor/interceptor.service';
+import { UploadFilesComponent } from './componentes/upload-files/upload-files.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { InterceptorService } from './interceptor/interceptor.service';
     RegisterUserComponent,
     LoginComponent,
     AdminUsersComponent,
-    MensajesComponent
+    MensajesComponent,
+    UploadFilesComponent
   ],
   imports: [
     BrowserModule,
