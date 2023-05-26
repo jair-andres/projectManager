@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './componentes/home/home.component';
-import { NosotrosComponent } from './componentes/nosotros/nosotros.component';
-import { ConectateComponent } from './componentes/conectate/conectate.component';
-import { RegistrateComponent } from './componentes/registrate/registrate.component';
-import { ContactanosComponent } from './componentes/contactanos/contactanos.component';
+import { LoginComponent } from './componentes/login/login.component';
+import { AboutusComponent } from './componentes/aboutus/aboutus.component';
+import { RegisterComponent } from './componentes/register/register.component';
+import { ContactComponent } from './componentes/contact/contact.component';
 
 const routes: Routes = [
   {path:"",redirectTo:'/home',pathMatch:"full"},
   {path:"home",component:HomeComponent,pathMatch:"full"},
-  {path:"nosotros",component:NosotrosComponent,pathMatch:"full"},
-  {path:"conectate",component:ConectateComponent,pathMatch:"full"},
-  {path:"registrate",component:RegistrateComponent,pathMatch:"full"},
-  {path:"contactanos",component:ContactanosComponent,pathMatch:"full"}
-
+  {path:"aboutus",component:AboutusComponent,pathMatch:"full"},
+  {path:"login",component:LoginComponent,pathMatch:"full"},
+  {path:"register",component:RegisterComponent,pathMatch:"full"},
+  {path:"contact",component:ContactComponent,pathMatch:"full"}
 ];
 
 @NgModule({

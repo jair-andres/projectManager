@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
-
+  logo:string="../../../assets/img/projectmanager_logo_vertical.png"
 }

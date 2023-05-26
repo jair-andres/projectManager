@@ -6,7 +6,11 @@
             <div class="col col-md-9 col-lg-7 col-xl-6">
                 <div class="card border-purple-dark shadow">
                     <div class="card-body bg-purple bg-opacity-10">
-                        <h3 class="card-title mb-3 font-monospace">Ingresar</h3>
+                        <h3 class="card-title mb-3 font-monospace">Regístrate</h3>
+                        <div class="form-floating mb-3">
+                            <input type="nombre" class="form-control" id="floatingInput" placeholder="Nombre" [(ngModel)]="nombre">
+                            <label for="floatingInput">Nombre</label>
+                        </div>
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" [(ngModel)]="email">
                             <label for="floatingInput">Email</label>
@@ -15,14 +19,9 @@
                             <input type="password" class="form-control" id="floatingPassword" placeholder="Password" [(ngModel)]="password">
                             <label for="floatingPassword">Password</label>
                         </div>
-                        
-                        <a class="p-2 link-purple link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover font-monospace"
-                            href="#">
-                            ¿Olvidaste tu Contraseña?
-                        </a>
                         <div class="mt-3 d-flex justify-content-end">
-                            <a type="button" class="btn btn-purple font-monospace" routerLink="/registrate">No tengo cuenta</a>
-                            <button type="button" class="btn btn-purple ms-4 font-monospace" (click)="Login()">Ingresar</button>
+                            <a type="button" class="btn btn-purple font-monospace" routerLink="/conectate">Ya tengo una cuenta</a>
+                            <button type="button" class="btn btn-purple ms-4 font-monospace" (click)="Guardar()">Registrar</button>
                         </div>
                     </div>
                 </div>

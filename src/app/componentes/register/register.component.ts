@@ -3,22 +3,23 @@ import { MensajesService } from 'src/app/servicios/mensajes.service';
 import { PeticionUsuariosService } from 'src/app/servicios/peticion-usuarios.service';
 
 @Component({
-  selector: 'app-conectate',
-  templateUrl: './conectate.component.html',
-  styleUrls: ['./conectate.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class ConectateComponent {
-
+export class RegisterComponent {
   constructor(private peticion:PeticionUsuariosService, private msg:MensajesService){}
 
-  email:String = ""
-  password:String = ""
+  nombre:string = ""
+  email:string = ""
+  password:string = ""
 
-  Conectar(){
+  Guardar(){
     let post = {
       hots:this.peticion.urllocal,
-      path:"Usuarios/Login",
+      path:"Usuarios/Guardar",
       payload:{
+        nombre:this.nombre,
         email:this.email,
         password:this.password
       }
@@ -30,8 +31,8 @@ export class ConectateComponent {
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
+        window.location.href = "http://localhost:4200/conectate"
       }
     })
   }
-
 }

@@ -1,14 +1,13 @@
+var usuariosModel = require("../modelos/usuariosModel.js").usuariosModel;
+var usuariosController = {};
 
-var usuariosModel = require("../modelos/usuariosModel.js").usuariosModel
-var usuariosController = {}
-
-usuariosController.Guardar = function(request, response) {
-    var post = {
-        nombre: request.body.nombre,
-        email: request.body.email,
-        password: request.body.password
-    }
-    /*console.log(request.body.nombre);
+usuariosController.Guardar = function (request, response) {
+  var post = {
+    nombre: request.body.nombre,
+    email: request.body.email,
+    password: request.body.password,
+  };
+  /*console.log(request.body.nombre);
     response.json({state:true, mensaje:"funciono"})*/
     if(post.nombre == undefined || post.nombre == null || post.nombre.trim() == ""){
         response.json({stat:false, mensaje:"el campo en obligatorio nombre"})
@@ -129,4 +128,4 @@ usuariosController.Login = function(request, response) {
   })
 }
 
-module.exports.usuariosController = usuariosController
+module.exports.usuariosController = usuariosController;
