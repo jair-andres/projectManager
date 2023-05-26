@@ -1,12 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MensajesService } from './mensajes.service';
+import { Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PeticionUsuariosService {
 
-  constructor(private http:HttpClient) { }
+  constructor(
+    private http:HttpClient,
+    private msg: MensajesService,
+    private route: Router)
+  { }
 
   urllocal:string = "http://localhost:3000/"
 
@@ -17,6 +24,10 @@ export class PeticionUsuariosService {
       .toPromise()
       .then((res:any) => {
         console.log(res);
+        if (res.error == true) {
+          this.msg.Load(res.mensaje, "danger", 10000)
+          this.route.navigate(['nosotros'])
+        }
         resolve(res)
       })
     })

@@ -10,21 +10,21 @@ usuariosController.Guardar = function (request, response) {
   /*console.log(request.body.nombre);
     response.json({state:true, mensaje:"funciono"})*/
     if(post.nombre == undefined || post.nombre == null || post.nombre.trim() == ""){
-        response.json({stat:false, mensaje:"el campo en obligatorio nombre"})
+        response.json({state:false, mensaje:"el campo en obligatorio nombre"})
         return false
     }
     if(post.email == undefined || post.email == null || post.email.trim() == ""){
-        response.json({stat:false, mensaje:"el campo en obligatorio email"})
+        response.json({state:false, mensaje:"el campo en obligatorio email"})
         return false
     }
     if(post.password == undefined || post.password == null || post.password.trim() == ""){
-        response.json({stat:false, mensaje:"el campo en obligatorio password"})
+        response.json({state:false, mensaje:"el campo en obligatorio password"})
         return false
     }
 
-    usuariosModel.validarEmail(post,function(existe) {
-        if (existe.sate == false) {
-            response.json({state:false, mensaje:"El registro no se pudo almacenar, intente con otro"})
+    usuariosModel.validarEmailyNombre(post,function(existe) {
+        if (existe.state == false) {
+            response.json({state:false, mensaje:"El registro no se pudo almacenar, el email o usuario ya esta en uso"})
         }
         else {
             //almacenamiento
@@ -60,27 +60,27 @@ usuariosController.Actualizar = function(request, response) {
     }
 
     if(post.nombre == undefined || post.nombre == null || post.nombre.trim() == ""){
-        response.json({stat:false, mensaje:"el campo en obligatorio nombre"})
+        response.json({state:false, mensaje:"el campo en obligatorio nombre"})
         return false
     }
     if(post.email == undefined || post.email == null || post.email.trim() == ""){
-        response.json({stat:false, mensaje:"el campo en obligatorio email"})
+        response.json({state:false, mensaje:"el campo en obligatorio email"})
         return false
     }
     if(post.password == undefined || post.password == null || post.password.trim() == ""){
-        response.json({stat:false, mensaje:"el campo en obligatorio password"})
+        response.json({state:false, mensaje:"el campo en obligatorio password"})
         return false
     }
     if(post.id == undefined || post.id == null || post.id.trim() == ""){
-        response.json({stat:false, mensaje:"el campo en obligatorio id"})
+        response.json({state:false, mensaje:"el campo en obligatorio id"})
         return false
     }
     usuariosModel.Actualizar(post, function(respuesta) {
-        if (respuesta.sate == false) {
-            response.json({stat:false, mensaje:"se presento un error al actualizar"})
+        if (respuesta.state == false) {
+            response.json({state:false, mensaje:"se presento un error al actualizar"})
         }
         else {
-            response.json({stat:false, mensaje:"se actualizo correctamente"})
+            response.json({state:false, mensaje:"se actualizo correctamente"})
         }
     })
 }
@@ -90,15 +90,15 @@ usuariosController.Eliminar = function(request, response) {
         id:request.body.id
     }
     if(post.id == undefined || post.id == null || post.id.trim() == ""){
-        response.json({stat:false, mensaje:"el campo en obligatorio id"})
+        response.json({state:false, mensaje:"el campo en obligatorio id"})
         return false
     }
     usuariosModel.Eliminar(post,function(respuesta) {
         if (respuesta.sate == false) {
-            response.json({stat:false, mensaje:"se presento un error al eliminar"})
+            response.json({state:false, mensaje:"se presento un error al eliminar"})
         }
         else {
-            response.json({stat:false, mensaje:"se elimino correctamente"})
+            response.json({state:false, mensaje:"se elimino correctamente"})
         }
     })
 }
@@ -121,9 +121,21 @@ usuariosController.Login = function(request, response) {
 
   usuariosModel.Login(post, function(respuesta) {
     if (respuesta.state == false) {
-      response.json({state:true,mensaje:"se presento un error al guardar"})
+      response.json({state:false,mensaje:"se presento un error al guardar"})
     }else {
-      response.json(respuesta)
+      if (respuesta.datos.length == 0) {
+        response.json({state:false,mensaje:"Error en email o contraseña"})
+      }else {
+        console.log(respuesta.datos[0])
+
+        request.session.email = respuesta.datos[0].email
+        request.session.rol = respuesta.datos[0].rol
+
+        console.log(request.session.email);
+
+        //response.json(respuesta)
+        response.json({state:true,mensaje:"logeo correctamente"})
+      }
     }
   })
 }
