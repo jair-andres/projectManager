@@ -50,12 +50,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
 var session = require('express-session')({
-  secret:config.palabraClave,
-  resave:true,
-  saveUninitialized:true,
-  cookie: {path:'/',httpOnly:true,maxAge:120000},
-  name: "CookieProjectManager",
-  rolling:true
+    secret:config.palabraClave,
+    resave:true,
+    saveUninitialized:true,
+    cookie: {path:'/',httpOnly:true,maxAge:config.tiempoDeSesion}, 
+    name: "CookieProjectManager",
+    rolling:true
 })
 
 app.use(session)
