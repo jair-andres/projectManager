@@ -1,7 +1,14 @@
-<p>admin-users works!</p>
-<button (click)="mostrar()">Mostrar()</button>
-<ul *ngFor="let user of users">
-  <li>{{user}}</li>
-</ul>
-
-<app-upload-files></app-upload-files>
+<div class="container-fluid d-flex flex-column p-0 m-0 min-vh-100">
+  <app-menu></app-menu>
+  <app-notification></app-notification>
+  <!--<app-test-session></app-test-session>-->
+  <div class="container-fluid d-flex flex-column align-content-center justify-content-center flex-grow-1 my-4 py-4">
+    <h1>admin-users works!</h1>
+    <button (click)="mostrar()">Mostrar()</button>
+    <ul *ngFor="let user of users">
+      <li>{{user}}</li>
+    </ul>
+    <app-upload-files></app-upload-files>
+  </div>
+  <app-footer></app-footer>
+</div>
