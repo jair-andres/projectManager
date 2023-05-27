@@ -32,7 +32,7 @@ export class ContactComponent implements OnInit {
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
       this.idUsuario = res.id
-      console.log("segunda validacion:  ", this.idUsuario);
+      // console.log("segunda validacion:  ", this.idUsuario);
     })
   }
 
@@ -48,25 +48,15 @@ export class ContactComponent implements OnInit {
         observacion:this.observacion
       }
     }
-    if(this.idUsuario){
-      console.log("idUsuario is OK =>", this.idUsuario)
-      console.log(post.payload)
-      console.log(typeof(post.payload))
-    } else {
-      console.log("idUsuario is NOOOOOOT OK !!!")
-      console.log(post.payload)
-      console.log(typeof(post.payload))
-    }
-    // this.idUsuario && Object.defineProperty(post.payload, 'idUsuario', {value: this.idUsuario, writable: true})
-    // this.idUsuario && Object.assign(post.payload, {idUsuario:this.idUsuario})
-
-    /*let validar = this.idUsuario
-    if (this.idUsuario !== undefined || this.idUsuario !== null || this.idUsuario !== "" || validar.trim() == '') {
-      console.log(this.idUsuario);
-      Object.assign(post.payload, {idUsuario:this.idUsuario})
-      console.log("entraa");
-      console.log("esta es la lista",post.payload)
-    }*/
+    // if(this.idUsuario){
+    //   console.log("idUsuario is OK =>", this.idUsuario)
+    //   console.log(post.payload)
+    //   console.log(typeof(post.payload))
+    // } else {
+    //   console.log("idUsuario is NOOOOOOT OK !!!")
+    //   console.log(post.payload)
+    //   console.log(typeof(post.payload))
+    // }
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
       console.log(res)
