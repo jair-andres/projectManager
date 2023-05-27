@@ -184,6 +184,7 @@ usuariosController.Login = function (request, response) {
       } else {
         console.log(respuesta.datos[0]);
 
+        // request.session.idUser = respuesta.datos[0].id;
         request.session.idUser = respuesta.datos[0].id;
         request.session.nombre = respuesta.datos[0].nombre;
         request.session.email = respuesta.datos[0].email;

@@ -21,6 +21,10 @@ import { InterceptorService } from './interceptor/interceptor.service';
 import { UploadFilesComponent } from './componentes/upload-files/upload-files.component';
 import { DashboardComponent } from './componentes/dashboard/dashboard.component';
 import { TestSessionComponent } from './componentes/test-session/test-session.component';
+import { ProjectsComponent } from './componentes/projects/projects.component';
+import { CreateProjectComponent } from './componentes/create-project/create-project.component';
+import { TasksComponent } from './componentes/tasks/tasks.component';
+import { ProfileComponent } from './componentes/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,11 @@ import { TestSessionComponent } from './componentes/test-session/test-session.co
     NotificationComponent,
     UploadFilesComponent,
     DashboardComponent,
-    TestSessionComponent
+    TestSessionComponent,
+    ProjectsComponent,
+    CreateProjectComponent,
+    TasksComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
