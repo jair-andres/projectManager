@@ -38,7 +38,7 @@ app.post("/Pqrs/Guardar",function(request, response) {
 
 // Sesion
 app.post("/miData",function(request, response) {
-  response.json({id:request.session.id,nombre:request.session.nombre,rol:request.session.rol})
+  response.json({id:request.session.idUser,nombre:request.session.nombre,rol:request.session.rol})
 })
 
 //prueba

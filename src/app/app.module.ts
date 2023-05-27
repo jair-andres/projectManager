@@ -20,6 +20,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { InterceptorService } from './interceptor/interceptor.service';
 import { UploadFilesComponent } from './componentes/upload-files/upload-files.component';
 import { DashboardComponent } from './componentes/dashboard/dashboard.component';
+import { TestSessionComponent } from './componentes/test-session/test-session.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { DashboardComponent } from './componentes/dashboard/dashboard.component'
     ContactComponent,
     NotificationComponent,
     UploadFilesComponent,
-    DashboardComponent
+    DashboardComponent,
+    TestSessionComponent
   ],
   imports: [
     BrowserModule,

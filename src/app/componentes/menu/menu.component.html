@@ -29,17 +29,14 @@
 
                 <ng-template #menuDashboard>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link text-uppercase font-monospace fw-bold dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             {{nombreSesion}}
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" routerLink="/user">Perfil</a></li>
                             <li><a class="dropdown-item" routerLink="/dashboard">Panel</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">LOGOUT</a></li>
+                            <li><button class="dropdown-item" (click)="logOut()">logOut</button></li>
                         </ul>
                     </li>
                 </ng-template>

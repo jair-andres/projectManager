@@ -2,7 +2,8 @@ var config = {}
 config.puerto = 3000
 config.bd = "Final"
 config.palabraClave = "ibero03"
-config.tiempoDeSesion = 300000
+// config.tiempoDeSesion = 300000
+config.tiempoDeSesion = 30000
 config.listablanca = [
   "http://127.0.0.1:55000",
   "http://localhost:3000",
