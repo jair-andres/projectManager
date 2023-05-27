@@ -19,6 +19,7 @@ import { NotificationComponent } from './componentes/notification/notification.c
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { InterceptorService } from './interceptor/interceptor.service';
 import { UploadFilesComponent } from './componentes/upload-files/upload-files.component';
+import { DashboardComponent } from './componentes/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { UploadFilesComponent } from './componentes/upload-files/upload-files.co
     RegisterComponent,
     ContactComponent,
     NotificationComponent,
-    UploadFilesComponent
+    UploadFilesComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

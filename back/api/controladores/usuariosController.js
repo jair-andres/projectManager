@@ -128,13 +128,14 @@ usuariosController.Login = function(request, response) {
       }else {
         console.log(respuesta.datos[0])
 
+        request.session.id = respuesta.datos[0]._id
+        request.session.nombre = respuesta.datos[0].nombre
         request.session.email = respuesta.datos[0].email
-        request.session.rol = respuesta.datos[0].rol
 
         console.log(request.session.email);
 
         //response.json(respuesta)
-        response.json({state:true,mensaje:"logeo correctamente"})
+        response.json({state:true,mensaje:"logeo correctamente",rol:respuesta.datos[0].rol})
       }
     }
   })

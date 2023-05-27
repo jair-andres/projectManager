@@ -31,7 +31,6 @@ export class RegisterComponent {
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
-        window.location.href = "http://localhost:4200/conectate"
       }
     })
   }

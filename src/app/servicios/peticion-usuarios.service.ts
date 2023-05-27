@@ -23,10 +23,9 @@ export class PeticionUsuariosService {
       this.http.post(url, data)
       .toPromise()
       .then((res:any) => {
-        console.log(res);
         if (res.error == true) {
           this.msg.Load(res.mensaje, "danger", 10000)
-          this.route.navigate(['nosotros'])
+          this.route.navigate(['home'])
         }
         resolve(res)
       })

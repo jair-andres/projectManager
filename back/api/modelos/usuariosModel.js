@@ -4,10 +4,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 var usuariosSchema = new Schema({
-    email:String,
-    password:String,
-    nombre:String,
-    rol:String
+  email:String,
+  password:String,
+  nombre:String,
+  rol:String
 })
 
 const MyModel = mongoose.model("usuarios", usuariosSchema)
@@ -36,7 +36,7 @@ usuariosModel.Guardar = function(post, callback) {
     instancia.nombre = post.nombre
     instancia.password = post.password
     instancia.email = post.email
-    instancia.rol = "Cliente"
+    instancia.rol = "cliente"
 
     instancia.save((error, creado) => {
         if (error) {

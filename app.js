@@ -21,8 +21,6 @@ app.all('*', function(request, response, next) {
     next()
 })
 
-
-
 app.use(cors({
     origin: function(origin, callback) {
         console.log("ORIGIN: "+origin)
@@ -55,7 +53,7 @@ var session = require('express-session')({
   secret:config.palabraClave,
   resave:true,
   saveUninitialized:true,
-  cookie: {path:'/',httpOnly:true,maxAge:30000},
+  cookie: {path:'/',httpOnly:true,maxAge:120000},
   name: "CookieProjectManager",
   rolling:true
 })

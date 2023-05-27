@@ -25,12 +25,20 @@ app.post('/Usuarios/Eliminar',function(request, response) {
   usuariosController.Eliminar(request, response)
 })
 
-app.post("/Usuarios/Login", function(request, response) {
+app.post("/Usuarios/Login",function(request, response) {
   usuariosController.Login(request, response)
 })
 
-app.post("/miData", function(request, response) {
-  response.json({email:request.session.email,rol:request.session.rol})
+var pqrsController = require("./api/controladores/pqrsController.js").pqrsController
+
+// Pqrs
+app.post("/Pqrs/Guardar",function(request, response) {
+  pqrsController.Guardar(request, response)
+})
+
+// Sesion
+app.post("/miData",function(request, response) {
+  response.json({id:request.session.id,nombre:request.session.nombre,rol:request.session.rol})
 })
 
 //prueba

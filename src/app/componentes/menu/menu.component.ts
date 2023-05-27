@@ -19,12 +19,14 @@ export class MenuComponent implements OnInit {
     private route:Router
   ){}
 
+  nombreSesion:string = ""
+  rolSesion:string = ""
+
   ngOnInit(): void {
     this.miData()
   }
 
-  nombre:string = ""
-  email:string = ""
+
   miData() {
     let post = {
       hots:this.peticion.urllocal,
@@ -33,22 +35,19 @@ export class MenuComponent implements OnInit {
     }
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log(res)
-      this.nombre = res.nombre
-      this.email = res.email
-      console.log(this.nombre+""+this.email)
+      this.nombreSesion = res.nombre
+      this.rolSesion = res.rol
     })
   }
 
   logOut(){
     let post = {
       hots:this.peticion.urllocal,
-      path:"/Usuarios/logout",
+      path:"Usuarios/logout",
       payload:{}
     }
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log(res)
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {

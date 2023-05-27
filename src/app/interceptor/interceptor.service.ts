@@ -19,7 +19,6 @@ export class InterceptorService {
     }
 
     const reqClone = req.clone(requestOption)
-    console.log(reqClone);
 
     return next.handle(reqClone)
   }

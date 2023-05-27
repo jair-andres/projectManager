@@ -18,15 +18,33 @@
                 <li class="nav-item me-auto">
                     <a class="font-monospace nav-link" routerLink="/aboutus">Nosotros</a>
                 </li>
-                <li class="nav-item fw-bold">
-                    <a class="font-monospace nav-link" routerLink="/login">Conéctate</a>
-                </li>
-                <li class="nav-item fw-bold">
-                    <a class="font-monospace nav-link" routerLink="/register">Regístrate</a>
-                </li>
-                <li class="nav-item fw-bold">
+
+
+                  <li *ngIf="nombreSesion != undefined || nombreSesion != null" class="nav-item me-auto">
+                    <a class="font-monospace nav-link" routerLink="/dashboard">dashboard</a>
+                  </li>
+
+                  <span *ngIf="nombreSesion == undefined || nombreSesion == null || nombreSesion.trim() == '';else menuDashboard">
+                    <li class="nav-item fw-bold">
+                      <a class="font-monospace nav-link" routerLink="/login">Conéctate</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="font-monospace nav-link" routerLink="/register">Regístrate</a>
+                    </li>
+                  </span>
+
+
+                <ng-template #menuDashboard>
+                  <li>Bienvenido: {{nombreSesion}}</li>
+                  <li class="nav-item fw-bold">
                     <a class="nav-link" (click)="logOut()">logOut</a>
-                </li>
+                  </li>
+                </ng-template>
+
+
+                <!--
+
+                -->
             </ul>
         </div>
     </div>
