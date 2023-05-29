@@ -9,7 +9,10 @@ var validarSession = function(request, response, next) {
   }
 }
 
-app.post('/Usuarios/Guardar',validarSession,function(request, response) {
+// app.post('/Usuarios/Guardar',validarSession,function(request, response) {
+//   usuariosController.Guardar(request, response)
+// })
+app.post('/Usuarios/Guardar',function(request, response) {
   usuariosController.Guardar(request, response)
 })
 
@@ -17,11 +20,11 @@ app.post('/Usuarios/CargarTodas',validarSession,function(request, response) {
   usuariosController.CargarTodas(request, response)
 })
 
-app.post('/Usuarios/Actualizar',function(request, response) {
+app.post('/Usuarios/Actualizar',validarSession,function(request, response) {
   usuariosController.Actualizar(request, response)
 })
 
-app.post('/Usuarios/Eliminar',function(request, response) {
+app.post('/Usuarios/Eliminar',validarSession,function(request, response) {
   usuariosController.Eliminar(request, response)
 })
 
