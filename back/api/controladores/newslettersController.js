@@ -1,5 +1,5 @@
-var pqrsModel = require("../modelos/pqrsModel.js").pqrsModel;
-var pqrsController = {};
+var newslettersModel = require("../modelos/newslettersModel.js").newslettersModel;
+var newslettersController = {};
 
 function averiguarFormatoCorreo(correo) {
   if (/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(correo)) {
@@ -9,15 +9,12 @@ function averiguarFormatoCorreo(correo) {
   }
 }
 
-pqrsController.Guardar = function (request, response) {
+newslettersController.Guardar = function (request, response) {
   var post = {
-    idUsuario: request.body.idUsuario,
     email: request.body.email,
     nombre: request.body.nombre,
-    asunto: request.body.asunto,
-    observacion: request.body.observacion
-  };
-
+  }
+  
   var formatoDelCorreo = averiguarFormatoCorreo(post.email)
   if(formatoDelCorreo !== true){
     response.json({ state: false, mensaje: "el email esta errado" });
@@ -40,24 +37,8 @@ pqrsController.Guardar = function (request, response) {
     response.json({ state: false, mensaje: "el campo en obligatorio nombre" });
     return false;
   }
-  if (
-    post.asunto == undefined ||
-    post.asunto == null ||
-    post.asunto.trim() == ""
-  ) {
-    response.json({ state: false, mensaje: "el campo en obligatorio asunto" });
-    return false;
-  }
-  if (
-    post.observacion == undefined ||
-    post.observacion == null ||
-    post.observacion.trim() == ""
-  ) {
-    response.json({ state: false, mensaje: "el campo en obligatorio observacion" });
-    return false;
-  }
 
-  pqrsModel.Guardar(post, function(resultado) {
+  newslettersModel.Guardar(post, function(resultado) {
     if (resultado.state == true) {
         response.json({
           state:true,
@@ -66,19 +47,21 @@ pqrsController.Guardar = function (request, response) {
     else {
         response.json({state:false,mensaje:"se presento un error"})
     }
-  })
+})
 }
 
-pqrsController.CargarTodas = function (request, response) {
-  pqrsModel.CargarTodas(null, function (respuesta) {
+
+newslettersController.CargarTodas = function (request, response) {
+  newslettersModel.CargarTodas(null, function (respuesta) {
     if (respuesta.state == false) {
       response.json({
         state: true,
         mensaje: "se presento un error al guardar",
-      })
+      });
     } else {
       response.json(respuesta);
     }
-  })
-}
-module.exports.pqrsController = pqrsController;
+  });
+};
+
+module.exports.newslettersController = newslettersController;

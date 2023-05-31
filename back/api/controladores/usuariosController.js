@@ -1,14 +1,26 @@
 var usuariosModel = require("../modelos/usuariosModel.js").usuariosModel;
 var usuariosController = {};
 
+function averiguarFormatoCorreo(correo) {
+  if (/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(correo)) {
+    return (true)
+  } else {
+    return (false)
+  }
+}
+
 usuariosController.Guardar = function (request, response) {
   var post = {
     nombre: request.body.nombre,
     email: request.body.email,
     password: request.body.password,
   };
-  /*console.log(request.body.nombre);
-    response.json({state:true, mensaje:"funciono"})*/
+
+  var formatoDelCorreo = averiguarFormatoCorreo(post.email)
+  if(formatoDelCorreo !== true){
+    response.json({ state: false, mensaje: "el email esta errado" });
+    return false;
+  }
   if (
     post.nombre == undefined ||
     post.nombre == null ||
@@ -30,10 +42,7 @@ usuariosController.Guardar = function (request, response) {
     post.password == null ||
     post.password.trim() == ""
   ) {
-    response.json({
-      state: false,
-      mensaje: "el campo en obligatorio password",
-    });
+    response.json({ state: false, mensaje: "el campo en obligatorio password" });
     return false;
   }
 
@@ -82,6 +91,12 @@ usuariosController.Actualizar = function (request, response) {
     rol: request.body.rol,
   };
 
+  var formatoDelCorreo = averiguarFormatoCorreo(post.email)
+  if(formatoDelCorreo !== true){
+    response.json({ state: false, mensaje: "formato del correo inválido" });
+    return false;
+  }
+  
   if (
     post.nombre == undefined ||
     post.nombre == null ||
@@ -188,6 +203,7 @@ usuariosController.Login = function (request, response) {
         request.session.idUser = respuesta.datos[0].id;
         request.session.nombre = respuesta.datos[0].nombre;
         request.session.email = respuesta.datos[0].email;
+        request.session.rol = respuesta.datos[0].rol;
 
         console.log(request.session.email);
         console.log(request.session.idUser);

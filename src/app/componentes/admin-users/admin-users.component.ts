@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MensajesService } from 'src/app/servicios/mensajes.service';
 import { PeticionUsuariosService } from 'src/app/servicios/peticion-usuarios.service';
 
@@ -7,11 +7,23 @@ import { PeticionUsuariosService } from 'src/app/servicios/peticion-usuarios.ser
   templateUrl: './admin-users.component.html',
   styleUrls: ['./admin-users.component.scss']
 })
-export class AdminUsersComponent {
+export class AdminUsersComponent implements OnInit {
 
   constructor(private peticion:PeticionUsuariosService, private msg:MensajesService){}
 
+  nombre:string = ""
+  email:string = ""
+  password:string = ""
+  rol:string = "Cliente"
   users:any[] = []
+  pqrs:any[] = []
+  newsletters:any[] = []
+
+  ngOnInit(){
+    this.CargarTodas()
+    this.CargarTodasPqrs()
+    this.CargarTodasNewsletter()
+  }
 
   mostrar() {
     let post = {
@@ -38,10 +50,6 @@ export class AdminUsersComponent {
     )
   }
 
-  nombre:string = ""
-  email:string = ""
-  password:string = ""
-
   Guardar(){
     let post = {
       hots:this.peticion.urllocal,
@@ -61,5 +69,50 @@ export class AdminUsersComponent {
         this.msg.Load(res.mensaje, "success", 5000)
       }
     })
+  }
+
+  CargarTodas(){
+    let post = {
+      host:this.peticion.urllocal,
+      path:"Usuarios/CargarTodas",
+      payload:{
+
+      }
+    }
+    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
+      console.log(res)
+      this.users=res?.datos
+      console.log(this.users)
+    })
+  }
+
+  CargarTodasPqrs(){
+    let post = {
+      host:this.peticion.urllocal,
+      path:"Pqrs/CargarTodas",
+      payload:{
+
+      }
+    }
+    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
+      console.log(res)
+      this.pqrs=res?.datos
+      console.log(this.pqrs)
+    }) 
+  }
+
+  CargarTodasNewsletter(){
+    let post = {
+      host:this.peticion.urllocal,
+      path:"Newsletters/CargarTodas",
+      payload:{
+
+      }
+    }
+    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
+      console.log(res)
+      this.newsletters=res?.datos
+      console.log(this.newsletters)
+    }) 
   }
 }
