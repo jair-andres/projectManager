@@ -35,6 +35,8 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" routerLink="/profile">Perfil</a></li>
+                            <li *ngIf="rolSesion == 'administrador'"
+                            ><a class="dropdown-item" routerLink="/adminuser">Administrador</a></li>
                             <li><a class="dropdown-item" routerLink="/dashboard">Panel</a></li>
                             <li><button class="dropdown-item" (click)="logOut()">logOut</button></li>
                         </ul>

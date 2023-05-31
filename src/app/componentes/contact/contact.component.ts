@@ -20,6 +20,7 @@ export class ContactComponent implements OnInit {
   observacion:string = ""
 
   ngOnInit(): void {
+    console.log("on lance ngOnInit()")
     this.miData()
   }
 
@@ -31,6 +32,7 @@ export class ContactComponent implements OnInit {
     }
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+      console.log("RESSSSS =>",res)
       this.idUsuario = res.id
       // console.log("segunda validacion:  ", this.idUsuario);
     })

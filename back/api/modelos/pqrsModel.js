@@ -32,4 +32,16 @@ pqrsModel.Guardar = function(post, callback) {
   })
 }
 
+pqrsModel.CargarTodas = function(post, callback) {
+  MyModel.find({},{nombre:1,email:1,asunto:1},(error,documentos) =>{
+      if (error) {
+          console.log(error)
+          return callback({state:false})
+      }
+      else {
+          return callback({state:true,datos:documentos})
+      }
+  })
+}
+
 module.exports.pqrsModel = pqrsModel

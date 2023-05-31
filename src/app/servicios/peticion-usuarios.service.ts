@@ -34,4 +34,21 @@ export class PeticionUsuariosService {
     return promise
 
   }
+
+  Get(url:string, data:{}) {
+    let promise = new Promise((resolve, reject) => {
+
+      this.http.get(url, data)
+      .toPromise()
+      .then((res:any) => {
+        if (res.error == true) {
+          this.msg.Load(res.mensaje, "danger", 10000)
+          this.route.navigate(['home'])
+        }
+        resolve(res)
+      })
+    })
+
+    return promise
+  }
 }

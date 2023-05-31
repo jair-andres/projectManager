@@ -21,6 +21,7 @@ export class MenuComponent implements OnInit {
 
   nombreSesion:string = ""
   rolSesion:string = ""
+  res: object ={}
 
   ngOnInit(): void {
     this.miData()
@@ -35,9 +36,14 @@ export class MenuComponent implements OnInit {
     }
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+      this.res = res
       this.nombreSesion = res.nombre
       this.rolSesion = res.rol
     })
+    // console.log("=== CONSOLE.LOG DE MENU COMPONENT ===")
+    // console.log(this.res)
+    // console.log(this.rolSesion)
+    // console.log(typeof(this.rolSesion))
   }
 
   logOut(){
