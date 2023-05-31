@@ -40,10 +40,10 @@ export class MenuComponent implements OnInit {
       this.nombreSesion = res.nombre
       this.rolSesion = res.rol
     })
-    console.log("=== CONSOLE.LOG DE MENU COMPONENT ===")
-    console.log(this.res)
-    console.log(this.rolSesion)
-    console.log(typeof(this.rolSesion))
+    // console.log("=== CONSOLE.LOG DE MENU COMPONENT ===")
+    // console.log(this.res)
+    // console.log(this.rolSesion)
+    // console.log(typeof(this.rolSesion))
   }
 
   logOut(){

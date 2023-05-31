@@ -1,10 +1,21 @@
 var usuariosController = require("./api/controladores/usuariosController.js").usuariosController
 
 var validarSession = function(request, response, next) {
-  console.log("request.session.rol ===>",request.session.rol)
+  // console.log("request.session.rol ===>",request.session.rol)
   if (request.session.rol == undefined) {
     response.json({state:false,error:true,mensaje:"Para ser uso de esta api tiene que iniciar sesion"})
   }else {
+    next()
+  }
+}
+
+var validarAdmin = function(request, response, next) {
+  // console.log("request.session.rol ===>",request.session.rol)
+  if (request.session.rol == undefined || request.session.rol == null || request.session.rol == "") {
+    response.json({state:false,error:true,mensaje:"Para ser uso de esta api tiene que iniciar sesion"})
+  }else if(request.session.rol == "Cliente"){
+    response.json({state:false,error:true,mensaje:"Para ser uso de esta api tiene que ser administrador"})
+  } else {
     next()
   }
 }
@@ -36,13 +47,13 @@ app.post("/Pqrs/Guardar",function(request, response) {
   pqrsController.Guardar(request, response)
 })
 
-app.post("/Pqrs/CargarTodas",function(request, response) {
+app.post("/Pqrs/CargarTodas",validarSession,validarAdmin,function(request, response) {
   pqrsController.CargarTodas(request, response)
 })
 
 // Sesion
 app.post("/miData",function(request, response) {
-  console.log("On utile /miData")
+  // console.log("On utile /miData")
   response.json({
     id:request.session.idUser,
     nombre:request.session.nombre,
@@ -73,6 +84,6 @@ app.post("/Newsletters/Guardar",function(request, response) {
   newslettersController.Guardar(request, response)
 })
 
-app.post("/Newsletters/CargarTodas",function(request, response) {
+app.post("/Newsletters/CargarTodas",validarSession,validarAdmin,function(request, response) {
   newslettersController.CargarTodas(request, response)
 })
