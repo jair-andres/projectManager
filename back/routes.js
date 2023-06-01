@@ -28,6 +28,10 @@ app.post('/Usuarios/CargarTodas',validarSession,function(request, response) {
   usuariosController.CargarTodas(request, response)
 })
 
+app.post('/Usuarios/CargarId',validarSession,function(request, response) {
+  usuariosController.CargarId(request, response)
+})
+
 app.post('/Usuarios/Actualizar',validarSession,function(request, response) {
   usuariosController.Actualizar(request, response)
 })
@@ -57,6 +61,8 @@ app.post("/miData",function(request, response) {
   response.json({
     id:request.session.idUser,
     nombre:request.session.nombre,
+    email:request.session.email,
+    password:request.session.password,
     rol:request.session.rol})
 })
 
