@@ -61,6 +61,18 @@ usuariosModel.CargarTodas = function(post, callback) {
     })
 }
 
+usuariosModel.CargarId = function(post, callback) {
+    MyModel.find({_id:post.id},{nombre:1,_id:1,email:1,rol:1,password:1},(error,documentos) =>{
+        if (error) {
+            console.log(error)
+            return callback({state:false})
+        }
+        else {
+            return callback({state:true,datos:documentos})
+        }
+    })
+}
+
 usuariosModel.Actualizar =  function(post, callback) {
     MyModel.findByIdAndUpdate(post.id,{
         email:post.email,
@@ -91,7 +103,7 @@ usuariosModel.Eliminar =  function(post, callback) {
 }
 
 usuariosModel.Login = function(post, callback) {
-    MyModel.find({email: post.email, password: post.password},{_id:1,email:1,nombre:1,rol:1},(error,documentos) =>{
+    MyModel.find({email: post.email, password: post.password},{_id:1,email:1,nombre:1,rol:1,password:1},(error,documentos) =>{
         if (error) {
             console.log(error)
             return callback({state:false})

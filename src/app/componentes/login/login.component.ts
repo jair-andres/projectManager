@@ -38,7 +38,7 @@ export class LoginComponent {
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
-        if (res.rol == "administrador") {
+        if (res.rol == "Administrador") {
           this.route.navigate(['adminuser'])
         }else {
           this.route.navigate(['dashboard'])

@@ -82,6 +82,27 @@ usuariosController.CargarTodas = function (request, response) {
   });
 };
 
+usuariosController.CargarId = function (request, response) {
+  var post = {
+    id: request.body.id,
+  };
+  if (post.id == undefined || post.id == null || post.id.trim() == "") {
+    response.json({ state: false, mensaje: "el campo id es obligatorio" });
+    return false;
+  }
+
+  usuariosModel.CargarId(post, function (respuesta) {
+    if (respuesta.state == false) {
+      response.json({
+        state: false,
+        mensaje: "se presento un error al guardar",
+      });
+    } else {
+      response.json(respuesta);
+    }
+  });
+};
+
 usuariosController.Actualizar = function (request, response) {
   var post = {
     nombre: request.body.nombre,
@@ -135,7 +156,7 @@ usuariosController.Actualizar = function (request, response) {
         mensaje: "se presento un error al actualizar",
       });
     } else {
-      response.json({ state: false, mensaje: "se actualizo correctamente" });
+      response.json({ state: true, mensaje: "se actualizo correctamente" });
     }
   });
 };
@@ -204,6 +225,7 @@ usuariosController.Login = function (request, response) {
         request.session.nombre = respuesta.datos[0].nombre;
         request.session.email = respuesta.datos[0].email;
         request.session.rol = respuesta.datos[0].rol;
+        request.session.password = respuesta.datos[0].password;
 
         console.log(request.session.email);
         console.log(request.session.idUser);

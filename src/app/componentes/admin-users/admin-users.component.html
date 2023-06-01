@@ -2,7 +2,7 @@
   <app-menu></app-menu>
   <app-notification></app-notification>
   <app-test-session></app-test-session>
-  <div class="container-fluid d-flex flex-column align-content-center justify-content-center flex-grow-1 my-4 py-4">
+  <div class="container-fluid d-flex flex-column align-content-center justify-content-center flex-grow-1 p-0">
     <!--
     <h1>admin-users works!</h1>
     <button (click)="mostrar()">Mostrar()</button>
@@ -10,7 +10,7 @@
       <li>{{user}}</li>
     </ul>
     -->
-    <div class="container-fluid d-flex flex-grow-1 my-4 p-0">
+    <div class="container-fluid d-flex flex-grow-1 p-0">
       <div class="d-flex align-items-start w-100">
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
           <button class="nav-link active" id="v-pills-users-tab" data-bs-toggle="pill" data-bs-target="#v-pills-users" type="button" role="tab" aria-controls="v-pills-users" aria-selected="true">Usuarios</button>
@@ -34,10 +34,10 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let item of users">
-                      <th scope="row" data-bs-toggle="modal" data-bs-target="#userModal">{{item._id}}</th>
-                      <td data-bs-toggle="modal" data-bs-target="#userModal">{{item.nombre}}</td>
-                      <td data-bs-toggle="modal" data-bs-target="#userModal">{{item.email}}</td>
-                      <td data-bs-toggle="modal" data-bs-target="#userModal">{{item.rol}}</td>
+                      <th scope="row" (click)="EditarId(item._id)">{{item._id}}</th>
+                      <td (click)="EditarId(item._id)">{{item.nombre}}</td>
+                      <td (click)="EditarId(item._id)">{{item.email}}</td>
+                      <td (click)="EditarId(item._id)">{{item.rol}}</td>
                       <td>
                         <button type="button" class="btn btn-danger">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -61,30 +61,27 @@
                   </div>
                   <div class="modal-body">
                     <div class="form-floating mb-3">
-                      <input type="email" class="form-control" id="floatingInputName" placeholder="Nombre">
+                      <input type="email" class="form-control" id="floatingInputName" placeholder="Nombre" [(ngModel)]="nombre">
                       <label for="floatingInputName">Nombre</label>
                     </div>
                     <div class="form-floating mb-3">
-                      <input type="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com">
+                      <input type="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com" [(ngModel)]="email">
                       <label for="floatingInputEmail">Email</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" [(ngModel)]="password">
+                      <label for="floatingPassword">Password</label>
                     </div>
                     <div>
                       <label for="rolInput">Rol:</label>
-                      <select class="form-select" aria-label="Default select example" [(ngModel)]="rol" id="rolInput">
-                        <option value="Cliente" selected>Cliente</option>
+                      <select class="form-select" aria-label="Default select example" id="rolInput" [(ngModel)]="rol">
+                        <option value="Cliente">Cliente</option>
                         <option value="Administrador">Administrador</option>
                       </select>
                     </div>
-                    <!--
-                    <label>Rol:</label>
-                    <select class="form-select" aria-label="Default select example" [(ngModel)]="rol">
-                      <option value="Cliente">Cliente</option>
-                      <option value="Administrador">Administrador</option>
-                    </select>
-                    -->
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" (click)="Actualizar()">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
                         <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
