@@ -61,6 +61,7 @@ export class ProfileComponent implements OnInit {
   }
 
   EditarId(id:string){
+    console.log("On lance EditarId")
     console.log(id)
     this.id = id
 
@@ -71,9 +72,9 @@ export class ProfileComponent implements OnInit {
         id:this.id
       }
     }
-
+    console.log(this.id)
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log(res)
+      console.log("res de EditarId =>", res)
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {

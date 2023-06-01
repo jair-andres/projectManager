@@ -51,7 +51,7 @@ app.post("/Pqrs/Guardar",function(request, response) {
   pqrsController.Guardar(request, response)
 })
 
-app.post("/Pqrs/CargarTodas",validarSession,validarAdmin,function(request, response) {
+app.post("/Pqrs/CargarTodas",validarAdmin,function(request, response) {
   pqrsController.CargarTodas(request, response)
 })
 

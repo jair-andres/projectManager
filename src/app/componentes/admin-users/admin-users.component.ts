@@ -114,6 +114,11 @@ export class AdminUsersComponent implements OnInit {
         this.msg.Load(res.mensaje, "success", 5000)
         this.CargarTodas()
         this.modal.toggle();
+        this.nombre = ""
+        this.email = ""
+        this.password = ""
+        this.rol = "Cliente"
+        this.id = ""
       }
     })
   }
