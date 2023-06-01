@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MensajesService } from 'src/app/servicios/mensajes.service';
 import { PeticionUsuariosService } from 'src/app/servicios/peticion-usuarios.service';
 
@@ -8,7 +9,7 @@ import { PeticionUsuariosService } from 'src/app/servicios/peticion-usuarios.ser
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  constructor(private peticion:PeticionUsuariosService, private msg:MensajesService){}
+  constructor(private peticion:PeticionUsuariosService, private msg:MensajesService, private route:Router){}
 
   id:string = ""
   nombre:string = ""
@@ -17,7 +18,6 @@ export class ProfileComponent implements OnInit {
   
   ngOnInit():void {
     this.miData()
-    
   }
 
   miData(){
@@ -26,16 +26,54 @@ export class ProfileComponent implements OnInit {
       path:"miData",
       payload:{}
     }
-
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
       console.log("RES :",res)
       this.id = res.id
-      this.nombre = res.nombre
-      this.email = res.email
-      this.password = res.password
+      this.EditarId(res.id)
+    })
+    
+  }
+
+  EditarId(id:string){
+    console.log("Usamos EditarId")
+
+    let post = {
+      hots:this.peticion.urllocal,
+      path:"Usuarios/CargarId",
+      payload:{
+        id:id
+      }
+    }
+    
+    this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+      console.log("res de EditarId =>", res)
+      if(res.state == false){
+        this.msg.Load(res.mensaje, "danger", 5000)
+      } else {
+        this.nombre = res?.datos[0].nombre
+        this.email = res?.datos[0].email
+        this.password = res?.datos[0].password
+      }
     })
   }
 
+  logOut(){
+    let post = {
+      hots:this.peticion.urllocal,
+      path:"Usuarios/logout",
+      payload:{}
+    }
+
+    this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+      if(res.state == false){
+        this.msg.Load(res.mensaje, "danger", 5000)
+      } else {
+        this.msg.Load(res.mensaje, "success", 5000)
+        this.route.navigate(['login'])
+      }
+    })
+  }
+  
   Actualizar(){
     let post = {
       hots:this.peticion.urllocal,
@@ -54,34 +92,9 @@ export class ProfileComponent implements OnInit {
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
-      }
-    })
-    this.EditarId(this.id)
-    location.reload()
-  }
-
-  EditarId(id:string){
-    console.log("On lance EditarId")
-    console.log(id)
-    this.id = id
-
-    let post = {
-      hots:this.peticion.urllocal,
-      path:"Usuarios/CargarId",
-      payload:{
-        id:this.id
-      }
-    }
-    console.log(this.id)
-    this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log("res de EditarId =>", res)
-      if(res.state == false){
-        this.msg.Load(res.mensaje, "danger", 5000)
-      } else {
-        this.nombre = res?.datos[0].nombre
-        this.email = res?.datos[0].email
-        this.password = res?.datos[0].password
+        this.logOut()
       }
     })
   }
+
 }

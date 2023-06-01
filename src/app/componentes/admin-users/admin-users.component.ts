@@ -13,11 +13,15 @@ export class AdminUsersComponent implements OnInit {
 
   constructor(private peticion:PeticionUsuariosService, private msg:MensajesService){}
 
-  modal:any;
+  modal:any
+  modalEliminar:any
   id:string = ""
   nombre:string = ""
   email:string = ""
   password:string = ""
+  nuevoNombre:string = ""
+  nuevoEmail:string = ""
+  nuevoPassword:string = ""
   rol:string = "Cliente"
   users:any[] = []
   pqrs:any[] = []
@@ -62,9 +66,9 @@ export class AdminUsersComponent implements OnInit {
       hots:this.peticion.urllocal,
       path:"Usuarios/Guardar",
       payload:{
-        nombre:this.nombre,
-        email:this.email,
-        password:this.password
+        nombre:this.nuevoNombre,
+        email:this.nuevoEmail,
+        password:this.nuevoPassword
       }
     }
 
@@ -144,6 +148,33 @@ export class AdminUsersComponent implements OnInit {
         this.email = res?.datos[0].email
         this.password = res?.datos[0].password
         this.rol = res?.datos[0].rol
+      }
+    })
+
+    this.modal.show();
+  }
+
+  QuereEliminar(id:string){
+    this.modalEliminar.show();
+  }
+  Eliminar(id:string){
+    console.log(id)
+    this.id = id
+
+    let post = {
+      hots:this.peticion.urllocal,
+      path:"Usuarios/Eliminar",
+      payload:{
+        id:this.id
+      }
+    }
+
+    this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+      console.log(res)
+      if(res.state == false){
+        this.msg.Load(res.mensaje, "danger", 5000)
+      } else {
+        this.msg.Load(res.mensaje, "success", 5000)
       }
     })
 

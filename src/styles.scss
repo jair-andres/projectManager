@@ -44,26 +44,13 @@ $table-custom-variants: (
 $theme-colors: map-merge($theme-colors, $custom-colors);
 $table-variants: map-merge($table-variants, $table-custom-variants);
 
-// @import "./node_modules/bootstrap/scss/maps";
-// @import "./node_modules/bootstrap/scss/utilities";
+@include rfs($nav-link-font-size, --#{$prefix}nav-link-font-size);
 
-// $all-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans);
-// $utilities: map-merge(
-//   $utilities,
-//   (
-//     "color": map-merge(
-//       map-get($utilities, "color"),
-//       (
-//         values: map-merge(
-//           map-get(map-get($utilities, "color"), "values"),
-//           (
-//             $all-colors
-//           ),
-//         ),
-//       ),
-//     ),
-//   )
-// );
+$nav-link-color: $purple-800;
+$nav-pills-link-active-color:       $white;
+$nav-pills-link-active-bg:          $purple-800;
+$nav-link-hover-color:              $purple;
+
 
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
 

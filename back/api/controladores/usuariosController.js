@@ -225,7 +225,7 @@ usuariosController.Login = function (request, response) {
         request.session.nombre = respuesta.datos[0].nombre;
         request.session.email = respuesta.datos[0].email;
         request.session.rol = respuesta.datos[0].rol;
-        request.session.password = respuesta.datos[0].password;
+        // request.session.password = respuesta.datos[0].password;
 
         console.log(request.session.email);
         console.log(request.session.idUser);
