@@ -24,15 +24,16 @@ export class AdminUsersComponent implements OnInit {
   nuevoPassword:string = ""
   rol:string = "Cliente"
   users:any[] = []
-  pqrs:any[] = []
   newsletters:any[] = []
 
   ngOnInit():void {
     this.modal = new window.bootstrap.Modal(
       document.getElementById('userModal')
     );
+    this.modalEliminar = new window.bootstrap.Modal(
+      document.getElementById('eliminarModal')
+    );
     this.CargarTodas()
-    this.CargarTodasPqrs()
     this.CargarTodasNewsletter()
   }
 
@@ -78,6 +79,9 @@ export class AdminUsersComponent implements OnInit {
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
+        this.nombre = ""
+        this.email = ""
+        this.password = ""
       }
     })
   }
@@ -127,7 +131,7 @@ export class AdminUsersComponent implements OnInit {
     })
   }
 
-  EditarId(id:string){
+  EditarIdConModal(id:string, conModal:boolean){
     console.log(id)
     this.id = id
 
@@ -151,12 +155,18 @@ export class AdminUsersComponent implements OnInit {
       }
     })
 
-    this.modal.show();
+    if(conModal == true){
+      this.modal.show();
+    }
+    
   }
 
-  QuereEliminar(id:string){
-    this.modalEliminar.show();
+  QuererEliminar(id:string){
+    let foo = id
+    this.EditarIdConModal(foo,false)
+    this.modalEliminar.show()
   }
+
   Eliminar(id:string){
     console.log(id)
     this.id = id
@@ -175,25 +185,10 @@ export class AdminUsersComponent implements OnInit {
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
+        this.CargarTodas()
+        this.modalEliminar.toggle()
       }
     })
-
-    this.modal.show();
-  }
-
-  CargarTodasPqrs(){
-    let post = {
-      host:this.peticion.urllocal,
-      path:"Pqrs/CargarTodas",
-      payload:{
-
-      }
-    }
-    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
-      console.log(res)
-      this.pqrs=res?.datos
-      console.log(this.pqrs)
-    }) 
   }
 
   CargarTodasNewsletter(){

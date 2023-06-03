@@ -170,13 +170,13 @@ usuariosController.Eliminar = function (request, response) {
     return false;
   }
   usuariosModel.Eliminar(post, function (respuesta) {
-    if (respuesta.sate == false) {
+    if (respuesta.state == false) {
       response.json({
         state: false,
         mensaje: "se presento un error al eliminar",
       });
     } else {
-      response.json({ state: false, mensaje: "se elimino correctamente" });
+      response.json({ state: true, mensaje: "se elimino correctamente" });
     }
   });
 };
@@ -218,7 +218,7 @@ usuariosController.Login = function (request, response) {
       if (respuesta.datos.length == 0) {
         response.json({ state: false, mensaje: "Error en email o contraseña" });
       } else {
-        console.log(respuesta.datos[0]);
+        // console.log(respuesta.datos[0]);
 
         // request.session.idUser = respuesta.datos[0].id;
         request.session.idUser = respuesta.datos[0].id;
