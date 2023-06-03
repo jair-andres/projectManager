@@ -11,6 +11,9 @@
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required #emailInput="ngModel" [(ngModel)]="email">
                             <label for="floatingInput">Email</label>
+                            <div class="valid-feedback" [ngClass]="{'valid-feedback': emailInput.valid,'invalid-feedback': emailInput.invalid}">
+                                Error
+                            </div>
                             <!--
                             <div class="valid-feedback">
                                 <p>valid:{{emailInput.valid}}</p>

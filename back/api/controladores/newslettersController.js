@@ -55,7 +55,7 @@ newslettersController.CargarTodas = function (request, response) {
   newslettersModel.CargarTodas(null, function (respuesta) {
     if (respuesta.state == false) {
       response.json({
-        state: true,
+        state: false,
         mensaje: "se presento un error al guardar",
       });
     } else {

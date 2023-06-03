@@ -44,6 +44,11 @@ app.post("/Usuarios/Login",function(request, response) {
   usuariosController.Login(request, response)
 })
 
+app.post("/Usuarios/logout", function(request, response) {
+  request.session.destroy()
+  response.json({state:true,mensaje:"cerrado la sesion"})
+})
+
 // Pqrs
 var pqrsController = require("./api/controladores/pqrsController.js").pqrsController
 
@@ -53,6 +58,14 @@ app.post("/Pqrs/Guardar",function(request, response) {
 
 app.post("/Pqrs/CargarTodas",validarAdmin,function(request, response) {
   pqrsController.CargarTodas(request, response)
+})
+
+app.post("/Pqrs/CargarId",validarAdmin,function(request, response) {
+  pqrsController.CargarId(request, response)
+})
+
+app.post("/Pqrs/Actualizar",validarAdmin,function(request, response) {
+  pqrsController.Actualizar(request, response)
 })
 
 // Sesion
@@ -71,11 +84,6 @@ app.post("/state", function(request, response) {
   response.json(request.session)
 })
 
-app.post("/Usuarios/logout", function(request, response) {
-  request.session.destroy()
-  response.json({state:true,mensaje:"cerrado la sesion"})
-})
-
 // prueba archivos
 var filesController = require("./api/controladores/filesController.js").filesController
 
@@ -92,4 +100,28 @@ app.post("/Newsletters/Guardar",function(request, response) {
 
 app.post("/Newsletters/CargarTodas",validarSession,validarAdmin,function(request, response) {
   newslettersController.CargarTodas(request, response)
+})
+
+// PROYECTOS
+
+var proyectosController = require("./api/controladores/proyectosController.js").proyectosController
+
+app.post('/Proyectos/Guardar',validarSession,function(request, response) {
+  proyectosController.Guardar(request, response)
+})
+
+app.post('/Proyectos/CargarTodas',validarSession,function(request, response) {
+  proyectosController.CargarTodas(request, response)
+})
+
+app.post('/Proyectos/CargarId',validarSession,function(request, response) {
+  proyectosController.CargarId(request, response)
+})
+
+app.post('/Proyectos/Actualizar',validarSession,function(request, response) {
+  proyectosController.Actualizar(request, response)
+})
+
+app.post('/Proyectos/Eliminar',validarSession,function(request, response) {
+  proyectosController.Eliminar(request, response)
 })
