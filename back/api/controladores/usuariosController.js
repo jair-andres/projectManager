@@ -17,16 +17,13 @@ usuariosController.Guardar = function (request, response) {
   };
 
   var formatoDelCorreo = averiguarFormatoCorreo(post.email)
-  if(formatoDelCorreo !== true){
-    response.json({ state: false, mensaje: "el email esta errado" });
-    return false;
-  }
+
   if (
     post.nombre == undefined ||
     post.nombre == null ||
     post.nombre.trim() == ""
   ) {
-    response.json({ state: false, mensaje: "el campo en obligatorio nombre" });
+    response.json({ state: false, mensaje: "El campo nombre es obligatorio" });
     return false;
   }
   if (
@@ -34,7 +31,10 @@ usuariosController.Guardar = function (request, response) {
     post.email == null ||
     post.email.trim() == ""
   ) {
-    response.json({ state: false, mensaje: "el campo en obligatorio email" });
+    response.json({ state: false, mensaje: "El campo email es obligatorio" });
+    return false;
+  }else if(formatoDelCorreo !== true){
+    response.json({ state: false, mensaje: "Formato del correo inválido" });
     return false;
   }
   if (
@@ -42,7 +42,7 @@ usuariosController.Guardar = function (request, response) {
     post.password == null ||
     post.password.trim() == ""
   ) {
-    response.json({ state: false, mensaje: "el campo en obligatorio password" });
+    response.json({ state: false, mensaje: "El campo password es obligatorio" });
     return false;
   }
 
@@ -73,7 +73,7 @@ usuariosController.CargarTodas = function (request, response) {
   usuariosModel.CargarTodas(null, function (respuesta) {
     if (respuesta.state == false) {
       response.json({
-        state: true,
+        state: false,
         mensaje: "se presento un error al guardar",
       });
     } else {
@@ -111,19 +111,14 @@ usuariosController.Actualizar = function (request, response) {
     id: request.body.id,
     rol: request.body.rol,
   };
-
   var formatoDelCorreo = averiguarFormatoCorreo(post.email)
-  if(formatoDelCorreo !== true){
-    response.json({ state: false, mensaje: "formato del correo inválido" });
-    return false;
-  }
-  
+
   if (
     post.nombre == undefined ||
     post.nombre == null ||
     post.nombre.trim() == ""
   ) {
-    response.json({ state: false, mensaje: "el campo en obligatorio nombre" });
+    response.json({ state: false, mensaje: "El campo nombre es obligatorio" });
     return false;
   }
   if (
@@ -131,7 +126,10 @@ usuariosController.Actualizar = function (request, response) {
     post.email == null ||
     post.email.trim() == ""
   ) {
-    response.json({ state: false, mensaje: "el campo en obligatorio email" });
+    response.json({ state: false, mensaje: "El campo email es obligatorio" });
+    return false;
+  }else if(formatoDelCorreo !== true){
+    response.json({ state: false, mensaje: "Formato del correo inválido" });
     return false;
   }
   if (
@@ -141,7 +139,7 @@ usuariosController.Actualizar = function (request, response) {
   ) {
     response.json({
       state: false,
-      mensaje: "el campo en obligatorio password",
+      mensaje: "El campo password es obligatorio",
     });
     return false;
   }
@@ -186,26 +184,45 @@ usuariosController.Login = function (request, response) {
     email: request.body.email,
     password: request.body.password,
   };
-
+  var formatoDelCorreo = averiguarFormatoCorreo(post.email)
   if (
-    post.email == undefined ||
-    post.email == null ||
-    post.email.trim() == ""
+    (
+      post.email == undefined ||
+      post.email == null ||
+      post.email.trim() == ""
+    )
+    &&
+    (
+      post.password == undefined ||
+      post.password == null ||
+      post.password.trim() == ""
+    )
   ) {
-    response.json({ state: false, mensaje: "el campo en obligatorio email" });
+    response.json({ state: false, mensaje: "El campo email y password es obligatorio" });
     return false;
-  }
-
-  if (
-    post.password == undefined ||
-    post.password == null ||
-    post.password.trim() == ""
-  ) {
-    response.json({
-      state: false,
-      mensaje: "el campo en obligatorio password",
-    });
-    return false;
+  }else {
+    if (
+      post.email == undefined ||
+      post.email == null ||
+      post.email.trim() == ""
+    ) {
+      response.json({ state: false, mensaje: "El campo email es obligatorio" });
+      return false;
+    }else if(formatoDelCorreo !== true){
+      response.json({ state: false, mensaje: "Formato del correo inválido" });
+      return false;
+    }
+    if (
+      post.password == undefined ||
+      post.password == null ||
+      post.password.trim() == ""
+    ) {
+      response.json({
+        state: false,
+        mensaje: "El campo password es obligatorio",
+      });
+      return false;
+    }
   }
 
   usuariosModel.Login(post, function (respuesta) {
@@ -216,7 +233,7 @@ usuariosController.Login = function (request, response) {
       });
     } else {
       if (respuesta.datos.length == 0) {
-        response.json({ state: false, mensaje: "Error en email o contraseña" });
+        response.json({ state: false, mensaje: "El email y la contraseña no coinciden" });
       } else {
         // console.log(respuesta.datos[0]);
 

@@ -46,10 +46,19 @@ $table-variants: map-merge($table-variants, $table-custom-variants);
 
 @include rfs($nav-link-font-size, --#{$prefix}nav-link-font-size);
 
+// nav-link
 $nav-link-color: $purple-800;
-$nav-pills-link-active-color:       $white;
-$nav-pills-link-active-bg:          $purple-800;
-$nav-link-hover-color:              $purple;
+$nav-pills-link-active-color: $white;
+$nav-pills-link-active-bg: $purple-800;
+$nav-link-hover-color: $purple;
+
+// input focus
+
+//$input-focus-bg: $purple;
+$input-focus-bg:                        $input-bg;
+$input-focus-border-color:              $purple-800;
+$input-focus-color:                     $purple-800;
+$input-focus-box-shadow:                0 0 0 0.25rem $purple-200;
 
 
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
