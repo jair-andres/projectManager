@@ -9,7 +9,7 @@ var pqrsSchema = new Schema({
   nombre:String,
   asunto:String,
   observacion:String,
-  estado:String // "Nuevo" || "Pendiente" || "Solucionado"
+  estado:String // "Nuevo" || "Pendiente" || "Resuelto"
 })
 
 const MyModel = mongoose.model("pqrs", pqrsSchema)
