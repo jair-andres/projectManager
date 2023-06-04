@@ -2,7 +2,9 @@ var usuariosModel = require("../modelos/usuariosModel.js").usuariosModel;
 var usuariosController = {};
 
 function averiguarFormatoCorreo(correo) {
-  if (/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(correo)) {
+  let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+  // let regex_2 = new RegExp(/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/)
+  if (regex.test(correo)) {
     return (true)
   } else {
     return (false)
