@@ -52,11 +52,11 @@
             <div class="d-flex flex-wrap w-100">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="nombrePqrsLabel">Nombre : </span>
-                    <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre" aria-describedby="nombrePqrs" [(ngModel)]="nombrePqrs" disabled>
+                    <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre" aria-describedby="nombrePqrs" [(ngModel)]="nombrePqrs" readonly>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="usuarioPqrsLabel">Es un usuario ? </span>
-                    <select class="form-select" aria-label="Default select example" id="usuarioPqrs" [(ngModel)]="idUsuarioPqrs" disabled>
+                    <select class="form-select" aria-label="Default select example" id="usuarioPqrs" [(ngModel)]="idUsuarioPqrs" readonly>
                     <option value={{idUsuarioPqrs}}>Si</option>
                     <option value={{undefined}}>No</option>
                     </select>
@@ -65,7 +65,7 @@
             <div class="d-flex flex-wrap w-100">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="emailPqrsLabel">Email : </span>
-                    <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="EmailPqrs" [(ngModel)]="emailPqrs" disabled>
+                    <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="EmailPqrs" [(ngModel)]="emailPqrs" readonly>
                 </div>
                 <div class="w-100 d-flex justify-content-between mb-3">
                     <div class="form-check">
@@ -90,12 +90,12 @@
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="asuntoPqrsLabel">Asunto : </span>
-                <input type="text" class="form-control" placeholder="Asunto" aria-label="Asunto" aria-describedby="asuntoPqrs" [(ngModel)]="asuntoPqrs" disabled>
+                <input type="text" class="form-control" placeholder="Asunto" aria-label="Asunto" aria-describedby="asuntoPqrs" [(ngModel)]="asuntoPqrs" readonly>
             </div>
             <div class="input-group mb-3">
                 <div class="form-group textarea w-100">
                     <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="observacionPqrs"
-                        placeholder="Escribe tus inquietudes..." disabled>{{observacionPqrs}}</textarea>
+                        placeholder="Escribe tus inquietudes..." readonly>{{observacionPqrs}}</textarea>
                 </div>
             </div>
         </div>

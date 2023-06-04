@@ -7,7 +7,7 @@ proyectosController.Guardar = function (request, response) {
       descripcion: request.body.descripcion,
       objetivo: request.body.objetivo,
       fechaEntrega: request.body.fechaEntrega,
-      prosupesto:request.body.prosupesto
+      prosupuesto:request.body.prosupuesto
     };
 
     if (
@@ -43,11 +43,11 @@ proyectosController.Guardar = function (request, response) {
       return false;
     }
     if (
-      post.prosupesto == undefined ||
-      post.prosupesto == null ||
-      post.prosupesto.trim() == ""
+      post.prosupuesto == undefined ||
+      post.prosupuesto == null
+      // post.prosupuesto.trim() == ""
     ) {
-      response.json({ state: false, mensaje: "el campo prosupesto es obligatorio" });
+      response.json({ state: false, mensaje: "el campo prosupuesto es obligatorio" });
       return false;
     }
 
@@ -106,7 +106,7 @@ proyectosController.Actualizar = function (request, response) {
         descripcion: request.body.descripcion,
         objetivo: request.body.objetivo,
         fechaEntrega: request.body.fechaEntrega,
-        prosupesto:request.body.prosupesto
+        prosupuesto:request.body.prosupuesto
     };
 
   if (
@@ -150,11 +150,11 @@ proyectosController.Actualizar = function (request, response) {
     return false;
   }
   if (
-    post.prosupesto == undefined ||
-    post.prosupesto == null ||
-    post.prosupesto.trim() == ""
+    post.prosupuesto == undefined ||
+    post.prosupuesto == null
+    // post.prosupuesto.trim() == ""
   ) {
-    response.json({ state: false, mensaje: "el campo prosupesto es obligatorio" });
+    response.json({ state: false, mensaje: "el campo prosupuesto es obligatorio" });
     return false;
   }
     proyectosModel.Actualizar(post, function (respuesta) {
@@ -188,3 +188,5 @@ proyectosController.Eliminar = function (request, response) {
         }
     });
 };
+
+module.exports.proyectosController = proyectosController;
