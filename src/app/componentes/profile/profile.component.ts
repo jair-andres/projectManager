@@ -92,7 +92,7 @@ export class ProfileComponent implements OnInit {
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
-        this.logOut()
+        // this.logOut()
       }
     })
   }
