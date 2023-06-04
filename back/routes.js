@@ -125,3 +125,21 @@ app.post('/Proyectos/Actualizar',validarSession,function(request, response) {
 app.post('/Proyectos/Eliminar',validarSession,function(request, response) {
   proyectosController.Eliminar(request, response)
 })
+
+var tareasController = require("./api/controladores/tareasController.js").tareasController
+
+app.post('/Tareas/Consultar',validarSession,function(request, response) {
+  tareasController.Consultar(request, response)
+})
+
+app.post('/Tareas/Guardar',validarSession,function(request, response) {
+  tareasController.Guardar(request, response)
+})
+
+app.post('/Tareas/Actualizar',validarSession,function(request, response) {
+  tareasController.Actualizar(request, response)
+})
+
+app.post('/Tareas/Eliminar',validarSession,function(request, response) {
+  tareasController.Eliminar(request, response)
+})
