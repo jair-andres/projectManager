@@ -7,8 +7,8 @@ var proyectosSchema = new Schema({
   nombreProyecto:String,
   descripcion:String,
   objetivo:String,
-  fechaEntrega:Date,
-  prosupesto:Number
+  fechaEntrega:String,
+  prosupuesto:Number
 })
 
 const MyModel = mongoose.model("proyectos", proyectosSchema)
@@ -19,7 +19,7 @@ proyectosModel.Guardar = function(post, callback) {
     instancia.descripcion = post.descripcion
     instancia.objetivo = post.objetivo,
     instancia.fechaEntrega = post.fechaEntrega,
-    instancia.prosupesto = post.prosupesto
+    instancia.prosupuesto = post.prosupuesto
 
     instancia.save((error, creado) => {
         if (error) {
@@ -33,7 +33,7 @@ proyectosModel.Guardar = function(post, callback) {
 }
 
 proyectosModel.CargarTodas = function(post, callback) {
-    MyModel.find({},{_id:1,nombreProyecto:1, descripcion:1, objetivo:1, fechaEntrega:1, prosupesto:1},(error,documentos) =>{
+    MyModel.find({},{_id:1,nombreProyecto:1, descripcion:1, objetivo:1, fechaEntrega:1, prosupuesto:1},(error,documentos) =>{
         if (error) {
             console.log(error)
             return callback({state:false})
@@ -45,7 +45,7 @@ proyectosModel.CargarTodas = function(post, callback) {
 }
 
 proyectosModel.CargarId = function(post, callback) {
-    MyModel.find({_id:post.id},{nombreProyecto:1, descripcion:1, objetivo:1, fechaEntrega:1, prosupesto:1},(error,documentos) =>{
+    MyModel.find({_id:post.id},{nombreProyecto:1, descripcion:1, objetivo:1, fechaEntrega:1, prosupuesto:1},(error,documentos) =>{
         if (error) {
             console.log(error)
             return callback({state:false})
@@ -62,7 +62,7 @@ proyectosModel.Actualizar =  function(post, callback) {
         descripcion:post.descripcion,
         objetivo:post.objetivo,
         fechaEntrega:post.fechaEntrega,
-        prosupesto:post.prosupesto
+        prosupuesto:post.prosupuesto
     },(error, respuesta) => {
         if (error) {
             console.log(error)
