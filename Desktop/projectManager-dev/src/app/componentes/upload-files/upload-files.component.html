@@ -1,0 +1,22 @@
+<div class="mb-3">
+    <div>{{mensaje}}</div>
+    <label for="formFile" class="form-label">{{nombrearchivo}}</label>
+    <input class="form-control" type="file" id="formFile" (change)="selectFile($event)" value="upload">
+    <div class="d-flex">
+        <button type="button" class="btn btn-outline-purple align-items-center me-4" (click)="upload()">
+            <i class="fas fa-cloud-upload-alt"></i>
+            Subir Archivo
+        </button>
+        <div class="d-flex align-items-center flex-grow-1">
+        <div class="progress-bar bg-purple progress-bar-info progress-bar-striped rounded" 
+        role="progressbar" 
+        attr.aria-valuenow="{{progress}}"
+        aria-valuemin="0" 
+        aria-valuemax="100" 
+        [ngStyle]="{width: progress + '%'}">
+            <div class="progress-bar">     
+            {{ progress }}%
+        </div>
+    </div>
+    </div>
+</div>
