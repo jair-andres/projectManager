@@ -87,7 +87,7 @@ app.post("/state", function(request, response) {
 // prueba archivos
 var filesController = require("./api/controladores/filesController.js").filesController
 
-app.get("/files/:carpeta/:carpeta/:id", function(request, response) {
+app.post("/files/:carpeta/:carpeta/:id", function(request, response) {
   filesController.SubirArchivos(request, response)
 })
 
