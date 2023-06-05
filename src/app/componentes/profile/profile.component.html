@@ -7,13 +7,14 @@
             <div class="col col-md-9 col-lg-7 col-xl-6">
                 <div class="d-flex justify-content-between align-items-end">
                     <h3 class="mb-3 font-monospace">Mi perfil</h3>
-                    <img src="../../../assets/img/imagen3.png" alt="" class="border border-3 border-purple-dark rounded-circle w-25">
+                    <img src="{{peticion.urllocal + 'back/perfiles/' + id + '.png'}}" alt="" class="border border-3 border-purple-dark rounded-circle w-25 h-25">
+                    
                 </div>
-                
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">Imagen Perfil</label>
-                    <input class="form-control" type="file" id="formFile">
-                </div>
+                <app-upload-files
+                [urldestino]="destino"
+                [path]="path"
+                [fileName]="'userFile'">
+                </app-upload-files>
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="floatingInputAlias" placeholder="Alias">
                     <label for="floatingInputAlias">Alias</label>
