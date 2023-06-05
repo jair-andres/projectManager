@@ -20,6 +20,7 @@ export class SearchbarComponent implements OnInit {
   resultadoBusqueda:any[] = []
   usuarioSelectionado:any[] = []
 
+
   constructor(private peticion:PeticionUsuariosService, private msg:MensajesService){
     
   }
@@ -51,8 +52,37 @@ export class SearchbarComponent implements OnInit {
   }
 
   anadir(){
-    console.log(this.resultadoBusqueda)
+    let temporalData = {
+      id: this.resultadoBusqueda[0]._id,
+      nombre: this.resultadoBusqueda[0].nombre,
+      email: this.resultadoBusqueda[0].email
+    }
+
+    this.usuarioSelectionado.push(temporalData)
+
+
+
+
+
     this.usuarioSelectionado = this.resultadoBusqueda
+    let localMiembros: any[] = this.miembros
+    console.log("MIEMBROS === >")
+    console.log(localMiembros)
+    let yaEsta:boolean = false
+    localMiembros.map( miembro => {
+      if(miembro.id == this.usuarioSelectionado[0]?._id){
+        console.log("===> Son igual <===")
+        yaEsta = true
+      }
+    })
+    if(yaEsta){
+      let mensaje = "Este usuario ya esta miembros del proyecto"
+      this.msg.Load(mensaje, "danger", 5000)
+    } else {
+      let mensaje = "Usuario añadido al proyecto"
+      this.msg.Load(mensaje, "success", 5000)
+      
+    }
     this.resultadoBusqueda = []
     this.busqueda = ""
     this.miembrosModal.toggle()
