@@ -35,4 +35,15 @@ newslettersModel.CargarTodas = function(post, callback) {
         }
     })
 }
+newslettersModel.EliminarNewsletters =  function(post, callback) {
+    MyModel.findByIdAndDelete(post.id,(error,respuesta) =>{
+        if (error) {
+            console.log(error)
+            return callback({state:false})
+        }
+        else {
+            return callback({state:true})
+        }
+    })
+}
 module.exports.newslettersModel = newslettersModel
