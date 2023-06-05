@@ -1,10 +1,4 @@
-<!--
-<div>
-    <h3>searchbar works!</h3>
-    <hr>
-    <p [(ngModel)]="toto">On va afficher la variable toto ici : {{toto}}</p>
-</div>
--->
+
 <button type="button" class="btn btn-outline-purple font-monospace w-100 mb-2" data-bs-toggle="modal" data-bs-target="#miembrosModal">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
         <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
@@ -33,12 +27,6 @@
                         <option *ngFor="let user of resultadoBusqueda" value={{user.nombre}}>
                     </datalist>
                 </div>
-                <!--
-                <div class="row m-1">
-                    <h4>Resultat de la recherche : </h4>
-                    <p *ngFor="let user of resultadoBusqueda">{{user.nombre}}</p>
-                </div>
-                -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-purple" data-bs-dismiss="modal">Cerrar</button>
                     <button type="button" class="btn btn-purple" (click)="anadir()">Añadir</button>
