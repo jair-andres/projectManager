@@ -25,8 +25,9 @@ export class AdminUsersComponent implements OnInit {
   rol:string = "Cliente"
   users:any[] = []
   newsletters:any[] = []
+  newslettersId:string = ""
 
-  ngOnInit():void {
+  ngOnInit():any {
     this.modal = new window.bootstrap.Modal(
       document.getElementById('userModal')
     );
@@ -204,5 +205,28 @@ export class AdminUsersComponent implements OnInit {
       this.newsletters=res?.datos
       console.log(this.newsletters)
     }) 
+  }
+
+  EliminarNewsletter(id:string){
+    console.log(id)
+    this.newslettersId = id
+
+    let post = {
+      hots:this.peticion.urllocal,
+      path:"Newsletters/Eliminar",
+      payload:{
+        id:this.newslettersId
+      }
+    }
+
+    this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+      console.log(res)
+      if(res.state == false){
+        this.msg.Load(res.mensaje, "danger", 5000)
+      } else {
+        this.msg.Load(res.mensaje, "success", 5000)
+        this.CargarTodasNewsletter()
+      }
+    })
   }
 }

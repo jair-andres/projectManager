@@ -102,7 +102,7 @@ app.post("/Newsletters/CargarTodas",validarSession,validarAdmin,function(request
   newslettersController.CargarTodas(request, response)
 })
 
-app.post("/Newsletters/EliminarNewsletters",validarSession,validarAdmin,function(request, response) {
+app.post("/Newsletters/Eliminar",validarSession,validarAdmin,function(request, response) {
   newslettersController.EliminarNewsletters(request, response)
 })
 
