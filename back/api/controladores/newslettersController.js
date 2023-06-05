@@ -64,4 +64,23 @@ newslettersController.CargarTodas = function (request, response) {
   });
 };
 
+newslettersController.EliminarNewsletters = function (request, response) {
+  var post = {
+    id: request.body.id,
+  };
+  if (post.id == undefined || post.id == null || post.id.trim() == "") {
+    response.json({ state: false, mensaje: "el campo en obligatorio id" });
+    return false;
+  }
+  newslettersModel.EliminarNewsletters(post, function (respuesta) {
+    if (respuesta.state == false) {
+      response.json({
+        state: false,
+        mensaje: "se presento un error al eliminar",
+      });
+    } else {
+      response.json({ state: true, mensaje: "se elimino correctamente" });
+    }
+  });
+};
 module.exports.newslettersController = newslettersController;
