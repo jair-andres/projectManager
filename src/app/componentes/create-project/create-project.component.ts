@@ -16,6 +16,13 @@ export class CreateProjectComponent {
   objetivoProyecto:string = ""
   fechaEntregaProyecto:string = ""
   prosupuesto:any
+  miembros:any[] = []
+
+  toto:string = ""
+  busqueda:string =""
+  resultadoDeBusqueda:string[] = []
+
+
 
   GuardarProyecto(){
     let post = {
@@ -44,5 +51,14 @@ export class CreateProjectComponent {
         location.reload()
       }
     })
+  }
+
+
+  ActualizarMiembros(newArrayMembers:string[]){
+    this.miembros.push(newArrayMembers[0])
+  }
+
+  consoleMiembros(){
+    console.log(this.miembros)
   }
 }

@@ -105,6 +105,27 @@ usuariosController.CargarId = function (request, response) {
   });
 };
 
+usuariosController.Buscar = function (request, response) {
+  var post = {
+    foo: request.body.foo,
+  };
+  if (post.foo == undefined || post.foo == null || post.foo.trim() == "") {
+    // response.json({ state: false, mensaje: "el campo de buscqueda esta vacio" });
+    return false;
+  }
+
+  usuariosModel.Buscar(post, function (respuesta) {
+    if (respuesta.state == false) {
+      response.json({
+        state: false,
+        mensaje: "se presento un error a la busqueda",
+      });
+    } else {
+      response.json(respuesta);
+    }
+  });
+};
+
 usuariosController.Actualizar = function (request, response) {
   var post = {
     nombre: request.body.nombre,
