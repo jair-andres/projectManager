@@ -20,8 +20,8 @@ export class CreateProjectComponent implements OnInit{
   descripcionProyecto:string = ""
   objetivoProyecto:string = ""
   fechaEntregaProyecto:string = ""
-  prosupuesto:any
   keyUser:string = ""
+  prosupuesto:any
 
   miembros:any[] = []
 
@@ -73,8 +73,7 @@ export class CreateProjectComponent implements OnInit{
     }
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      // console.log("--- res ---")
-      // console.log(res)
+
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {

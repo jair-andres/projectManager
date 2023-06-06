@@ -51,6 +51,10 @@ app.post("/Usuarios/logout", function(request, response) {
   request.session.destroy()
   response.json({state:true,mensaje:"cerrado la sesion"})
 })
+// Mis Proyectos
+app.post('/Usuarios/CargarTodosMisProyectos',validarSession,function(request, response) {
+  usuariosController.CargarTodosMisProyectos(request, response)
+})
 
 // Pqrs
 var pqrsController = require("./api/controladores/pqrsController.js").pqrsController

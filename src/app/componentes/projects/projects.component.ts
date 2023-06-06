@@ -13,6 +13,7 @@ export class ProjectsComponent implements OnInit {
   constructor(private peticion:PeticionUsuariosService, private msg:MensajesService){}
 
   tareaModal:any
+  id:string = ""
   proyectos:any[] = []
 
   ngOnInit():void {
@@ -20,8 +21,21 @@ export class ProjectsComponent implements OnInit {
       document.getElementById('tareaModal')
     );
     this.CargarTodosProyectos()
+    this.miData()
   }
 
+  miData(){
+    let post = {
+      hots:this.peticion.urllocal,
+      path:"miData",
+      payload:{}
+    }
+    this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+     console.log(res)
+     this.CargarTodosMisProyectos(res.id)
+    })
+
+  }
   CargarTodosProyectos() {
     let post = {
       host:this.peticion.urllocal,
@@ -33,8 +47,25 @@ export class ProjectsComponent implements OnInit {
     this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
       console.log(res)
       this.proyectos=res?.datos
-      console.log(this.proyectos)
+      console.log("respuesta",this.proyectos)
     })
   }
 
+  CargarTodosMisProyectos(keyUser:string) {
+    let post = {
+      host:this.peticion.urllocal,
+      path:"Usuarios/CargarTodosMisProyectos",
+      payload:{
+        keyUser:keyUser
+      }
+    }
+    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
+      console.log(res)
+      
+      this.proyectos=res?.datos[0].proyectos
+      console.log("mensaje")
+
+      console.log(this.proyectos)
+    })
+  }
 }
