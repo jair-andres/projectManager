@@ -49,19 +49,7 @@ proyectosModel.CargarTodas = function(post, callback) {
 }
 
 proyectosModel.CargarId = function(post, callback) {
-  MyModel.aggregate([
-    {
-      $match:{},
-      $lookup:{
-        from:"tareas",
-        localField:"keyProyecto",
-        foreignField:"_id",
-        as:"tareas",
-        pipeline:[]
-      }
-    }
-  ])
-  /*MyModel.find({_id:post.id},{nombreProyecto:1, descripcion:1, objetivo:1, fechaEntrega:1, prosupuesto:1},(error,documentos) =>{
+  MyModel.find({_id:post.id},{nombreProyecto:1, descripcion:1, objetivo:1, fechaEntrega:1, prosupuesto:1},(error,documentos) =>{
       if (error) {
           console.log(error)
           return callback({state:false})
@@ -69,7 +57,7 @@ proyectosModel.CargarId = function(post, callback) {
       else {
           return callback({state:true,datos:documentos})
       }
-  })*/
+  })
 }
 
 proyectosModel.Actualizar =  function(post, callback) {
@@ -100,6 +88,28 @@ proyectosModel.Eliminar =  function(post, callback) {
             return callback({state:true})
         }
     })
+}
+
+proyectosModel.CargarTareas = function(post, callback) {
+  MyModel.aggregate([
+    {
+      $match:{
+        _id:mongoose.Types.ObjectId(post.idProyect)
+      },
+      $lookup:{
+        from: "tareas",
+        localField: "_id",
+        foreignField: "keyProyect",
+        as: "tareas"
+      }
+    }
+  ],(error, documentos) =>{
+    if (error) {
+      return callback({state:false,error:error})
+    }else {
+      return callback({state:true,date:documentos})
+    }
+  })
 }
 
 module.exports.proyectosModel = proyectosModel

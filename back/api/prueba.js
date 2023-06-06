@@ -1,12 +1,19 @@
-db.proyectos.aggregate([
+db.usuarios.aggregate([
     {
         $lookup:{
-            from:"tareas",
-            localField:"_id",
-            foreignField:"keyProyecto",
-            as:"tareas",
+          from: 'proyectos',
+          localField: '_id',
+          foreignField: 'keyUser',
+          as: 'rproyectos',
             pipeline:[
-                {$match:{keyProyecto:'647cd5cabed1df415ee67766'}}
+              {
+                $lookup:{
+                  from: 'tareas',
+                  localField: '_id',
+                  foreignField: 'keyProyect',
+                  as: 'tareas'
+                }
+              }
             ]
         }
     }

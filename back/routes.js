@@ -134,6 +134,10 @@ app.post('/Proyectos/Eliminar',validarSession,function(request, response) {
   proyectosController.Eliminar(request, response)
 })
 
+app.post('/Proyectos/CargarTareas',validarSession,function(request, response) {
+  proyectosController.CargarTareas(request, response)
+})
+
 var tareasController = require("./api/controladores/tareasController.js").tareasController
 
 app.post('/Tareas/Consultar',validarSession,function(request, response) {
@@ -152,21 +156,3 @@ app.post('/Tareas/Eliminar',validarSession,function(request, response) {
   tareasController.Eliminar(request, response)
 })
 
-/*var gestionProyectosControllers = require("./api/controladores/gestionProyectosControllers.js").gestionProyectosControllers
-
-app.post('/GestionProyectos/Consultar',validarSession,function(request, response) {
-  gestionProyectosControllers.Consultar(request, response)
-})
-
-app.post('/GestionProyectos/Guardar',validarSession,function(request, response) {
-  gestionProyectosControllers.Guardar(request, response)
-})
-
-app.post('/GestionProyectos/Actualizar',validarSession,function(request, response) {
-  gestionProyectosControllers.Actualizar(request, response)
-})
-
-app.post('/GestionProyectos/Eliminar',validarSession,function(request, response) {
-  gestionProyectosControllers.Eliminar(request, response)
-})
-*/
