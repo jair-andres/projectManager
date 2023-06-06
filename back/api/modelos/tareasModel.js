@@ -20,6 +20,7 @@ tareasModel.Guardar = function(post, callback) {
 
   const instancia = new MyModel
   instancia.titulo = post.titulo
+  instancia.keyProyecto = post.keyProyecto
   instancia.miembros = post.miembros
   instancia.descripcion = post.descripcion
   instancia.fecha = post.fecha

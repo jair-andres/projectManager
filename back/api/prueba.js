@@ -1,0 +1,13 @@
+db.proyectos.aggregate([
+    {
+        $lookup:{
+            from:"tareas",
+            localField:"_id",
+            foreignField:"keyProyecto",
+            as:"tareas",
+            pipeline:[
+                {$match:{keyProyecto:'647cd5cabed1df415ee67766'}}
+            ]
+        }
+    }
+]).pretty()

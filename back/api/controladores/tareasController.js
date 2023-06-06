@@ -17,6 +17,7 @@ tareasController.Consultar = function (request, response) {
 tareasController.Guardar = function (request, response) {
   var post = {
     titulo: request.body.titulo,
+    keyProyecto: request.body.keyProyecto,
     miembros: request.body.miembros,
     descripcion: request.body.descripcion,
     fecha: request.body.fecha,
@@ -32,6 +33,15 @@ tareasController.Guardar = function (request, response) {
     post.titulo.trim() == ""
   ) {
     response.json({ state: false, mensaje: "El campo nombre es obligatorio" });
+    return false;
+  }
+
+  if (
+    post.keyProyecto == undefined ||
+    post.keyProyecto == null ||
+    post.keyProyecto.trim() == ""
+  ) {
+    response.json({ state: false, mensaje: "El keyProyecto es obligatorio" });
     return false;
   }
 

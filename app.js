@@ -53,7 +53,7 @@ var session = require('express-session')({
     secret:config.palabraClave,
     resave:true,
     saveUninitialized:true,
-    cookie: {path:'/',httpOnly:true,maxAge:config.tiempoDeSesion}, 
+    cookie: {path:'/',httpOnly:true,maxAge:config.tiempoDeSesion},
     name: "CookieProjectManager",
     rolling:true
 })
@@ -62,7 +62,7 @@ app.use(session)
 
 require("./back/routes.js")
 
-app.use('./back/perfiles',express.static(__dirname + './back/perfiles'))
+app.use('/back/perfiles',express.static(__dirname + '/back/perfiles'))
 
 app.listen(config.puerto, function() {
     console.log("servidor funcionando puerto 3000");

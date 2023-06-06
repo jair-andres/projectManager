@@ -45,15 +45,27 @@ proyectosModel.CargarTodas = function(post, callback) {
 }
 
 proyectosModel.CargarId = function(post, callback) {
-    MyModel.find({_id:post.id},{nombreProyecto:1, descripcion:1, objetivo:1, fechaEntrega:1, prosupuesto:1},(error,documentos) =>{
-        if (error) {
-            console.log(error)
-            return callback({state:false})
-        }
-        else {
-            return callback({state:true,datos:documentos})
-        }
-    })
+  MyModel.aggregate([
+    {
+      $match:{},
+      $lookup:{
+        from:"tareas",
+        localField:"keyProyecto",
+        foreignField:"_id",
+        as:"tareas",
+        pipeline:[]
+      }
+    }
+  ])
+  /*MyModel.find({_id:post.id},{nombreProyecto:1, descripcion:1, objetivo:1, fechaEntrega:1, prosupuesto:1},(error,documentos) =>{
+      if (error) {
+          console.log(error)
+          return callback({state:false})
+      }
+      else {
+          return callback({state:true,datos:documentos})
+      }
+  })*/
 }
 
 proyectosModel.Actualizar =  function(post, callback) {
@@ -87,3 +99,4 @@ proyectosModel.Eliminar =  function(post, callback) {
 }
 
 module.exports.proyectosModel = proyectosModel
+
