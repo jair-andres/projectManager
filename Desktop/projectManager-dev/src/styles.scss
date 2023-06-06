@@ -1,0 +1,65 @@
+
+@import "./node_modules/bootstrap/scss/functions";
+@import "./node_modules/bootstrap/scss/variables";
+@import "./node_modules/bootstrap/scss/mixins";
+
+// Create your own map
+$custom-colors: (
+  "blue":       $blue,
+  "indigo":     $indigo,
+  "purple":     $purple,
+  "purple-dark":$purple-800,
+  "purple-deep-dark":$purple-900,
+  "pink":       $pink,
+  "red":        $red,
+  "orange":     $orange,
+  "yellow":     $yellow,
+  "green":      $green,
+  "teal":       $teal,
+  "cyan":       $cyan,
+  "black":      $black,
+  "white":      $white,
+  "gray":       $gray-600,
+  "gray-dark":  $gray-800
+);
+
+$table-custom-variants: (
+  "blue":       shift-color($blue, $table-bg-scale),
+  "indigo":     shift-color($indigo, $table-bg-scale),
+  "purple":     shift-color($purple, $table-bg-scale),
+  "purple-dark":shift-color($purple-800, $table-bg-scale),
+  "pink":       shift-color($pink, $table-bg-scale),
+  "red":        shift-color($red, $table-bg-scale),
+  "orange":     shift-color($orange, $table-bg-scale),
+  "yellow":     shift-color($yellow, $table-bg-scale),
+  "green":      shift-color($green, $table-bg-scale),
+  "teal":       shift-color($teal, $table-bg-scale),
+  "cyan":       shift-color($cyan, $table-bg-scale),
+  "black":      shift-color($black, $table-bg-scale),
+  "white":      shift-color($white, $table-bg-scale),
+  "gray":       shift-color($gray-600, $table-bg-scale),
+  "gray-dark":  shift-color($gray-800, $table-bg-scale)
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+$table-variants: map-merge($table-variants, $table-custom-variants);
+
+@include rfs($nav-link-font-size, --#{$prefix}nav-link-font-size);
+
+// nav-link
+$nav-link-color: $purple-800;
+$nav-pills-link-active-color: $white;
+$nav-pills-link-active-bg: $purple-800;
+$nav-link-hover-color: $purple;
+
+// input focus
+
+//$input-focus-bg: $purple;
+$input-focus-bg:                        $input-bg;
+$input-focus-border-color:              $purple-800;
+$input-focus-color:                     $purple-800;
+$input-focus-box-shadow:                0 0 0 0.25rem $purple-200;
+
+
+@import "./node_modules/bootstrap/scss/bootstrap.scss";
+

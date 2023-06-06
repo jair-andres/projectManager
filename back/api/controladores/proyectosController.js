@@ -7,7 +7,8 @@ proyectosController.Guardar = function (request, response) {
       descripcion: request.body.descripcion,
       objetivo: request.body.objetivo,
       fechaEntrega: request.body.fechaEntrega,
-      prosupuesto:request.body.prosupuesto
+      prosupuesto:request.body.prosupuesto,
+      miembros:request.body.miembros
     };
 
     if (
@@ -56,6 +57,7 @@ proyectosController.Guardar = function (request, response) {
         response.json({
             state: true,
             mensaje: "proyecto guardado con exito",
+            id: resultado.id
         });
         } else {
         response.json({ state: false, mensaje: "se presento un error" });

@@ -31,6 +31,9 @@ app.post('/Usuarios/CargarTodas',validarSession,function(request, response) {
 app.post('/Usuarios/CargarId',validarSession,function(request, response) {
   usuariosController.CargarId(request, response)
 })
+app.post('/Usuarios/Buscar',validarSession,function(request, response) {
+  usuariosController.Buscar(request, response)
+})
 
 app.post('/Usuarios/Actualizar',validarSession,function(request, response) {
   usuariosController.Actualizar(request, response)
@@ -87,7 +90,7 @@ app.post("/state", function(request, response) {
 // prueba archivos
 var filesController = require("./api/controladores/filesController.js").filesController
 
-app.get("/files/:carpeta/:carpeta/:id", function(request, response) {
+app.post("/files/:carpeta/:carpeta/:id", function(request, response) {
   filesController.SubirArchivos(request, response)
 })
 
@@ -101,6 +104,11 @@ app.post("/Newsletters/Guardar",function(request, response) {
 app.post("/Newsletters/CargarTodas",validarSession,validarAdmin,function(request, response) {
   newslettersController.CargarTodas(request, response)
 })
+
+app.post("/Newsletters/Eliminar",validarSession,validarAdmin,function(request, response) {
+  newslettersController.EliminarNewsletters(request, response)
+})
+
 
 // PROYECTOS
 
