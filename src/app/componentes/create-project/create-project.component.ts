@@ -21,7 +21,7 @@ export class CreateProjectComponent implements OnInit{
   objetivoProyecto:string = ""
   fechaEntregaProyecto:string = ""
   prosupuesto:any
-  
+
   miembros:any[] = []
 
   toto:string = ""
@@ -83,24 +83,6 @@ export class CreateProjectComponent implements OnInit{
   }
 
   ActualizarMiembros(newArrayMembers:any[]){
-    // let yaEsta:boolean = false
-    
-    // this.miembros.map( miembro => {
-    //   console.log("user : ",miembro)
-    //   if(miembro.id == newArrayMembers[0]?._id){
-    //     console.log("New =>",newArrayMembers[0]?._id)
-    //     console.log("Old =>",miembro.id)
-    //     yaEsta = true
-    //   }
-    // })
-    // if(yaEsta){
-    //   let mensaje = "Este usuario ya esta miembros del proyecto"
-    //   this.msg.Load(mensaje, "danger", 5000)
-    // } else {
-    //   let mensaje = "Usuario añadido al proyecto"
-    //   this.miembros.push(newArrayMembers[0])
-    //   this.msg.Load(mensaje, "success", 5000)
-    // }
     this.miembros.push(newArrayMembers[0])
   }
 

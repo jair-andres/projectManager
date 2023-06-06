@@ -56,21 +56,14 @@ export class SearchbarComponent implements OnInit {
       nombre: this.resultadoBusqueda[0].nombre,
       email: this.resultadoBusqueda[0].email
     }
-
     this.usuarioSelectionado.push(temporalData)
 
     let localMiembros: any[] = this.miembros
-    console.log("MIEMBROS === >")
-    console.log(localMiembros)
+
     let yaEsta = false
-    // let yaEsta = localMiembros.find( miembro => miembro.id == this.usuarioSelectionado[0]?._id)
-    // console.log("---- yaEsta ----")
-    // console.log(yaEsta)
+
     localMiembros.map( miembro => {
-      console.log(miembro)
-      console.log(this.usuarioSelectionado[0]?.id)
       if(miembro.id == this.usuarioSelectionado[0]?.id){
-        console.log("Ya esta en el array")
         yaEsta = true
       }
     })
@@ -82,7 +75,6 @@ export class SearchbarComponent implements OnInit {
       this.msg.Load(mensaje, "success", 5000)
       this.result.emit(this.usuarioSelectionado)
     }
-    // this.result.emit(this.usuarioSelectionado)
     this.miembrosModal.toggle()
     this.resultadoBusqueda = []
     this.usuarioSelectionado = []
