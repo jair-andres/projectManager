@@ -8,7 +8,10 @@ var proyectosSchema = new Schema({
   descripcion:String,
   objetivo:String,
   fechaEntrega:String,
-  prosupuesto:Number
+  prosupuesto:Number,
+  miembros:[
+    {type: mongoose.Schema.Types.ObjectId, ref: 'usuarios'}
+  ]
 })
 
 const MyModel = mongoose.model("proyectos", proyectosSchema)
@@ -19,7 +22,8 @@ proyectosModel.Guardar = function(post, callback) {
     instancia.descripcion = post.descripcion
     instancia.objetivo = post.objetivo,
     instancia.fechaEntrega = post.fechaEntrega,
-    instancia.prosupuesto = post.prosupuesto
+    instancia.prosupuesto = post.prosupuesto,
+    instancia.miembros = post.miembros
 
     instancia.save((error, creado) => {
         if (error) {
@@ -27,7 +31,7 @@ proyectosModel.Guardar = function(post, callback) {
             return callback({state:false})
         }
         else {
-            return callback({state:true})
+            return callback({state:true, id:instancia.id})
         }
     })
 }

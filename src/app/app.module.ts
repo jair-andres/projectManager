@@ -26,6 +26,7 @@ import { CreateProjectComponent } from './componentes/create-project/create-proj
 import { TasksComponent } from './componentes/tasks/tasks.component';
 import { ProfileComponent } from './componentes/profile/profile.component';
 import { PqrsComponent } from './componentes/pqrs/pqrs.component';
+import { SearchbarComponent } from './componentes/searchbar/searchbar.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { PqrsComponent } from './componentes/pqrs/pqrs.component';
     CreateProjectComponent,
     TasksComponent,
     ProfileComponent,
-    PqrsComponent
+    PqrsComponent,
+    SearchbarComponent
   ],
   imports: [
     BrowserModule,

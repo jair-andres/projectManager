@@ -31,6 +31,9 @@ app.post('/Usuarios/CargarTodas',validarSession,function(request, response) {
 app.post('/Usuarios/CargarId',validarSession,function(request, response) {
   usuariosController.CargarId(request, response)
 })
+app.post('/Usuarios/Buscar',validarSession,function(request, response) {
+  usuariosController.Buscar(request, response)
+})
 
 app.post('/Usuarios/Actualizar',validarSession,function(request, response) {
   usuariosController.Actualizar(request, response)
