@@ -21,6 +21,7 @@ export class CreateProjectComponent implements OnInit{
   objetivoProyecto:string = ""
   fechaEntregaProyecto:string = ""
   prosupuesto:any
+  keyUser:string = ""
 
   miembros:any[] = []
 
@@ -39,6 +40,7 @@ export class CreateProjectComponent implements OnInit{
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
       // console.log("RES :",res)
       this.id = res.id
+      console.log("id" + this.id)
       this.nombre = res.nombre
       this.email = res.email
       let yo = { 
@@ -48,7 +50,7 @@ export class CreateProjectComponent implements OnInit{
       }
       this.miembros.push(yo)
     })
-    
+
   }
 
   GuardarProyecto(){
@@ -65,7 +67,8 @@ export class CreateProjectComponent implements OnInit{
         objetivo: this.objetivoProyecto,
         fechaEntrega: this.fechaEntregaProyecto,
         prosupuesto:this.prosupuesto,
-        miembros:temporalArray
+        miembros:temporalArray,
+        keyUser:this.id
       }
     }
 
