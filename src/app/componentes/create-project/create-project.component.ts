@@ -24,9 +24,7 @@ export class CreateProjectComponent implements OnInit{
 
   miembros:any[] = []
 
-  toto:string = ""
-  busqueda:string =""
-  resultadoDeBusqueda:string[] = []
+  misProyectos:any[] = []
 
   ngOnInit(){
     this.miData()
@@ -54,6 +52,10 @@ export class CreateProjectComponent implements OnInit{
   }
 
   GuardarProyecto(){
+    let temporalArray:any[] = []
+
+    this.miembros.map( miembro => temporalArray.push(miembro.id))
+
     let post = {
       hots:this.peticion.urllocal,
       path:"Proyectos/Guardar",
@@ -62,11 +64,14 @@ export class CreateProjectComponent implements OnInit{
         descripcion: this.descripcionProyecto,
         objetivo: this.objetivoProyecto,
         fechaEntrega: this.fechaEntregaProyecto,
-        prosupuesto:this.prosupuesto
+        prosupuesto:this.prosupuesto,
+        miembros:temporalArray
       }
     }
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+      console.log("--- res ---")
+      console.log(res)
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
@@ -76,8 +81,62 @@ export class CreateProjectComponent implements OnInit{
         this.objetivoProyecto = ""
         this.fechaEntregaProyecto = ""
         this.prosupuesto = null
-        this.route.navigate(['dashboard'])
-        location.reload()
+        this.miembros = []
+        // temporalArray.map( userId => this.ActualizarProyectosDeLosUsuarios(res.id, userId))
+        temporalArray.map( userId => this.EditarMisProyectos(res.id, userId))
+        // this.ActualizarProyectosDeLosUsuarios(res.id)
+        
+        // this.route.navigate(['dashboard'])
+        // location.reload()
+      }
+    })
+  }
+
+  EditarMisProyectos(idProyecto:string, idMiembro:string){
+    console.log("Usamos EditarMisProyectos")
+
+    let post = {
+      hots:this.peticion.urllocal,
+      path:"Usuarios/CargarId",
+      payload:{
+        id:idMiembro
+      }
+    }
+    
+    this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+      console.log("res de EditarMisProyectos =>", res)
+      if(res.state == false){
+        this.msg.Load(res.mensaje, "danger", 5000)
+      } else {
+        res.datos[0].misProyectos ? this.misProyectos = res?.datos[0]?.misProyectos : this.misProyectos = []
+        this.ActualizarProyectosDeLosUsuarios(idProyecto, idMiembro)
+      }
+    })
+  }
+
+  ActualizarProyectosDeLosUsuarios(idProyecto:string, idMiembro:string){
+    console.log(`Voy añadir este id : ${idProyecto} en el array misProyectos de este usuario : ${idMiembro}`)
+    // this.EditarMisProyectos(idMiembro)
+
+    console.log("==> this.misProyectos ==>")
+    console.log(this.misProyectos)
+
+    this.misProyectos.push(idProyecto)
+    let post = {
+      hots:this.peticion.urllocal,
+      path:"Usuarios/Actualizar",
+      payload:{
+        misProyectos:this.misProyectos
+      }
+    }
+
+    this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+      console.log(res)
+      if(res.state == false){
+        this.msg.Load(res.mensaje, "danger", 5000)
+      } else {
+        this.msg.Load(res.mensaje, "success", 5000)
+        // this.logOut()
       }
     })
   }
