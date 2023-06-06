@@ -41,12 +41,11 @@ export class SearchbarComponent implements OnInit {
       }
     }
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      // console.log(res)
+      console.log(res)
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.resultadoBusqueda = res?.datos
-        // this.resultadoDeBusqueda = res?.datos
       }
     })
   }
@@ -60,18 +59,18 @@ export class SearchbarComponent implements OnInit {
 
     this.usuarioSelectionado.push(temporalData)
 
-
-
-
-
-    this.usuarioSelectionado = this.resultadoBusqueda
     let localMiembros: any[] = this.miembros
     console.log("MIEMBROS === >")
     console.log(localMiembros)
-    let yaEsta:boolean = false
+    let yaEsta = false
+    // let yaEsta = localMiembros.find( miembro => miembro.id == this.usuarioSelectionado[0]?._id)
+    // console.log("---- yaEsta ----")
+    // console.log(yaEsta)
     localMiembros.map( miembro => {
-      if(miembro.id == this.usuarioSelectionado[0]?._id){
-        console.log("===> Son igual <===")
+      console.log(miembro)
+      console.log(this.usuarioSelectionado[0]?.id)
+      if(miembro.id == this.usuarioSelectionado[0]?.id){
+        console.log("Ya esta en el array")
         yaEsta = true
       }
     })
@@ -81,12 +80,13 @@ export class SearchbarComponent implements OnInit {
     } else {
       let mensaje = "Usuario añadido al proyecto"
       this.msg.Load(mensaje, "success", 5000)
-      
+      this.result.emit(this.usuarioSelectionado)
     }
-    this.resultadoBusqueda = []
-    this.busqueda = ""
+    // this.result.emit(this.usuarioSelectionado)
     this.miembrosModal.toggle()
-    this.result.emit(this.usuarioSelectionado);
+    this.resultadoBusqueda = []
+    this.usuarioSelectionado = []
+    this.busqueda = ""
   }
 
 }

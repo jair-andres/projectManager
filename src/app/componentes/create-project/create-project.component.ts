@@ -21,6 +21,7 @@ export class CreateProjectComponent implements OnInit{
   objetivoProyecto:string = ""
   fechaEntregaProyecto:string = ""
   prosupuesto:any
+  
   miembros:any[] = []
 
   toto:string = ""
