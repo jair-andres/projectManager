@@ -28,11 +28,10 @@ export class SearchbarComponent implements OnInit {
     this.miembrosModal = new window.bootstrap.Modal(
       document.getElementById('miembrosModal')
     );
-    console.log("Miembros :", this.miembros)
+    // console.log("Miembros :", this.miembros)
   }
 
   leerOnChange(){
-    
     let post = {
       hots:this.peticion.urllocal,
       path:"Usuarios/Buscar",
@@ -41,7 +40,6 @@ export class SearchbarComponent implements OnInit {
       }
     }
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log(res)
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {

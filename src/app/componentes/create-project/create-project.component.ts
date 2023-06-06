@@ -25,7 +25,7 @@ export class CreateProjectComponent implements OnInit{
   miembros:any[] = []
 
   misProyectos:any[] = []
-
+  
   ngOnInit(){
     this.miData()
   }
@@ -37,7 +37,7 @@ export class CreateProjectComponent implements OnInit{
       payload:{}
     }
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log("RES :",res)
+      // console.log("RES :",res)
       this.id = res.id
       this.nombre = res.nombre
       this.email = res.email
@@ -70,8 +70,8 @@ export class CreateProjectComponent implements OnInit{
     }
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log("--- res ---")
-      console.log(res)
+      // console.log("--- res ---")
+      // console.log(res)
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
@@ -82,19 +82,15 @@ export class CreateProjectComponent implements OnInit{
         this.fechaEntregaProyecto = ""
         this.prosupuesto = null
         this.miembros = []
-        // temporalArray.map( userId => this.ActualizarProyectosDeLosUsuarios(res.id, userId))
         temporalArray.map( userId => this.EditarMisProyectos(res.id, userId))
-        // this.ActualizarProyectosDeLosUsuarios(res.id)
         
-        // this.route.navigate(['dashboard'])
-        // location.reload()
+        this.route.navigate(['dashboard'])
+        location.reload()
       }
     })
   }
 
   EditarMisProyectos(idProyecto:string, idMiembro:string){
-    console.log("Usamos EditarMisProyectos")
-
     let post = {
       hots:this.peticion.urllocal,
       path:"Usuarios/CargarId",
@@ -104,7 +100,6 @@ export class CreateProjectComponent implements OnInit{
     }
     
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log("res de EditarMisProyectos =>", res)
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
@@ -115,28 +110,24 @@ export class CreateProjectComponent implements OnInit{
   }
 
   ActualizarProyectosDeLosUsuarios(idProyecto:string, idMiembro:string){
-    console.log(`Voy añadir este id : ${idProyecto} en el array misProyectos de este usuario : ${idMiembro}`)
-    // this.EditarMisProyectos(idMiembro)
-
-    console.log("==> this.misProyectos ==>")
-    console.log(this.misProyectos)
-
+    //console.log(`Voy añadir este id : ${idProyecto} en el array misProyectos de este usuario : ${idMiembro}`)
     this.misProyectos.push(idProyecto)
+    
     let post = {
       hots:this.peticion.urllocal,
       path:"Usuarios/Actualizar",
       payload:{
+        id:idMiembro,
         misProyectos:this.misProyectos
       }
     }
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log(res)
+      // console.log(res)
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
-        // this.logOut()
       }
     })
   }
