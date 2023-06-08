@@ -136,6 +136,22 @@ export class CreateProjectComponent implements OnInit{
     this.miembros.push(newArrayMembers[0])
   }
 
+  QuitarMiembros(idMiembro:any, miembros:any[]){
+    // console.log("Quitamos este miembro : ",idMiembro)
+    // console.log("Miembros : ",miembros)
+    let foe:any = (elArray:any) => elArray.id == idMiembro 
+    // console.log("indexOf : ", miembros.findIndex(foe))
+    let quitarEsteIndex:number = miembros.findIndex(foe)
+    // console.log(this.miembros)
+    // console.log("Quitamos el miembro con el index : ",quitarEsteIndex)
+    let suNombre:string = this.miembros[quitarEsteIndex]?.nombre
+    let quitarLo:any = this.miembros.splice(quitarEsteIndex,1)
+    // console.log(quitarLo)
+    // console.log(this.miembros)
+    let mensaje:string = `${suNombre} eliminado con éxito`
+    this.msg.Load(mensaje, "success", 5000)
+  }
+
   consoleMiembros(){
     console.log(this.miembros)
   }
