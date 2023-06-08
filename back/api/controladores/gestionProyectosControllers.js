@@ -1,4 +1,4 @@
-var gestionProyectoModel = require("../modelos/gestionProyectoModel.js").gestionProyectoModel;
+/* var gestionProyectoModel = require("../modelos/gestionProyectoModel.js").gestionProyectoModel;
 var gestionProyectoController = {};
 
 gestionProyectoController.Guardar = function (request, response) {
@@ -170,3 +170,4 @@ gestionProyectoController.Eliminar = function (request, response) {
 };
 
 module.exports.gestionProyectoController = gestionProyectoController;
+ */

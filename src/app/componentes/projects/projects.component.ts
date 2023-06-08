@@ -20,7 +20,7 @@ export class ProjectsComponent implements OnInit {
     this.tareaModal = new window.bootstrap.Modal(
       document.getElementById('tareaModal')
     );
-    this.CargarTodosProyectos()
+    this.CargarTodosProyectos() 
     this.miData()
   }
 
@@ -36,6 +36,20 @@ export class ProjectsComponent implements OnInit {
     })
 
   }
+  CargarTodosMisProyectos(idUser:string) {
+    let post = {
+      host:this.peticion.urllocal,
+      path:"Usuarios/CargarTodosMisProyectos",
+      payload:{
+        idUser:idUser
+      }
+    }
+    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
+      
+      this.proyectos=res?.datos[0].misProyectosinfo
+
+    })
+  }
   CargarTodosProyectos() {
     let post = {
       host:this.peticion.urllocal,
@@ -48,24 +62,6 @@ export class ProjectsComponent implements OnInit {
       console.log(res)
       this.proyectos=res?.datos
       console.log("respuesta",this.proyectos)
-    })
-  }
-
-  CargarTodosMisProyectos(keyUser:string) {
-    let post = {
-      host:this.peticion.urllocal,
-      path:"Usuarios/CargarTodosMisProyectos",
-      payload:{
-        keyUser:keyUser
-      }
-    }
-    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
-      console.log(res)
-      
-      this.proyectos=res?.datos[0].proyectos
-      console.log("mensaje")
-
-      console.log(this.proyectos)
     })
   }
 }

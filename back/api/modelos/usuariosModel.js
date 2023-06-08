@@ -134,15 +134,15 @@ usuariosModel.CargarTodosMisProyectos = function(post, callback) {
     MyModel.aggregate([
         { 
             $match:{
-                _id:mongoose.Types.ObjectId(post.keyUser)
+                _id:mongoose.Types.ObjectId(post.idUser)
             },
         },
         {
           $lookup:{
             from: "proyectos",
-            localField: "_id",
-            foreignField: "keyUser",
-            as: "proyectos",
+            localField: "misProyectos",
+            foreignField: "_id",
+            as: "misProyectosinfo",
           }
         }
       ],(error, documentos) =>{

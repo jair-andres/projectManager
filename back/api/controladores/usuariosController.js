@@ -328,9 +328,9 @@ usuariosController.Login = function (request, response) {
 
 usuariosController.CargarTodosMisProyectos = function (request, response) {
   var post = {
-    keyUser: request.body.keyUser
+    idUser: request.body.idUser
   };
-  if (post.keyUser == undefined  || post.keyUser == null  || post.keyUser.trim() == "") {
+  if (post.idUser == undefined  || post.idUser == null  || post.idUser.trim() == "") {
     response.json({ state: false, mensaje: "el campo en obligatorio id" });
     return false;
   }
