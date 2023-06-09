@@ -55,7 +55,7 @@ export class CreateTaskComponent implements OnInit{
       email: this.resultadoBusquedaEncargado[0].email
     }
     this.encargadoSelectionado.push(encargadoTemporal)
-    console.log(this.encargadoSelectionado)
+    // console.log(this.encargadoSelectionado)
     let tarea = {
       encargado:this.encargadoSelectionado[0],
       tituloTarea:this.tituloTarea,
@@ -63,7 +63,7 @@ export class CreateTaskComponent implements OnInit{
       duracionTarea:this.duracionTarea,
       fechaTarea:this.fechaTarea
     }
-    console.log(tarea)
+    // console.log(tarea)
     this.resultBis.emit(tarea)
     this.tareaModal.toggle()
     this.busquedaEncargado = ""

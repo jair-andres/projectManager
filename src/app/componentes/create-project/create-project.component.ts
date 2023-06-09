@@ -158,7 +158,7 @@ export class CreateProjectComponent implements OnInit{
   }
 
   QuitarTareas(indexTarea:any, tareas:any){
-    console.log("Eliminamos la tarea en el index : ",indexTarea)
+    // console.log("Eliminamos la tarea en el index : ",indexTarea)
     let quitarLa:any = this.tareas.splice(indexTarea,1)
     let mensaje:string = `Tarea eliminado con éxito`
     this.msg.Load(mensaje, "success", 5000)
