@@ -86,12 +86,6 @@ export class CreateProjectComponent implements OnInit{
         this.prosupuesto = null
         this.miembros = []
         temporalArray.map( userId => this.EditarMisProyectos(res.id, userId))
-<<<<<<< HEAD
-
-        this.route.navigate(['dashboard'])
-        location.reload()
-=======
->>>>>>> dev
       }
     })
   }
