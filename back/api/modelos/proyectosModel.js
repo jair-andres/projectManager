@@ -114,5 +114,53 @@ proyectosModel.CargarTareas = function(post, callback) {
   })
 }
 
+proyectosModel.detalleProyecto = function(post, callback) {
+  MyModel.aggregate([
+    {
+      $match:{
+        _id:mongoose.Types.ObjectId(post.idProyect)
+      }
+    },
+    {
+      $lookup:{
+        from: "usuarios",
+        localField: "miembros",
+        foreignField: "_id",
+        as: "miembrosInfo",
+      }
+    },
+    {
+      $lookup:{
+        from: "usuarios",
+        localField: "keyUser",
+        foreignField: "_id",
+        as: "lider",
+      }
+    },
+    {
+      $unwind:"$lider"
+    },
+    {
+      $lookup:{
+        from: "tareas",
+        localField: "_id",
+        foreignField: "keyProyect",
+        as: "tareasInfo",
+      }
+    },
+    {
+      $project: {
+        miembros:0, keyUser:0,
+      },
+    }
+  ],(error, documentos) =>{
+    if (error) {
+      return callback({state:false,error:error})
+    }else {
+      return callback({state:true,datos:documentos})
+    }
+  })
+}
+
 module.exports.proyectosModel = proyectosModel
 

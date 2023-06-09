@@ -20,7 +20,7 @@ const routes: Routes = [
   {path:"dashboard",component:DashboardComponent,pathMatch:"full"},
   {path:"profile",component:ProfileComponent,pathMatch:"full"},
   {path:"adminuser",component:AdminUsersComponent,pathMatch:"full"},
-  {path:"Proyectos/:idProyecto",component:ProyectosDatalleComponent,pathMatch:"full"}
+  {path:"proyectos/:idProyecto",component:ProyectosDatalleComponent,pathMatch:"full"}
 ];
 
 @NgModule({

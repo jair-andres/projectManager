@@ -194,8 +194,8 @@ proyectosController.Eliminar = function (request, response) {
 
 proyectosController.CargarTareas = function(request, response) {
   var post = {
-    idProyect: request.body.idProyect,
-  };
+    idProyect: request.body.idProyect
+  }
   if (post.idProyect == undefined || post.idProyect == null || post.idProyect.trim() == "") {
     response.json({ state: false, mensaje: "el campo en obligatorio id" });
     return false;
@@ -208,6 +208,27 @@ proyectosController.CargarTareas = function(request, response) {
       });
       } else {
       response.json(respuesta);
+      }
+  })
+}
+
+proyectosController.detalleProyecto = function(request, response) {
+  var post = {
+    idProyect: request.body.idProyect
+  }
+  if (post.idProyect == undefined || post.idProyect == null || post.idProyect.trim() == "") {
+    response.json({ state: false, mensaje: "el campo en obligatorio id" });
+    return false
+  }
+
+  proyectosModel.detalleProyecto(post, function(respuesta){
+    if (respuesta.state == false) {
+      response.json({
+        state: false,
+        mensaje: "se presento un error",
+      });
+      } else {
+        response.json(respuesta);
       }
   })
 }

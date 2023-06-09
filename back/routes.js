@@ -142,6 +142,10 @@ app.post('/Proyectos/CargarTareas',validarSession,function(request, response) {
   proyectosController.CargarTareas(request, response)
 })
 
+app.post('/Proyectos/detalleProyecto',validarSession,function(request, response) {
+  proyectosController.detalleProyecto(request, response)
+})
+
 var tareasController = require("./api/controladores/tareasController.js").tareasController
 
 app.post('/Tareas/Consultar',validarSession,function(request, response) {
