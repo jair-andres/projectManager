@@ -26,7 +26,7 @@ export class CreateProjectComponent implements OnInit{
   miembros:any[] = []
 
   misProyectos:any[] = []
-  
+
   ngOnInit(){
     this.miData()
   }
@@ -40,10 +40,10 @@ export class CreateProjectComponent implements OnInit{
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
       // console.log("RES :",res)
       this.id = res.id
-      console.log("id" + this.id)
+      //console.log("id" + this.id)
       this.nombre = res.nombre
       this.email = res.email
-      let yo = { 
+      let yo = {
         id:this.id,
         nombre:this.nombre,
         email:this.email
@@ -85,7 +85,7 @@ export class CreateProjectComponent implements OnInit{
         this.prosupuesto = null
         this.miembros = []
         temporalArray.map( userId => this.EditarMisProyectos(res.id, userId))
-        
+
         this.route.navigate(['dashboard'])
         location.reload()
       }
@@ -100,7 +100,7 @@ export class CreateProjectComponent implements OnInit{
         id:idMiembro
       }
     }
-    
+
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
@@ -114,7 +114,7 @@ export class CreateProjectComponent implements OnInit{
   ActualizarProyectosDeLosUsuarios(idProyecto:string, idMiembro:string){
     //console.log(`Voy añadir este id : ${idProyecto} en el array misProyectos de este usuario : ${idMiembro}`)
     this.misProyectos.push(idProyecto)
-    
+
     let post = {
       hots:this.peticion.urllocal,
       path:"Usuarios/Actualizar",
@@ -141,7 +141,7 @@ export class CreateProjectComponent implements OnInit{
   QuitarMiembros(idMiembro:any, miembros:any[]){
     // console.log("Quitamos este miembro : ",idMiembro)
     // console.log("Miembros : ",miembros)
-    let foe:any = (elArray:any) => elArray.id == idMiembro 
+    let foe:any = (elArray:any) => elArray.id == idMiembro
     // console.log("indexOf : ", miembros.findIndex(foe))
     let quitarEsteIndex:number = miembros.findIndex(foe)
     // console.log(this.miembros)
@@ -155,6 +155,6 @@ export class CreateProjectComponent implements OnInit{
   }
 
   consoleMiembros(){
-    console.log(this.miembros)
+    //console.log(this.miembros)
   }
 }

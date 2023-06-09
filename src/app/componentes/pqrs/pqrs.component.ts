@@ -38,12 +38,13 @@ export class PqrsComponent implements OnInit {
 
       }
     }
-    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
+    this.peticion.Post(post.host + post.path, post.payload).
+    then((res:any) => {
       console.log(res)
       this.pqrs=res?.datos
       console.log("##___this.pqrs___##")
       console.log(this.pqrs)
-    }) 
+    })
   }
 
   EditarIdPqrs(id:string){
