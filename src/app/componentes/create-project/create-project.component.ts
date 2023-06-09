@@ -23,6 +23,7 @@ export class CreateProjectComponent implements OnInit{
   prosupuesto:any
 
   miembros:any[] = []
+  tareas:any[] = []
 
   misProyectos:any[] = []
   
@@ -83,9 +84,6 @@ export class CreateProjectComponent implements OnInit{
         this.prosupuesto = null
         this.miembros = []
         temporalArray.map( userId => this.EditarMisProyectos(res.id, userId))
-        
-        this.route.navigate(['dashboard'])
-        location.reload()
       }
     })
   }
@@ -103,7 +101,8 @@ export class CreateProjectComponent implements OnInit{
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
-        res.datos[0].misProyectos ? this.misProyectos = res?.datos[0]?.misProyectos : this.misProyectos = []
+        // res.datos[0].misProyectos ? this.misProyectos = res?.datos[0]?.misProyectos : this.misProyectos = []
+        this.misProyectos = res?.datos[0]?.misProyectos
         this.ActualizarProyectosDeLosUsuarios(idProyecto, idMiembro)
       }
     })
@@ -128,6 +127,8 @@ export class CreateProjectComponent implements OnInit{
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
+        this.route.navigate(['dashboard'])
+        location.reload()
       }
     })
   }
@@ -149,6 +150,17 @@ export class CreateProjectComponent implements OnInit{
     // console.log(quitarLo)
     // console.log(this.miembros)
     let mensaje:string = `${suNombre} eliminado con éxito`
+    this.msg.Load(mensaje, "success", 5000)
+  }
+
+  ActualizarTareas(newArrayTasks:any[]){
+    this.tareas.push(newArrayTasks)
+  }
+
+  QuitarTareas(indexTarea:any, tareas:any){
+    // console.log("Eliminamos la tarea en el index : ",indexTarea)
+    let quitarLa:any = this.tareas.splice(indexTarea,1)
+    let mensaje:string = `Tarea eliminado con éxito`
     this.msg.Load(mensaje, "success", 5000)
   }
 
