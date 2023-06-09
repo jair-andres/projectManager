@@ -27,7 +27,11 @@ import { TasksComponent } from './componentes/tasks/tasks.component';
 import { ProfileComponent } from './componentes/profile/profile.component';
 import { PqrsComponent } from './componentes/pqrs/pqrs.component';
 import { SearchbarComponent } from './componentes/searchbar/searchbar.component';
+<<<<<<< HEAD
 import { ProjectadminComponent } from './componentes/projectadmin/projectadmin.component';
+=======
+import { CreateTaskComponent } from './componentes/create-task/create-task.component';
+>>>>>>> dev
 
 @NgModule({
   declarations: [
@@ -53,7 +57,11 @@ import { ProjectadminComponent } from './componentes/projectadmin/projectadmin.c
     ProfileComponent,
     PqrsComponent,
     SearchbarComponent,
+<<<<<<< HEAD
     ProjectadminComponent
+=======
+    CreateTaskComponent
+>>>>>>> dev
   ],
   imports: [
     BrowserModule,

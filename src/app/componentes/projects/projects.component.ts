@@ -32,6 +32,7 @@ export class ProjectsComponent implements OnInit {
 
       }
     }
+<<<<<<< HEAD
     this.peticion.Post(post.host + post.path, post.payload).
     then((res:any) => {
       this.proyectos=res?.datos
@@ -64,6 +65,12 @@ export class ProjectsComponent implements OnInit {
 
       this.proyectos=res?.datos[0].misProyectosinfo
       console.log("Cargar todos mis proyectos",this.proyectos)
+=======
+    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
+      // console.log(res)
+      this.proyectos=res?.datos
+      // console.log(this.proyectos)
+>>>>>>> dev
     })
   }
 
