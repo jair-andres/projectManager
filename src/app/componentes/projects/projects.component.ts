@@ -19,10 +19,11 @@ export class ProjectsComponent implements OnInit {
   ngOnInit():void {
     this.tareaModal = new window.bootstrap.Modal(
       document.getElementById('tareaModal')
-    );
-    this.CargarTodosProyectos() 
+    )
     this.miData()
   }
+
+
 
   miData(){
     let post = {
@@ -31,7 +32,6 @@ export class ProjectsComponent implements OnInit {
       payload:{}
     }
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-     console.log(res)
      this.CargarTodosMisProyectos(res.id)
     })
 
@@ -47,21 +47,10 @@ export class ProjectsComponent implements OnInit {
     this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
       
       this.proyectos=res?.datos[0].misProyectosinfo
-
+      console.log("misproyectos",this.proyectos);
+      
     })
   }
-  CargarTodosProyectos() {
-    let post = {
-      host:this.peticion.urllocal,
-      path:"Proyectos/CargarTodas",
-      payload:{
 
-      }
-    }
-    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
-      console.log(res)
-      this.proyectos=res?.datos
-      console.log("respuesta",this.proyectos)
-    })
-  }
+
 }
