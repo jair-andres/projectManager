@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-outline-purple font-monospace" data-bs-toggle="modal" data-bs-target="#tareaModal">
+<button type="button" class="btn btn-outline-purple font-monospace w-100" data-bs-toggle="modal" data-bs-target="#tareaModal">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
@@ -15,29 +15,38 @@
             </div>
             <div class="modal-body">
                 <div class="form-floating mb-3">
-                    <input type="search" class="form-control" id="floatingInputEncargado" placeholder="Buscar el encargado" aria-label="Search">
-                    <label for="floatingInputEncargado">Buscar el encargado</label>
+                    <input type="search" class="form-control" id="floatingSearchEncargado" list="datalistOptionsEncargado" placeholder="Buscar Encargado" autocomplete="off" [(ngModel)]="busquedaEncargado" (ngModelChange)="buscarEncargado()">
+                    <label for="floatingSearchEncargado">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                        Buscar encargado
+                    </label>
+                    <datalist id="datalistOptionsEncargado" >
+                        <option *ngFor="let user of resultadoBusquedaEncargado" value={{user.nombre}}>
+                    </datalist>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInputNombre" placeholder="Titulo de la tarea">
+                    <input type="text" class="form-control" id="floatingInputNombre" placeholder="Titulo de la tarea" autocomplete="off" [(ngModel)]="tituloTarea">
                     <label for="floatingInputNombre">Titulo Tarea</label>
                 </div>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInputDescripcion" placeholder="Descripcion">
-                    <label for="floatingInputDescripcion">Descripcion</label>
+                <div class="form-floating textarea mb-3 h-auto">
+                    <textarea class="form-control" id="floatingDescripcionTarea" rows="5" placeholder="Descripcion..." 
+                            autocomplete="off" [(ngModel)]="descripcionTarea"></textarea>
+                    <label for="floatingDescripcionTarea">Descripcion</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInputDuracion" placeholder="Duracion">
+                    <input type="text" class="form-control" id="floatingInputDuracion" placeholder="Duracion" autocomplete="off" [(ngModel)]="duracionTarea">
                     <label for="floatingInputDuracion">Duracion</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="date" class="form-control" id="floatingInputFechaEntrega" placeholder="Fecha de entrega">
+                    <input type="date" class="form-control" id="floatingInputFechaEntrega" placeholder="Fecha de entrega" autocomplete="off" [(ngModel)]="fechaTarea">
                     <label for="floatingInputFechaEntrega">Fecha de entrega</label>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-outline-purple" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-purple" (click)="crearTarea()">Añadir</button>
             </div>
         </div>
     </div>

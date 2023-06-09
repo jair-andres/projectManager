@@ -31,9 +31,9 @@ export class ProjectsComponent implements OnInit {
       }
     }
     this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
-      console.log(res)
+      // console.log(res)
       this.proyectos=res?.datos
-      console.log(this.proyectos)
+      // console.log(this.proyectos)
     })
   }
 
