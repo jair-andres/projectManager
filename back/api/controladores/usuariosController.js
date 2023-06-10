@@ -129,6 +129,8 @@ usuariosController.Buscar = function (request, response) {
 usuariosController.Actualizar = function (request, response) {
   var post = {
     nombre: request.body.nombre,
+    apellido: request.body.apellido,
+    telefono: request.body.telefono,
     email: request.body.email,
     password: request.body.password,
     id: request.body.id,
@@ -179,41 +181,6 @@ usuariosController.Actualizar = function (request, response) {
       return false;
     }
   }
-  
-  // if (
-  //   post.nombre == undefined ||
-  //   post.nombre == null ||
-  //   post.nombre.trim() == ""
-  // ) {
-  //   response.json({ state: false, mensaje: "El campo nombre es obligatorio" });
-  //   return false;
-  // }
-  // if (
-  //   post.email == undefined ||
-  //   post.email == null ||
-  //   post.email.trim() == ""
-  // ) {
-  //   response.json({ state: false, mensaje: "El campo email es obligatorio" });
-  //   return false;
-  // }else if(formatoDelCorreo !== true){
-  //   response.json({ state: false, mensaje: "Formato del correo inválido" });
-  //   return false;
-  // }
-  // if (
-  //   post.password == undefined ||
-  //   post.password == null ||
-  //   post.password.trim() == ""
-  // ) {
-  //   response.json({
-  //     state: false,
-  //     mensaje: "El campo password es obligatorio",
-  //   });
-  //   return false;
-  // }
-  // if (post.id == undefined || post.id == null || post.id.trim() == "") {
-  //   response.json({ state: false, mensaje: "el campo en obligatorio id" });
-  //   return false;
-  // }
   usuariosModel.Actualizar(post, function (respuesta) {
     if (respuesta.state == false) {
       response.json({

@@ -15,7 +15,6 @@ export class CreateProjectComponent implements OnInit{
   id:string = ""
   nombre:string = ""
   email:string = ""
-  //
   nombreProyecto:string = ""
   descripcionProyecto:string = ""
   objetivoProyecto:string = ""
@@ -87,11 +86,16 @@ export class CreateProjectComponent implements OnInit{
         this.miembros = []
         temporalArray.map( userId => this.EditarMisProyectos(res.id, userId))
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         this.route.navigate(['dashboard'])
         location.reload()
 =======
 >>>>>>> dev
+=======
+        
+        
+>>>>>>> cdc6726e05cc139ac837d404f4472a370f7e8ff8
       }
     })
   }
@@ -109,7 +113,10 @@ export class CreateProjectComponent implements OnInit{
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
+<<<<<<< HEAD
         // res.datos[0].misProyectos ? this.misProyectos = res?.datos[0]?.misProyectos : this.misProyectos = []
+=======
+>>>>>>> cdc6726e05cc139ac837d404f4472a370f7e8ff8
         this.misProyectos = res?.datos[0]?.misProyectos
         this.ActualizarProyectosDeLosUsuarios(idProyecto, idMiembro)
       }
@@ -133,6 +140,8 @@ export class CreateProjectComponent implements OnInit{
       // console.log(res)
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
+        this.route.navigate(['dashboard'])
+        location.reload()
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
         this.route.navigate(['dashboard'])
