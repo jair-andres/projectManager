@@ -15,12 +15,18 @@ export class ProjectsComponent implements OnInit {
   tareaModal:any
   id:string = ""
   proyectos:any[] = []
+  nombreProyecto:string = ""
+  modalEliminar:any
+
 
   ngOnInit():void {
     this.tareaModal = new window.bootstrap.Modal(
       document.getElementById('tareaModal')
-    )
-    this.miData()
+    );
+    this.miData();
+    /* this.modalEliminar = new window.bootstrap.Modal(
+    document.getElementById('eliminarModal')
+    ); */
   }
 
 
@@ -41,7 +47,8 @@ export class ProjectsComponent implements OnInit {
       host:this.peticion.urllocal,
       path:"Usuarios/CargarTodosMisProyectos",
       payload:{
-        idUser:idUser
+        idUser:idUser,
+        nombreProyecto: this.nombreProyecto
       }
     }
     this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
@@ -51,6 +58,34 @@ export class ProjectsComponent implements OnInit {
       
     })
   }
+/*   QuererEliminar(id:string){
+    let foo = id
+    this.modalEliminar.show()
+    console.log(id);
+    
+  } */
+
+  Eliminar(id:string){
+    this.id = id
+    console.log(id)
 
 
+    let post = {
+      host:this.peticion.urllocal,
+      path:"Proyectos/Eliminar",
+      payload:{
+        id:this.id
+      }
+    }
+    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
+      
+      if(res.state == false){
+        this.msg.Load(res.mensaje, "danger", 5000)
+      } else {
+        this.msg.Load(res.mensaje, "success", 5000)
+      }
+    })
+  }
+  
+  
 }

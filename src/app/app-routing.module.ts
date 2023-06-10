@@ -18,7 +18,7 @@ const routes: Routes = [
   {path:"contact",component:ContactComponent,pathMatch:"full"},
   {path:"dashboard",component:DashboardComponent,pathMatch:"full"},
   {path:"profile",component:ProfileComponent,pathMatch:"full"},
-  {path:"adminuser",component:AdminUsersComponent,pathMatch:"full"}
+  {path:"adminuser",component:AdminUsersComponent,pathMatch:"full"},
 ];
 
 @NgModule({

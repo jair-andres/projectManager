@@ -15,7 +15,6 @@ export class CreateProjectComponent implements OnInit{
   id:string = ""
   nombre:string = ""
   email:string = ""
-  //
   nombreProyecto:string = ""
   descripcionProyecto:string = ""
   objetivoProyecto:string = ""
