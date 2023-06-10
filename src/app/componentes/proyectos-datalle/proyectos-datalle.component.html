@@ -1,1 +1,38 @@
-<p>proyectos-datalle works!</p>
+<div class="container-fluid d-flex flex-column p-0 m-0 min-vh-100">
+  <app-menu></app-menu>
+  <app-notification></app-notification>
+  <div class="container">
+    {{ this.detalleProyecto.nombreProyecto }}
+    <br>
+    {{ this.detalleProyecto.objetivo}}
+    <br>
+    {{ this.detalleProyecto.descripcion}}
+    <br>
+    {{ this.detalleProyecto.prosupuesto}}
+    <br>
+    {{ this.detalleProyecto.fechaEntrega}}
+  </div>
+  <div class="container">
+    {{ this.lider.nombre }}
+    {{ this.lider.email }}
+  </div>
+  <div class="container">
+    <p *ngFor="let tarea of tareasInfo">
+      {{ tarea.titulo }}
+      {{ tarea.descripcion }}
+      {{ tarea.fecha }}
+      {{ tarea.fechaFinal }}
+      {{ tarea.estado }}
+      {{ tarea.actividades }}
+      {{ tarea.comentarios }}
+    </p>
+  </div>
+  <div class="container">
+    <p *ngFor="let miembro of miembrosInfo">
+      {{ miembro.nombre }}
+      {{ miembro.email }}
+    </p>
+  </div>
+  <app-footer></app-footer>
+</div>
+
