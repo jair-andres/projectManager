@@ -11,7 +11,8 @@ var proyectosSchema = new Schema({
   prosupuesto:Number,
   miembros:[
     {type: mongoose.Schema.Types.ObjectId, ref: 'usuarios'}
-  ]
+  ],
+  keyUser:mongoose.Schema.Types.ObjectId
 })
 
 const MyModel = mongoose.model("proyectos", proyectosSchema)
@@ -23,7 +24,8 @@ proyectosModel.Guardar = function(post, callback) {
     instancia.objetivo = post.objetivo,
     instancia.fechaEntrega = post.fechaEntrega,
     instancia.prosupuesto = post.prosupuesto,
-    instancia.miembros = post.miembros
+    instancia.miembros = post.miembros,
+    instancia.keyUser = post.keyUser
 
     instancia.save((error, creado) => {
         if (error) {
@@ -49,15 +51,15 @@ proyectosModel.CargarTodas = function(post, callback) {
 }
 
 proyectosModel.CargarId = function(post, callback) {
-    MyModel.find({_id:post.id},{nombreProyecto:1, descripcion:1, objetivo:1, fechaEntrega:1, prosupuesto:1},(error,documentos) =>{
-        if (error) {
-            console.log(error)
-            return callback({state:false})
-        }
-        else {
-            return callback({state:true,datos:documentos})
-        }
-    })
+  MyModel.find({_id:post.id},{nombreProyecto:1, descripcion:1, objetivo:1, fechaEntrega:1, prosupuesto:1},(error,documentos) =>{
+      if (error) {
+          console.log(error)
+          return callback({state:false})
+      }
+      else {
+          return callback({state:true,datos:documentos})
+      }
+  })
 }
 
 proyectosModel.Actualizar =  function(post, callback) {
@@ -90,4 +92,75 @@ proyectosModel.Eliminar =  function(post, callback) {
     })
 }
 
+proyectosModel.CargarTareas = function(post, callback) {
+  MyModel.aggregate([
+    {
+      $match:{
+        _id:mongoose.Types.ObjectId(post.idProyect)
+      },
+      $lookup:{
+        from: "tareas",
+        localField: "_id",
+        foreignField: "keyProyect",
+        as: "tareas"
+      }
+    }
+  ],(error, documentos) =>{
+    if (error) {
+      return callback({state:false,error:error})
+    }else {
+      return callback({state:true,date:documentos})
+    }
+  })
+}
+
+proyectosModel.detalleProyecto = function(post, callback) {
+  MyModel.aggregate([
+    {
+      $match:{
+        _id:mongoose.Types.ObjectId(post.idProyect)
+      }
+    },
+    {
+      $lookup:{
+        from: "usuarios",
+        localField: "miembros",
+        foreignField: "_id",
+        as: "miembrosInfo",
+      }
+    },
+    {
+      $lookup:{
+        from: "usuarios",
+        localField: "keyUser",
+        foreignField: "_id",
+        as: "lider",
+      }
+    },
+    {
+      $unwind:"$lider"
+    },
+    {
+      $lookup:{
+        from: "tareas",
+        localField: "_id",
+        foreignField: "keyProyect",
+        as: "tareasInfo",
+      }
+    },
+    {
+      $project: {
+        miembros:0, keyUser:0,
+      },
+    }
+  ],(error, documentos) =>{
+    if (error) {
+      return callback({state:false,error:error})
+    }else {
+      return callback({state:true,datos:documentos})
+    }
+  })
+}
+
 module.exports.proyectosModel = proyectosModel
+

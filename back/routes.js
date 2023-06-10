@@ -51,6 +51,10 @@ app.post("/Usuarios/logout", function(request, response) {
   request.session.destroy()
   response.json({state:true,mensaje:"cerrado la sesion"})
 })
+// Mis Proyectos
+app.post('/Usuarios/CargarTodosMisProyectos',validarSession,function(request, response) {
+  usuariosController.CargarTodosMisProyectos(request, response)
+})
 
 // Pqrs
 var pqrsController = require("./api/controladores/pqrsController.js").pqrsController
@@ -133,3 +137,30 @@ app.post('/Proyectos/Actualizar',validarSession,function(request, response) {
 app.post('/Proyectos/Eliminar',validarSession,function(request, response) {
   proyectosController.Eliminar(request, response)
 })
+
+app.post('/Proyectos/CargarTareas',validarSession,function(request, response) {
+  proyectosController.CargarTareas(request, response)
+})
+
+app.post('/Proyectos/detalleProyecto',validarSession,function(request, response) {
+  proyectosController.detalleProyecto(request, response)
+})
+
+var tareasController = require("./api/controladores/tareasController.js").tareasController
+
+app.post('/Tareas/Consultar',validarSession,function(request, response) {
+  tareasController.Consultar(request, response)
+})
+
+app.post('/Tareas/Guardar',validarSession,function(request, response) {
+  tareasController.Guardar(request, response)
+})
+
+app.post('/Tareas/Actualizar',validarSession,function(request, response) {
+  tareasController.Actualizar(request, response)
+})
+
+app.post('/Tareas/Eliminar',validarSession,function(request, response) {
+  tareasController.Eliminar(request, response)
+})
+

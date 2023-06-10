@@ -49,15 +49,12 @@ export class AdminUsersComponent implements OnInit {
     this.peticion.Post(post.host + post.path, post.payload).then(
       (res:any) => {
         if(res.state == true) {
-          console.log(res);
           for (let index = 0; index < res.datos.length; index++) {
             const element = res.datos[index]['nombre'];
             this.users.push(element)
           }
-          console.log("User: "+this.users);
         }
         else {
-          console.log(res);
         }
       }
     )
@@ -75,7 +72,7 @@ export class AdminUsersComponent implements OnInit {
     }
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log(res)
+
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
@@ -95,10 +92,10 @@ export class AdminUsersComponent implements OnInit {
 
       }
     }
-    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
-      console.log(res)
+    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => {
+
       this.users=res?.datos
-      console.log(this.users)
+
     })
   }
 
@@ -116,7 +113,7 @@ export class AdminUsersComponent implements OnInit {
     }
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log(res)
+
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
@@ -133,7 +130,7 @@ export class AdminUsersComponent implements OnInit {
   }
 
   EditarIdConModal(id:string, conModal:boolean){
-    console.log(id)
+
     this.id = id
 
     let post = {
@@ -145,7 +142,7 @@ export class AdminUsersComponent implements OnInit {
     }
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log(res)
+
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
@@ -159,7 +156,7 @@ export class AdminUsersComponent implements OnInit {
     if(conModal == true){
       this.modal.show();
     }
-    
+
   }
 
   QuererEliminar(id:string){
@@ -169,7 +166,7 @@ export class AdminUsersComponent implements OnInit {
   }
 
   Eliminar(id:string){
-    console.log(id)
+
     this.id = id
 
     let post = {
@@ -181,7 +178,7 @@ export class AdminUsersComponent implements OnInit {
     }
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log(res)
+
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
@@ -200,15 +197,15 @@ export class AdminUsersComponent implements OnInit {
 
       }
     }
-    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
-      console.log(res)
+    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => {
+
       this.newsletters=res?.datos
-      console.log(this.newsletters)
-    }) 
+
+    })
   }
 
   EliminarNewsletter(id:string){
-    console.log(id)
+
     this.newslettersId = id
 
     let post = {
@@ -220,7 +217,6 @@ export class AdminUsersComponent implements OnInit {
     }
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log(res)
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {

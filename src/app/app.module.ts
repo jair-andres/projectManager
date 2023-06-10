@@ -27,7 +27,9 @@ import { TasksComponent } from './componentes/tasks/tasks.component';
 import { ProfileComponent } from './componentes/profile/profile.component';
 import { PqrsComponent } from './componentes/pqrs/pqrs.component';
 import { SearchbarComponent } from './componentes/searchbar/searchbar.component';
+import { ProjectadminComponent } from './componentes/projectadmin/projectadmin.component';
 import { CreateTaskComponent } from './componentes/create-task/create-task.component';
+import { ProyectosDatalleComponent } from './componentes/proyectos-datalle/proyectos-datalle.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { CreateTaskComponent } from './componentes/create-task/create-task.compo
     ProfileComponent,
     PqrsComponent,
     SearchbarComponent,
-    CreateTaskComponent
+    ProjectadminComponent,
+    CreateTaskComponent,
+    ProyectosDatalleComponent
   ],
   imports: [
     BrowserModule,

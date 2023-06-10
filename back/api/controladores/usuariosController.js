@@ -326,4 +326,23 @@ usuariosController.Login = function (request, response) {
   });
 };
 
+usuariosController.CargarTodosMisProyectos = function (request, response) {
+  var post = {
+    idUser: request.body.idUser
+  };
+  if (post.idUser == undefined  || post.idUser == null  || post.idUser.trim() == "") {
+    response.json({ state: false, mensaje: "el campo en obligatorio id" });
+    return false;
+  }
+  usuariosModel.CargarTodosMisProyectos(post, function (respuesta) {
+      if (respuesta.state == false) {
+          response.json({
+              state: false,
+              mensaje: "se presento un error al cargar",
+          });
+      } else {
+          response.json(respuesta);
+      }
+  }); 
+};
 module.exports.usuariosController = usuariosController;

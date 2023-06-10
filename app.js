@@ -53,7 +53,7 @@ var session = require('express-session')({
     secret:config.palabraClave,
     resave:true,
     saveUninitialized:true,
-    cookie: {path:'/',httpOnly:true,maxAge:config.tiempoDeSesion}, 
+    cookie: {path:'/',httpOnly:true,maxAge:config.tiempoDeSesion},
     name: "CookieProjectManager",
     rolling:true
 })

@@ -8,7 +8,8 @@ proyectosController.Guardar = function (request, response) {
       objetivo: request.body.objetivo,
       fechaEntrega: request.body.fechaEntrega,
       prosupuesto:request.body.prosupuesto,
-      miembros:request.body.miembros
+      miembros:request.body.miembros,
+      keyUser:request.body.keyUser
     };
 
     if (
@@ -190,5 +191,46 @@ proyectosController.Eliminar = function (request, response) {
         }
     });
 };
+
+proyectosController.CargarTareas = function(request, response) {
+  var post = {
+    idProyect: request.body.idProyect
+  }
+  if (post.idProyect == undefined || post.idProyect == null || post.idProyect.trim() == "") {
+    response.json({ state: false, mensaje: "el campo en obligatorio id" });
+    return false;
+  }
+  proyectosModel.CargarTareas(post, function(respuesta){
+    if (respuesta.state == false) {
+      response.json({
+          state: false,
+          mensaje: "se presento un error",
+      });
+      } else {
+      response.json(respuesta);
+      }
+  })
+}
+
+proyectosController.detalleProyecto = function(request, response) {
+  var post = {
+    idProyect: request.body.idProyect
+  }
+  if (post.idProyect == undefined || post.idProyect == null || post.idProyect.trim() == "") {
+    response.json({ state: false, mensaje: "el campo en obligatorio id" });
+    return false
+  }
+
+  proyectosModel.detalleProyecto(post, function(respuesta){
+    if (respuesta.state == false) {
+      response.json({
+        state: false,
+        mensaje: "se presento un error",
+      });
+      } else {
+        response.json(respuesta);
+      }
+  })
+}
 
 module.exports.proyectosController = proyectosController;

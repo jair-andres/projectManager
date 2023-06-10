@@ -130,5 +130,28 @@ usuariosModel.Login = function(post, callback) {
         }
     })
 }
+usuariosModel.CargarTodosMisProyectos = function(post, callback) {
+    MyModel.aggregate([
+        { 
+            $match:{
+                _id:mongoose.Types.ObjectId(post.idUser)
+            },
+        },
+        {
+          $lookup:{
+            from: "proyectos",
+            localField: "misProyectos",
+            foreignField: "_id",
+            as: "misProyectosinfo",
+          }
+        }
+      ],(error, documentos) =>{
+        if (error) {
+          return callback({state:false,error:error})
+        }else {
+          return callback({state:true,datos:documentos})
+        }
+      })
+}
 
 module.exports.usuariosModel = usuariosModel
