@@ -16,6 +16,8 @@ export class ProfileComponent implements OnInit {
   path:string = ""
   id:string = ""
   nombre:string = ""
+  apellido:string = ""
+  telefono:string = ""
   email:string = ""
   password:string = ""
 
@@ -40,7 +42,7 @@ export class ProfileComponent implements OnInit {
   }
 
   EditarId(id:string){
-   /*  console.log("Usamos EditarId") */
+
 
     this.path = '/files/back/perfiles/' + id
 
@@ -53,13 +55,14 @@ export class ProfileComponent implements OnInit {
     }
     
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-/*       console.log("res de EditarId =>", res)
- */      if(res.state == false){
+      if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.nombre = res?.datos[0].nombre
         this.email = res?.datos[0].email
         this.password = res?.datos[0].password
+        this.apellido = res?.datos[0].apellido
+        this.telefono = res?.datos[0].telefono
       }
     })
   }
@@ -88,11 +91,13 @@ export class ProfileComponent implements OnInit {
       payload:{
         id:this.id,
         nombre:this.nombre,
+        apellido:this.apellido,
+        telefono:this.telefono,
         email:this.email,
         password:this.password
       }
     }
-
+    console.log(this.apellido,this.telefono)
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
       console.log(res)
       if(res.state == false){

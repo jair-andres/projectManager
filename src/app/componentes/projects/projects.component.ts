@@ -55,7 +55,6 @@ export class ProjectsComponent implements OnInit {
       
       this.proyectos=res?.datos[0].misProyectosinfo
       console.log("misproyectos",this.proyectos);
-      
     })
   }
 /*   QuererEliminar(id:string){
@@ -83,6 +82,7 @@ export class ProjectsComponent implements OnInit {
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
+        this.miData();
       }
     })
   }

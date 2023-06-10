@@ -8,6 +8,8 @@ var usuariosSchema = new Schema({
   password:String,
   nombre:String,
   rol:String,
+  apellido:String,
+  telefono:String,
   misProyectos:[
     {type: mongoose.Schema.Types.ObjectId, ref: 'proyectos'}
   ]
@@ -40,6 +42,8 @@ usuariosModel.Guardar = function(post, callback) {
     instancia.password = post.password
     instancia.email = post.email
     instancia.rol = "cliente"
+    instancia.apellido = ""
+    instancia.telefono = ""
     instancia.misProyectos = []
 
     instancia.save((error, creado) => {
@@ -66,7 +70,7 @@ usuariosModel.CargarTodas = function(post, callback) {
 }
 
 usuariosModel.CargarId = function(post, callback) {
-    MyModel.find({_id:post.id},{nombre:1,_id:1,email:1,rol:1,password:1,misProyectos:1},(error,documentos) =>{
+    MyModel.find({_id:post.id},{nombre:1,_id:1,email:1,rol:1,password:1,misProyectos:1,apellido:1,telefono:1},(error,documentos) =>{
         if (error) {
             console.log(error)
             return callback({state:false})
@@ -93,6 +97,8 @@ usuariosModel.Actualizar =  function(post, callback) {
     MyModel.findByIdAndUpdate(post.id,{
         email:post.email,
         nombre:post.nombre,
+        apellido:post.apellido,
+        telefono:post.telefono,
         password:post.password,
         rol:post.rol,
         misProyectos:post.misProyectos

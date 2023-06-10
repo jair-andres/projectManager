@@ -16,23 +16,15 @@
                 [fileName]="'userFile'">
                 </app-upload-files>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInputAlias" placeholder="Alias">
-                    <label for="floatingInputAlias">Alias</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInputEmpresa" placeholder="Empresa">
-                    <label for="floatingInputEmpresa">Empresa</label>
-                </div>
-                <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="floatingInputNombre" placeholder="Nombre" [(ngModel)]="nombre">
                     <label for="floatingInputNombre">Nombre</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInputApellido" placeholder="Apellido">
+                    <input type="text" class="form-control" id="floatingInputApellido" placeholder="Apellido" [(ngModel)]="apellido">
                     <label for="floatingInputApellido">Apellido</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInputTelefono" placeholder="Telefono">
+                    <input type="text" class="form-control" id="floatingInputTelefono" placeholder="Telefono" [(ngModel)]="telefono">
                     <label for="floatingInputTelefono">Telefono</label>
                 </div>
                 <div class="form-floating mb-3">
