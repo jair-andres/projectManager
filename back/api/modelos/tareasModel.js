@@ -10,7 +10,7 @@ var tareasSchema = new Schema({
   fechaFinal: String,
   estado:String,
   actividades: Array,
-  comentarios: String,
+  comentarios: Array,
   keyProyecto: {type: mongoose.Schema.Types.ObjectId, ref: 'proyectos'},
   keyEncargado:{type: mongoose.Schema.Types.ObjectId, ref: 'usuarios'},
   miembros: Array,

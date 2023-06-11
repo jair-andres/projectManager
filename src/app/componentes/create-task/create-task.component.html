@@ -35,22 +35,30 @@
                             autocomplete="off" [(ngModel)]="descripcionTarea"></textarea>
                     <label for="floatingDescripcionTarea">Descripcion</label>
                 </div>
-                <div>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div>Actividades : </div>
+                <div class="">
+                    <div class="d-flex justify-content-between align-items-center mb-3 ps-3">
+                        <h6>Actividades : </h6>
                         <button class="btn btn-purple d-flex align-items-center" (click)="crearActividades()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
                             </svg>
                         </button>
-                        
                     </div>
+                    <!--
                     <button (click)="consoleActividades()">console.log(actividades)</button>
-                    <div id="actividadesContainer" class=" mb-3" *ngFor="let acto of actividades">
-                        <div class="mb-3" >
+                    -->
+                    <div id="actividadesContainer" class=" mb-3" >
+                        <div class="input-group mb-3" *ngFor="let acto of actividades">
                             <input type="text" class="form-control" id="actividades_{{actividades.indexOf(acto)}}" [(ngModel)]="acto.actividad" placeholder="Actididad..." >
+                            <span class="input-group-text">
+                                <button type="button" class=" btn-close ms-2" aria-label="Close" (click)="quitarActividad(actividades.indexOf(acto))"></button>
+                            </span>
                         </div>
                     </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="floatingInputFechaInicio" placeholder="Fecha de inicio" autocomplete="off" [(ngModel)]="fechaInicioTarea">
+                    <label for="floatingInputFechaInicio">Fecha de inicio</label>
                 </div>
                 <div class="form-floating mb-3">
                     <input type="date" class="form-control" id="floatingInputFechaEntrega" placeholder="Fecha de entrega" autocomplete="off" [(ngModel)]="fechaEntregaTarea">

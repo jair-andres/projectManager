@@ -23,7 +23,7 @@ tareasController.Guardar = function (request, response) {
     // estado: request.body.estado,
     estado: "Nuevo",
     actividades: request.body.actividades,
-    comentarios: request.body.comentarios,
+    comentarios: [],
     keyProyecto: request.body.keyProyecto,
     keyEncargado:request.body.keyEncargado,
     miembros: request.body.miembros,

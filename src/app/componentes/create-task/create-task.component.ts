@@ -57,16 +57,19 @@ export class CreateTaskComponent implements OnInit{
     console.log(this.actividades)
   }
   crearActividades(){
-    console.log("creer activité")
     this.hayActividades = true
-
     let idTempo:string = this.actividades.length
     this.actividades.push(
       {id: idTempo,
       actividad: "",
       finalisada:false}
     )
-    
+  }
+  quitarActividad(indexActividad:any){
+    // console.log("ID => ",indexActividad)
+    let quitarActo:any = this.actividades.splice(indexActividad,1)
+    let mensaje:string = "Actividad elmininada con  éxito"
+    this.msg.Load(mensaje, "success", 5000)
   }
 
   crearTarea(){
@@ -78,10 +81,12 @@ export class CreateTaskComponent implements OnInit{
     this.encargadoSelectionado.push(encargadoTemporal)
     // console.log(this.encargadoSelectionado)
     let tarea = {
-      encargado:this.encargadoSelectionado[0],
-      tituloTarea:this.tituloTarea,
-      descripcionTarea:this.descripcionTarea,
-      fechaEntregaTarea:this.fechaEntregaTarea
+      titulo:this.tituloTarea,
+      descripcion:this.descripcionTarea,
+      fechaInicio:this.fechaInicioTarea,
+      fechaFinal:this.fechaEntregaTarea,
+      actividades:this.actividades,
+      miembros:this.encargadoSelectionado[0]
     }
     // console.log(tarea)
     this.resultBis.emit(tarea)
