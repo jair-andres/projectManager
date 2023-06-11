@@ -64,7 +64,9 @@ $input-focus-border-color:              $purple-800;
 $input-focus-color:                     $purple-800;
 $input-focus-box-shadow:                0 0 0 0.25rem $purple-200;
 
-
+.bg-gradiente {
+  background:  linear-gradient(0deg, rgba(44,26,77,1) 0%, rgba(111,66,193,1) 100%);
+}
 
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
 
