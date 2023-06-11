@@ -2,36 +2,97 @@
   <app-menu></app-menu>
   <app-notification></app-notification>
   <div class="container">
-    {{ this.detalleProyecto.nombreProyecto }}
-    <br>
-    {{ this.detalleProyecto.objetivo}}
-    <br>
-    {{ this.detalleProyecto.descripcion}}
-    <br>
-    {{ this.detalleProyecto.prosupuesto}}
-    <br>
-    {{ this.detalleProyecto.fechaEntrega}}
+    <div class="row">
+      <div class="col-12">
+        <h2 class="text-purple text-center">
+          Nombre Proyecto: {{ this.detalleProyecto.nombreProyecto }}
+        </h2>
+      </div>
+      <div class="col">
+        <p class="">
+          <span class="text-purple">objetivo:</span>
+          <br>
+          {{ this.detalleProyecto.objetivo }}
+        </p>
+      </div>
+      <div class="col">
+        <p class="">
+          <span class="text-purple">descripción:</span>
+          <br>
+          {{ this.detalleProyecto.descripcion }}
+        </p>
+      </div>
+      <div class="col">
+        <p class="">
+          <span class="text-purple">Preupuesto:</span>
+          <br>
+          {{ this.detalleProyecto.prosupuesto }}
+        </p>
+      </div>
+      <div class="col">
+        <p class="">
+          <span class="text-purple">Fecha Terminación</span>
+          <br>
+          {{ this.detalleProyecto.fechaEntrega }}
+        </p>
+      </div>
+    </div>
   </div>
   <div class="container">
-    {{ this.lider.nombre }}
-    {{ this.lider.email }}
+    <h2 class="text-purple text-center">Tareas</h2>
+    <div *ngFor="let tarea of tareasInfo">
+      <p>
+        <span class="text-purple">Titulo</span>
+        {{ tarea.titulo }}
+      </p>
+      <p>
+        <span class="text-purple">Descripcion</span>
+        {{ tarea.descripcion }}
+      </p>
+      <p>
+        <span class="text-purple">Fecha</span>
+        {{ tarea.fecha }}
+      </p>
+      <p>
+        <span class="text-purple">Fecha Final</span>
+        {{ tarea.fechaFinal }}
+      </p>
+      <p>
+        <span class="text-purple">Estado</span>
+        {{ tarea.estado }}
+      </p>
+      <p>
+        <span class="text-purple">Actividades</span>
+        {{ tarea.actividades }}
+      </p>
+      <p>
+        <span class="text-purple">Comentarios</span>
+        {{ tarea.comentarios }}
+      </p>
+    </div>
   </div>
   <div class="container">
-    <p *ngFor="let tarea of tareasInfo">
-      {{ tarea.titulo }}
-      {{ tarea.descripcion }}
-      {{ tarea.fecha }}
-      {{ tarea.fechaFinal }}
-      {{ tarea.estado }}
-      {{ tarea.actividades }}
-      {{ tarea.comentarios }}
-    </p>
-  </div>
-  <div class="container">
-    <p *ngFor="let miembro of miembrosInfo">
-      {{ miembro.nombre }}
-      {{ miembro.email }}
-    </p>
+    <div class="row">
+      <h2 class="text-purple text-center">miembros</h2>
+      <div  class="col" *ngFor="let miembro of miembrosInfo">
+        <p>
+          <span class="text-purple">Nombre</span>
+          {{ miembro.nombre }}
+        </p>
+        <p>
+          <span class="text-purple">Apellido</span>
+          {{ miembro.apellido }}
+        </p>
+        <p>
+          <span class="text-purple">Email</span>
+          {{ miembro.email }}
+        </p>
+        <p>
+          <span class="text-purple">Télefono</span>
+          {{ miembro.telefono }}
+        </p>
+      </div>
+    </div>
   </div>
   <app-footer></app-footer>
 </div>

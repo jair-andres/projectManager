@@ -4,6 +4,10 @@
 @import "./node_modules/bootstrap/scss/mixins";
 
 // Create your own map
+$theme-colors-text: (
+  "purple": $purple
+);
+
 $custom-colors: (
   "blue":       $blue,
   "indigo":     $indigo,
