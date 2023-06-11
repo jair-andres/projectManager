@@ -10,6 +10,9 @@ var usuariosSchema = new Schema({
   rol:String,
   misProyectos:[
     {type: mongoose.Schema.Types.ObjectId, ref: 'proyectos'}
+  ],
+  misTareas:[
+    {type: mongoose.Schema.Types.ObjectId, ref: 'tareas'}
   ]
 })
 
@@ -33,7 +36,6 @@ usuariosModel.validarEmailyNombre = function(post, callback){
     })
 
 }
-
 usuariosModel.Guardar = function(post, callback) {
     const instancia = new MyModel
     instancia.nombre = post.nombre
@@ -41,6 +43,7 @@ usuariosModel.Guardar = function(post, callback) {
     instancia.email = post.email
     instancia.rol = "cliente"
     instancia.misProyectos = []
+    instancia.misTareas = []
 
     instancia.save((error, creado) => {
         if (error) {
@@ -52,7 +55,6 @@ usuariosModel.Guardar = function(post, callback) {
         }
     })
 }
-
 usuariosModel.CargarTodas = function(post, callback) {
     MyModel.find({},{nombre:1,_id:1,email:1,rol:1},(error,documentos) =>{
         if (error) {
@@ -64,9 +66,8 @@ usuariosModel.CargarTodas = function(post, callback) {
         }
     })
 }
-
 usuariosModel.CargarId = function(post, callback) {
-    MyModel.find({_id:post.id},{nombre:1,_id:1,email:1,rol:1,password:1,misProyectos:1},(error,documentos) =>{
+    MyModel.find({_id:post.id},{nombre:1,_id:1,email:1,rol:1,password:1,misProyectos:1,misTareas:1},(error,documentos) =>{
         if (error) {
             console.log(error)
             return callback({state:false})
@@ -76,7 +77,6 @@ usuariosModel.CargarId = function(post, callback) {
         }
     })
 }
-
 usuariosModel.Buscar = function(post, callback) { 
     MyModel.find({nombre: { $regex: post.foo, $options: "i" }},{_id:1,nombre:1,email:1},(error,documentos) =>{
         if (error) {
@@ -88,14 +88,14 @@ usuariosModel.Buscar = function(post, callback) {
         }
     })
 }
-
 usuariosModel.Actualizar =  function(post, callback) {
     MyModel.findByIdAndUpdate(post.id,{
         email:post.email,
         nombre:post.nombre,
         password:post.password,
         rol:post.rol,
-        misProyectos:post.misProyectos
+        misProyectos:post.misProyectos,
+        misTareas:post.misTareas
     },(error, respuesta) => {
         if (error) {
             console.log(error)
@@ -106,7 +106,6 @@ usuariosModel.Actualizar =  function(post, callback) {
         }
     })
 }
-
 usuariosModel.Eliminar =  function(post, callback) {
     MyModel.findByIdAndDelete(post.id,(error,respuesta) =>{
         if (error) {
@@ -118,7 +117,6 @@ usuariosModel.Eliminar =  function(post, callback) {
         }
     })
 }
-
 usuariosModel.Login = function(post, callback) {
     MyModel.find({email: post.email, password: post.password},{_id:1,email:1,nombre:1,rol:1,password:1},(error,documentos) =>{
         if (error) {
@@ -129,6 +127,29 @@ usuariosModel.Login = function(post, callback) {
             return callback({state:true,datos:documentos})
         }
     })
+}
+usuariosModel.CargarTodosMisTareas = function(post, callback) {
+    MyModel.aggregate([
+        { 
+            $match:{
+                _id:mongoose.Types.ObjectId(post.idUser)
+            },
+        },
+        {
+          $lookup:{
+            from: "tareas",
+            localField: "misTareas",
+            foreignField: "_id",
+            as: "misTareasinfo",
+          }
+        }
+      ],(error, documentos) =>{
+        if (error) {
+          return callback({state:false,error:error})
+        }else {
+          return callback({state:true,datos:documentos})
+        }
+      })
 }
 usuariosModel.CargarTodosMisProyectos = function(post, callback) {
     MyModel.aggregate([

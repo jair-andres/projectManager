@@ -9,6 +9,7 @@ proyectosController.Guardar = function (request, response) {
       fechaEntrega: request.body.fechaEntrega,
       prosupuesto:request.body.prosupuesto,
       miembros:request.body.miembros,
+      tareas:request.body.tareas,
       keyUser:request.body.keyUser
     };
 
@@ -50,6 +51,14 @@ proyectosController.Guardar = function (request, response) {
       // post.prosupuesto.trim() == ""
     ) {
       response.json({ state: false, mensaje: "el campo prosupuesto es obligatorio" });
+      return false;
+    }
+    if (
+      post.miembros == undefined ||
+      post.miembros == null ||
+      post.miembros == []
+    ) {
+      response.json({ state: false, mensaje: "el campo miembros es obligatorio" });
       return false;
     }
 
@@ -109,7 +118,9 @@ proyectosController.Actualizar = function (request, response) {
         descripcion: request.body.descripcion,
         objetivo: request.body.objetivo,
         fechaEntrega: request.body.fechaEntrega,
-        prosupuesto:request.body.prosupuesto
+        prosupuesto:request.body.prosupuesto,
+        miembros:request.body.miembros,
+        tareas:request.body.tareas,
     };
 
   if (
@@ -160,16 +171,24 @@ proyectosController.Actualizar = function (request, response) {
     response.json({ state: false, mensaje: "el campo prosupuesto es obligatorio" });
     return false;
   }
-    proyectosModel.Actualizar(post, function (respuesta) {
-        if (respuesta.state == false) {
-        response.json({
-            state: false,
-            mensaje: "se presento un error al actualizar",
-        });
-        } else {
-        response.json({ state: true, mensaje: "se actualizo correctamente" });
-        }
-    });
+  if (
+    post.miembros == undefined ||
+    post.miembros == null ||
+    post.miembros == []
+  ) {
+    response.json({ state: false, mensaje: "el campo miembros es obligatorio" });
+    return false;
+  }
+  proyectosModel.Actualizar(post, function (respuesta) {
+      if (respuesta.state == false) {
+      response.json({
+          state: false,
+          mensaje: "se presento un error al actualizar",
+      });
+      } else {
+      response.json({ state: true, mensaje: "se actualizo correctamente" });
+      }
+  });
 };
 
 proyectosController.Eliminar = function (request, response) {

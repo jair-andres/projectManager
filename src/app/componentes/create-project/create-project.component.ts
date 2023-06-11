@@ -167,6 +167,9 @@ export class CreateProjectComponent implements OnInit{
   }
 
   consoleMiembros(){
-    //console.log(this.miembros)
+    console.log(this.miembros)
+  }
+  consoleTareas(){
+    console.log(this.tareas)
   }
 }

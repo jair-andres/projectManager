@@ -2,7 +2,7 @@ var usuariosModel = require("../modelos/usuariosModel.js").usuariosModel;
 var usuariosController = {};
 
 function averiguarFormatoCorreo(correo) {
-  let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+  let regex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/i);
   // let regex_2 = new RegExp(/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/)
   if (regex.test(correo)) {
     return (true)
@@ -133,7 +133,8 @@ usuariosController.Actualizar = function (request, response) {
     password: request.body.password,
     id: request.body.id,
     rol: request.body.rol,
-    misProyectos: request.body.misProyectos
+    misProyectos: request.body.misProyectos,
+    misTareas: request.body.misTareas
   };
   var formatoDelCorreo = averiguarFormatoCorreo(post.email)
 
@@ -180,40 +181,6 @@ usuariosController.Actualizar = function (request, response) {
     }
   }
   
-  // if (
-  //   post.nombre == undefined ||
-  //   post.nombre == null ||
-  //   post.nombre.trim() == ""
-  // ) {
-  //   response.json({ state: false, mensaje: "El campo nombre es obligatorio" });
-  //   return false;
-  // }
-  // if (
-  //   post.email == undefined ||
-  //   post.email == null ||
-  //   post.email.trim() == ""
-  // ) {
-  //   response.json({ state: false, mensaje: "El campo email es obligatorio" });
-  //   return false;
-  // }else if(formatoDelCorreo !== true){
-  //   response.json({ state: false, mensaje: "Formato del correo inválido" });
-  //   return false;
-  // }
-  // if (
-  //   post.password == undefined ||
-  //   post.password == null ||
-  //   post.password.trim() == ""
-  // ) {
-  //   response.json({
-  //     state: false,
-  //     mensaje: "El campo password es obligatorio",
-  //   });
-  //   return false;
-  // }
-  // if (post.id == undefined || post.id == null || post.id.trim() == "") {
-  //   response.json({ state: false, mensaje: "el campo en obligatorio id" });
-  //   return false;
-  // }
   usuariosModel.Actualizar(post, function (respuesta) {
     if (respuesta.state == false) {
       response.json({
@@ -335,6 +302,26 @@ usuariosController.CargarTodosMisProyectos = function (request, response) {
     return false;
   }
   usuariosModel.CargarTodosMisProyectos(post, function (respuesta) {
+      if (respuesta.state == false) {
+          response.json({
+              state: false,
+              mensaje: "se presento un error al cargar",
+          });
+      } else {
+          response.json(respuesta);
+      }
+  }); 
+};
+
+usuariosController.CargarTodosMisTareas = function (request, response) {
+  var post = {
+    idUser: request.body.idUser
+  };
+  if (post.idUser == undefined  || post.idUser == null  || post.idUser.trim() == "") {
+    response.json({ state: false, mensaje: "el campo en obligatorio id" });
+    return false;
+  }
+  usuariosModel.CargarTodosMisTareas(post, function (respuesta) {
       if (respuesta.state == false) {
           response.json({
               state: false,

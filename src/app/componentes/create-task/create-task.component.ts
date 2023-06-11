@@ -12,6 +12,7 @@ export class CreateTaskComponent implements OnInit{
   @Input() tareas: any;
   @Output() resultBis = new EventEmitter<any>();
 
+  actividadesContainer:any
   tareaModal:any
   busquedaEncargado:string = ""
   resultadoBusquedaEncargado:any[] = []
@@ -19,8 +20,11 @@ export class CreateTaskComponent implements OnInit{
 
   tituloTarea:string =""
   descripcionTarea:string =""
-  duracionTarea:string =""
-  fechaTarea:string =""
+  fechaInicioTarea:string =""
+  fechaEntregaTarea:string =""
+  actividades:any = []
+
+  hayActividades:boolean = false
   
   constructor(private peticion:PeticionUsuariosService, private msg:MensajesService){}
 
@@ -28,6 +32,7 @@ export class CreateTaskComponent implements OnInit{
     this.tareaModal = new window.bootstrap.Modal(
       document.getElementById('tareaModal')
     );
+    this.actividadesContainer = window.document.getElementById("actividadesContainer")
   }
 
   buscarEncargado(){
@@ -48,6 +53,22 @@ export class CreateTaskComponent implements OnInit{
     })
   }
 
+  consoleActividades(){
+    console.log(this.actividades)
+  }
+  crearActividades(){
+    console.log("creer activité")
+    this.hayActividades = true
+
+    let idTempo:string = this.actividades.length
+    this.actividades.push(
+      {id: idTempo,
+      actividad: "",
+      finalisada:false}
+    )
+    
+  }
+
   crearTarea(){
     let encargadoTemporal = {
       id: this.resultadoBusquedaEncargado[0]._id,
@@ -60,8 +81,7 @@ export class CreateTaskComponent implements OnInit{
       encargado:this.encargadoSelectionado[0],
       tituloTarea:this.tituloTarea,
       descripcionTarea:this.descripcionTarea,
-      duracionTarea:this.duracionTarea,
-      fechaTarea:this.fechaTarea
+      fechaEntregaTarea:this.fechaEntregaTarea
     }
     // console.log(tarea)
     this.resultBis.emit(tarea)
@@ -71,7 +91,6 @@ export class CreateTaskComponent implements OnInit{
     this.encargadoSelectionado = []
     this.tituloTarea =""
     this.descripcionTarea =""
-    this.duracionTarea =""
-    this.fechaTarea =""
+    this.fechaEntregaTarea =""
   }
 }

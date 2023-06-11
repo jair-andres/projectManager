@@ -1,30 +1,32 @@
 var tareasModel = require("../modelos/tareasModel.js").tareasModel;
 var tareasController = {};
 
-tareasController.Consultar = function (request, response) {
-  tareasModel.Consultar(null, function (respuesta) {
-    if (respuesta.state == false) {
-      response.json({
-        state: false,
-        mensaje: "se presento un error al guardar",
-      });
-    } else {
-      response.json(respuesta);
-    }
-  });
-}
+// tareasController.Consultar = function (request, response) {
+//   tareasModel.Consultar(null, function (respuesta) {
+//     if (respuesta.state == false) {
+//       response.json({
+//         state: false,
+//         mensaje: "se presento un error al guardar",
+//       });
+//     } else {
+//       response.json(respuesta);
+//     }
+//   });
+// }
 
 tareasController.Guardar = function (request, response) {
   var post = {
     titulo: request.body.titulo,
-    keyProyecto: request.body.keyProyecto,
-    miembros: request.body.miembros,
     descripcion: request.body.descripcion,
-    fecha: request.body.fecha,
+    fechaInicio: request.body.fechaInicio,
     fechaFinal: request.body.fechaFinal,
-    estado: request.body.estado,
+    // estado: request.body.estado,
+    estado: "Nuevo",
     actividades: request.body.actividades,
-    comentarios: request.body.comentarios
+    comentarios: request.body.comentarios,
+    keyProyecto: request.body.keyProyecto,
+    keyEncargado:request.body.keyEncargado,
+    miembros: request.body.miembros,
   }
 
   if (
@@ -48,9 +50,9 @@ tareasController.Guardar = function (request, response) {
   if (
     post.miembros == undefined ||
     post.miembros == null ||
-    post.miembros.trim() == ""
+    post.miembros == []
   ) {
-    response.json({ state: false, mensaje: "El campo nombre es obligatorio" });
+    response.json({ state: false, mensaje: "El campo miembros es obligatorio" });
     return false;
   }
 
@@ -59,16 +61,16 @@ tareasController.Guardar = function (request, response) {
     post.descripcion == null ||
     post.descripcion.trim() == ""
   ) {
-    response.json({ state: false, mensaje: "El campo nombre es obligatorio" });
+    response.json({ state: false, mensaje: "El campo descripcion es obligatorio" });
     return false;
   }
 
   if (
-    post.fecha == undefined ||
-    post.fecha == null ||
+    post.fechaInicio == undefined ||
+    post.fechaInicio == null ||
     post.fecha.trim() == ""
   ) {
-    response.json({ state: false, mensaje: "El campo nombre es obligatorio" });
+    response.json({ state: false, mensaje: "El campo fecha de inicio es obligatorio" });
     return false;
   }
 
@@ -77,7 +79,7 @@ tareasController.Guardar = function (request, response) {
     post.fechaFinal == null ||
     post.fechaFinal.trim() == ""
   ) {
-    response.json({ state: false, mensaje: "El campo nombre es obligatorio" });
+    response.json({ state: false, mensaje: "El campo fecha final es obligatorio" });
     return false;
   }
 
@@ -86,7 +88,7 @@ tareasController.Guardar = function (request, response) {
     post.estado == null ||
     post.estado.trim() == ""
   ) {
-    response.json({ state: false, mensaje: "El campo nombre es obligatorio" });
+    response.json({ state: false, mensaje: "El campo estado es obligatorio" });
     return false;
   }
 
@@ -95,7 +97,7 @@ tareasController.Guardar = function (request, response) {
     post.actividades == null ||
     post.actividades.trim() == ""
   ) {
-    response.json({ state: false, mensaje: "El campo nombre es obligatorio" });
+    response.json({ state: false, mensaje: "El campo actividades es obligatorio" });
     return false;
   }
 
@@ -104,7 +106,7 @@ tareasController.Guardar = function (request, response) {
     post.comentarios == null ||
     post.comentarios.trim() == ""
   ) {
-    response.json({ state: false, mensaje: "El campo nombre es obligatorio" });
+    response.json({ state: false, mensaje: "El campo comentarios es obligatorio" });
     return false;
   }
 
@@ -121,13 +123,47 @@ tareasController.Guardar = function (request, response) {
 
 }
 
+tareasController.CargarTodas = function(request, response){
+  tareasModel.CargarTodas(null, function (respuesta) {
+    if (respuesta.state == false) {
+        response.json({
+            state: false,
+            mensaje: "se presento un error al guardar",
+        });
+    } else {
+        response.json(respuesta);
+    }
+});
+}
+
+tareasController.CargarId = function(request, response){
+  var post = {
+    id: request.body.id,
+  };
+  if (post.id == undefined || post.id == null || post.id.trim() == "") {
+      response.json({ state: false, mensaje: "el campo id es obligatorio" });
+      return false;
+  }
+
+  tareasModel.CargarId(post, function (respuesta) {
+    if (respuesta.state == false) {
+        response.json({
+            state: false,
+            mensaje: "se presento un error al guardar",
+        });
+    } else {
+        response.json(respuesta);
+    }
+});
+}
+
 tareasController.Actualizar = function (request, response) {
   var post = {
     id: request.body.id,
     titulo: request.body.titulo,
-    miembros: request.body.miembros,
+    // miembros: request.body.miembros,
     descripcion: request.body.descripcion,
-    fecha: request.body.fecha,
+    fechaInicio: request.body.fechaInicio,
     fechaFinal: request.body.fechaFinal,
     estado: request.body.estado,
     actividades: request.body.actividades,
@@ -152,14 +188,14 @@ tareasController.Actualizar = function (request, response) {
     return false;
   }
 
-  if (
-    post.miembros == undefined ||
-    post.miembros == null ||
-    post.miembros.trim() == ""
-  ) {
-    response.json({ state: false, mensaje: "El campo nombre es obligatorio" });
-    return false;
-  }
+  // if (
+  //   post.miembros == undefined ||
+  //   post.miembros == null ||
+  //   post.miembros.trim() == ""
+  // ) {
+  //   response.json({ state: false, mensaje: "El campo nombre es obligatorio" });
+  //   return false;
+  // }
 
   if (
     post.descripcion == undefined ||
@@ -171,9 +207,9 @@ tareasController.Actualizar = function (request, response) {
   }
 
   if (
-    post.fecha == undefined ||
-    post.fecha == null ||
-    post.fecha.trim() == ""
+    post.fechaInicio == undefined ||
+    post.fechaInicio == null ||
+    post.fechaInicio.trim() == ""
   ) {
     response.json({ state: false, mensaje: "El campo nombre es obligatorio" });
     return false;
