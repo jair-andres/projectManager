@@ -12,6 +12,7 @@ export class ProjectsComponent implements OnInit {
 
   constructor(private peticion:PeticionUsuariosService, private msg:MensajesService){}
 
+  modal:any
   tareaModal:any
   id:string = ""
   proyectos:any[] = []
@@ -24,9 +25,9 @@ export class ProjectsComponent implements OnInit {
       document.getElementById('tareaModal')
     );
     this.miData();
-    /* this.modalEliminar = new window.bootstrap.Modal(
+     this.modalEliminar = new window.bootstrap.Modal(
     document.getElementById('eliminarModal')
-    ); */
+    ); 
   }
 
 
@@ -57,12 +58,42 @@ export class ProjectsComponent implements OnInit {
       console.log("misproyectos",this.proyectos);
     })
   }
-/*   QuererEliminar(id:string){
+
+  EliminarIdConModal(id:string, conModal:boolean){
+    console.log(id)
+    this.id = id
+
+    let post = {
+      hots:this.peticion.urllocal,
+      path:"Proyectos/CargarId",
+      payload:{
+        id:this.id
+      }
+    }
+
+    this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+      console.log(res)
+      if(res.state == false){
+        this.msg.Load(res.mensaje, "danger", 5000)
+      } else {
+        this.nombreProyecto = res?.datos[0].nombreProyecto
+        
+    }
+  })
+
+    if(conModal == true){
+      this.modal.show();
+    }
+    
+  }
+
+   QuererEliminar(id:string){
     let foo = id
+    this.EliminarIdConModal(foo,false)
     this.modalEliminar.show()
     console.log(id);
     
-  } */
+  } 
 
   Eliminar(id:string){
     this.id = id
