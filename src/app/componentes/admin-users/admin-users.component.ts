@@ -163,6 +163,7 @@ export class AdminUsersComponent implements OnInit {
     let foo = id
     this.EditarIdConModal(foo,false)
     this.modalEliminar.show()
+    console.log(id)
   }
 
   Eliminar(id:string){
