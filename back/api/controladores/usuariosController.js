@@ -13,7 +13,7 @@ function averiguarFormatoCorreo(correo) {
 
 usuariosController.Guardar = function (request, response) {
   var post = {
-    nombre: request.body.nombre,
+    alias: request.body.alias,
     email: request.body.email,
     password: request.body.password,
   };
@@ -21,11 +21,11 @@ usuariosController.Guardar = function (request, response) {
   var formatoDelCorreo = averiguarFormatoCorreo(post.email)
 
   if (
-    post.nombre == undefined ||
-    post.nombre == null ||
-    post.nombre.trim() == ""
+    post.alias == undefined ||
+    post.alias == null ||
+    post.alias.trim() == ""
   ) {
-    response.json({ state: false, mensaje: "El campo nombre es obligatorio" });
+    response.json({ state: false, mensaje: "El campo alias es obligatorio" });
     return false;
   }
   if (
@@ -128,7 +128,10 @@ usuariosController.Buscar = function (request, response) {
 
 usuariosController.Actualizar = function (request, response) {
   var post = {
+    alias: request.body.alias,
     nombre: request.body.nombre,
+    apellido: request.body.apellido,
+    telefono: request.body.telefono,
     email: request.body.email,
     password: request.body.password,
     id: request.body.id,
@@ -138,13 +141,43 @@ usuariosController.Actualizar = function (request, response) {
   };
   var formatoDelCorreo = averiguarFormatoCorreo(post.email)
 
+  if(post.alias){
+    if (
+      post.alias == undefined ||
+      post.alias == null ||
+      post.alias.trim() == ""
+    ) {
+      response.json({ state: false, mensaje: "El campo alias es obligatorio" });
+      return false;
+    }
+  }
   if(post.nombre){
     if (
       post.nombre == undefined ||
-      post.nombre == null ||
-      post.nombre.trim() == ""
+      post.nombre == null //||
+      // post.nombre.trim() == ""
     ) {
       response.json({ state: false, mensaje: "El campo nombre es obligatorio" });
+      return false;
+    }
+  }
+  if(post.apellido){
+    if (
+      post.apellido == undefined ||
+      post.apellido == null //||
+      // post.apellido.trim() == ""
+    ) {
+      response.json({ state: false, mensaje: "El campo apellido es obligatorio" });
+      return false;
+    }
+  }
+  if(post.telefono){
+    if (
+      post.telefono == undefined ||
+      post.telefono == null //||
+      // post.telefono.trim() == ""
+    ) {
+      response.json({ state: false, mensaje: "El campo telefono es obligatorio" });
       return false;
     }
   }
@@ -273,7 +306,8 @@ usuariosController.Login = function (request, response) {
 
         // request.session.idUser = respuesta.datos[0].id;
         request.session.idUser = respuesta.datos[0].id;
-        request.session.nombre = respuesta.datos[0].nombre;
+        request.session.alias = respuesta.datos[0].alias;
+        request.session.nombre = respuesta.datos[0]?.nombre;
         request.session.email = respuesta.datos[0].email;
         request.session.rol = respuesta.datos[0].rol;
         // request.session.password = respuesta.datos[0].password;
@@ -285,7 +319,7 @@ usuariosController.Login = function (request, response) {
         response.json({
           state: true,
         //   mensaje: "logeo correctamente",
-          mensaje: `Bienvenido ${respuesta.datos[0].nombre}`,
+          mensaje: `Bienvenido ${respuesta.datos[0].alias}`,
           rol: respuesta.datos[0].rol,
         });
       }

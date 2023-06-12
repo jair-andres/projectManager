@@ -23,12 +23,12 @@
                         Buscar encargado
                     </label>
                     <datalist id="datalistOptionsEncargado" >
-                        <option *ngFor="let user of resultadoBusquedaEncargado" value={{user.nombre}}>
+                        <option *ngFor="let user of resultadoBusquedaEncargado" value={{user.alias}}>
                     </datalist>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInputNombre" placeholder="Titulo de la tarea" autocomplete="off" [(ngModel)]="tituloTarea">
-                    <label for="floatingInputNombre">Titulo Tarea</label>
+                    <input type="text" class="form-control" id="floatingInputTarea" placeholder="Titulo de la tarea" autocomplete="off" [(ngModel)]="tituloTarea">
+                    <label for="floatingInputTarea">Titulo Tarea</label>
                 </div>
                 <div class="form-floating textarea mb-3 h-auto">
                     <textarea class="form-control" id="floatingDescripcionTarea" rows="5" placeholder="Descripcion..." 

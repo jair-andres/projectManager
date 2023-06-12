@@ -51,7 +51,7 @@ export class SearchbarComponent implements OnInit {
   anadir(){
     let temporalData = {
       id: this.resultadoBusqueda[0]._id,
-      nombre: this.resultadoBusqueda[0].nombre,
+      alias: this.resultadoBusqueda[0].alias,
       email: this.resultadoBusqueda[0].email
     }
     this.usuarioSelectionado.push(temporalData)

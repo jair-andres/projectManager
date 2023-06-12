@@ -6,7 +6,10 @@ const Schema = mongoose.Schema
 var usuariosSchema = new Schema({
   email:String,
   password:String,
+  alias:String,
   nombre:String,
+  apellido:String,
+  telefono:String,
   rol:String,
   misProyectos:[
     {type: mongoose.Schema.Types.ObjectId, ref: 'proyectos'}
@@ -20,7 +23,7 @@ const MyModel = mongoose.model("usuarios", usuariosSchema)
 
 usuariosModel.validarEmailyNombre = function(post, callback){
 
-    MyModel.find({$or: [ {email: post.email}, {nombre: post.nombre} ]},{nombre:1,_id:0},(error,documento) => {
+    MyModel.find({$or: [ {email: post.email}, {alias: post.alias} ]},{alias:1,_id:0},(error,documento) => {
         if (error) {
             console.log(error)
             return callback({state:false})
@@ -38,7 +41,11 @@ usuariosModel.validarEmailyNombre = function(post, callback){
 }
 usuariosModel.Guardar = function(post, callback) {
     const instancia = new MyModel
-    instancia.nombre = post.nombre
+    // instancia.nombre = post.nombre
+    instancia.alias = post.alias
+    instancia.nombre = ""
+    instancia.apellido = ""
+    instancia.telefono = ""
     instancia.password = post.password
     instancia.email = post.email
     instancia.rol = "cliente"
@@ -56,7 +63,7 @@ usuariosModel.Guardar = function(post, callback) {
     })
 }
 usuariosModel.CargarTodas = function(post, callback) {
-    MyModel.find({},{nombre:1,_id:1,email:1,rol:1},(error,documentos) =>{
+    MyModel.find({},{_id:1,alias:1,nombre:1,email:1,rol:1},(error,documentos) =>{
         if (error) {
             console.log(error)
             return callback({state:false})
@@ -67,7 +74,7 @@ usuariosModel.CargarTodas = function(post, callback) {
     })
 }
 usuariosModel.CargarId = function(post, callback) {
-    MyModel.find({_id:post.id},{nombre:1,_id:1,email:1,rol:1,password:1,misProyectos:1,misTareas:1},(error,documentos) =>{
+    MyModel.find({_id:post.id},{_id:1,alias:1,nombre:1,apellido:1,telefono:1,email:1,rol:1,password:1,misProyectos:1,misTareas:1},(error,documentos) =>{
         if (error) {
             console.log(error)
             return callback({state:false})
@@ -78,7 +85,7 @@ usuariosModel.CargarId = function(post, callback) {
     })
 }
 usuariosModel.Buscar = function(post, callback) { 
-    MyModel.find({nombre: { $regex: post.foo, $options: "i" }},{_id:1,nombre:1,email:1},(error,documentos) =>{
+    MyModel.find({alias: { $regex: post.foo, $options: "i" }},{_id:1,alias:1,nombre:1,email:1},(error,documentos) =>{
         if (error) {
             console.log(error)
             return callback({state:false})
@@ -90,8 +97,11 @@ usuariosModel.Buscar = function(post, callback) {
 }
 usuariosModel.Actualizar =  function(post, callback) {
     MyModel.findByIdAndUpdate(post.id,{
-        email:post.email,
+        alias:post.alias,
         nombre:post.nombre,
+        apellido:post.apellido,
+        telefono:post.telefono,
+        email:post.email,
         password:post.password,
         rol:post.rol,
         misProyectos:post.misProyectos,
@@ -118,7 +128,7 @@ usuariosModel.Eliminar =  function(post, callback) {
     })
 }
 usuariosModel.Login = function(post, callback) {
-    MyModel.find({email: post.email, password: post.password},{_id:1,email:1,nombre:1,rol:1,password:1},(error,documentos) =>{
+    MyModel.find({email: post.email, password: post.password},{_id:1,email:1,alias:1,nombre:1,rol:1,password:1},(error,documentos) =>{
         if (error) {
             console.log(error)
             return callback({state:false})

@@ -19,7 +19,7 @@ export class MenuComponent implements OnInit {
     private route:Router
   ){}
 
-  nombreSesion:string = ""
+  aliasSesion:string = ""
   rolSesion:string = ""
   res: object ={}
 
@@ -37,7 +37,7 @@ export class MenuComponent implements OnInit {
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
       this.res = res
-      this.nombreSesion = res.nombre
+      this.aliasSesion = res.alias
       this.rolSesion = res.rol
     })
     // console.log("=== CONSOLE.LOG DE MENU COMPONENT ===")

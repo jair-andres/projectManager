@@ -13,7 +13,7 @@ export class CreateProjectComponent implements OnInit{
   constructor(private peticion:PeticionUsuariosService, private msg:MensajesService, private route:Router){}
 
   id:string = ""
-  nombre:string = ""
+  alias:string = ""
   email:string = ""
   //
   nombreProyecto:string = ""
@@ -55,11 +55,11 @@ export class CreateProjectComponent implements OnInit{
     }
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
       this.id = res.id
-      this.nombre = res.nombre
+      this.alias = res.alias
       this.email = res.email
       let yo = {
         id:this.id,
-        nombre:this.nombre,
+        alias:this.alias,
         email:this.email
       }
       this.miembros.push(yo)
@@ -272,7 +272,7 @@ export class CreateProjectComponent implements OnInit{
   QuitarMiembros(idMiembro:any, miembros:any[]){
     let foe:any = (elArray:any) => elArray.id == idMiembro
     let quitarEsteIndex:number = miembros.findIndex(foe)
-    let suNombre:string = this.miembros[quitarEsteIndex]?.nombre
+    let suNombre:string = this.miembros[quitarEsteIndex]?.alias
     let quitarLo:any = this.miembros.splice(quitarEsteIndex,1)
     let mensaje:string = `${suNombre} eliminado con éxito`
     this.msg.Load(mensaje, "success", 5000)
@@ -298,7 +298,7 @@ export class CreateProjectComponent implements OnInit{
 
   consoleTODO(){
   console.log("id ",this.id)
-  console.log("nombre ",this.nombre)
+  console.log("alias ",this.alias)
   console.log("email ",this.email)
   //
   console.log("nombreProyecto ",this.nombreProyecto)

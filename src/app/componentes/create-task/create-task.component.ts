@@ -78,7 +78,7 @@ export class CreateTaskComponent implements OnInit{
   crearTarea(){
     let encargadoTemporal = {
       id: this.resultadoBusquedaEncargado[0]._id,
-      nombre: this.resultadoBusquedaEncargado[0].nombre,
+      alias: this.resultadoBusquedaEncargado[0].alias,
       email: this.resultadoBusquedaEncargado[0].email
     }
     this.encargadoSelectionado.push(encargadoTemporal)
