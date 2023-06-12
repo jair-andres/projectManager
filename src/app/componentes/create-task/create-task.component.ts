@@ -12,6 +12,7 @@ export class CreateTaskComponent implements OnInit{
   @Input() tareas: any;
   @Output() resultBis = new EventEmitter<any>();
 
+  actividadesContainer:any
   tareaModal:any
   busquedaEncargado:string = ""
   resultadoBusquedaEncargado:any[] = []
@@ -19,8 +20,11 @@ export class CreateTaskComponent implements OnInit{
 
   tituloTarea:string =""
   descripcionTarea:string =""
-  duracionTarea:string =""
-  fechaTarea:string =""
+  fechaInicioTarea:string =""
+  fechaEntregaTarea:string =""
+  actividades:any = []
+
+  hayActividades:boolean = false
   
   constructor(private peticion:PeticionUsuariosService, private msg:MensajesService){}
 
@@ -28,6 +32,7 @@ export class CreateTaskComponent implements OnInit{
     this.tareaModal = new window.bootstrap.Modal(
       document.getElementById('tareaModal')
     );
+    this.actividadesContainer = window.document.getElementById("actividadesContainer")
   }
 
   buscarEncargado(){
@@ -48,6 +53,28 @@ export class CreateTaskComponent implements OnInit{
     })
   }
 
+  consoleActividades(){
+    console.log(this.actividades)
+  }
+  crearActividades(){
+    this.hayActividades = true
+    let idTempo:string = this.actividades.length
+    this.actividades.push(
+      {id: idTempo,
+      actividad: "",
+      finalisada:false}
+    )
+  }
+  quitarActividad(indexActividad:any){
+    // console.log("ID => ",indexActividad)
+    let quitarActo:any = this.actividades.splice(indexActividad,1)
+    let mensaje:string = "Actividad elmininada con  éxito"
+    this.msg.Load(mensaje, "success", 5000)
+    if(this.actividades.length == 0){
+      this.hayActividades = false
+    }
+  }
+
   crearTarea(){
     let encargadoTemporal = {
       id: this.resultadoBusquedaEncargado[0]._id,
@@ -55,15 +82,15 @@ export class CreateTaskComponent implements OnInit{
       email: this.resultadoBusquedaEncargado[0].email
     }
     this.encargadoSelectionado.push(encargadoTemporal)
-    // console.log(this.encargadoSelectionado)
     let tarea = {
-      encargado:this.encargadoSelectionado[0],
-      tituloTarea:this.tituloTarea,
-      descripcionTarea:this.descripcionTarea,
-      duracionTarea:this.duracionTarea,
-      fechaTarea:this.fechaTarea
+      titulo:this.tituloTarea,
+      descripcion:this.descripcionTarea,
+      fechaInicio:this.fechaInicioTarea,
+      fechaFinal:this.fechaEntregaTarea,
+      actividades:this.actividades,
+      miembros:this.encargadoSelectionado[0],
+      keyEncargado:this.encargadoSelectionado[0].id
     }
-    // console.log(tarea)
     this.resultBis.emit(tarea)
     this.tareaModal.toggle()
     this.busquedaEncargado = ""
@@ -71,7 +98,9 @@ export class CreateTaskComponent implements OnInit{
     this.encargadoSelectionado = []
     this.tituloTarea =""
     this.descripcionTarea =""
-    this.duracionTarea =""
-    this.fechaTarea =""
+    this.fechaEntregaTarea =""
+    this.fechaInicioTarea =""
+    this.actividades = []
+    this.hayActividades = false
   }
 }

@@ -5,29 +5,31 @@ const Schema = mongoose.Schema
 
 var tareasSchema = new Schema({
   titulo: String,
-  miembros: String,
   descripcion: String,
-  fecha: String,
+  fechaInicio: String,
   fechaFinal: String,
   estado:String,
-  actividades: String,
-  comentarios: String
+  actividades: Array,
+  comentarios: Array,
+  keyProyecto: {type: mongoose.Schema.Types.ObjectId, ref: 'proyectos'},
+  keyEncargado:{type: mongoose.Schema.Types.ObjectId, ref: 'usuarios'},
+  miembros: Array
 })
 
 const MyModel = mongoose.model("tareas", tareasSchema)
 
 tareasModel.Guardar = function(post, callback) {
-
   const instancia = new MyModel
   instancia.titulo = post.titulo
-  instancia.keyProyecto = post.keyProyecto
-  instancia.miembros = post.miembros
   instancia.descripcion = post.descripcion
-  instancia.fecha = post.fecha
+  instancia.fechaInicio = post.fechaInicio
   instancia.fechaFinal = post.fechaFinal
-  instancia.estado = post.estado
+  instancia.estado = "Nuevo"
+  instancia.comentarios = []
   instancia.actividades = post.actividades
-  instancia.comentarios = post.comentarios
+  instancia.keyProyecto = post.keyProyecto
+  instancia.keyEncargado = post.keyEncargado
+  instancia.miembros = post.miembros
 
   instancia.save((error, creado) => {
       if (error) {
@@ -35,13 +37,13 @@ tareasModel.Guardar = function(post, callback) {
           return callback({state:false})
       }
       else {
-          return callback({state:true})
+          return callback({state:true, id:instancia.id})
       }
   })
 }
 
 tareasModel.CargarTodas = function(post, callback) {
-  MyModel.find({},{},(error,documentos) =>{
+  MyModel.find({},{_id:1,titulo:1, fechaInicio:1, estado:1, keyEncargado:1, keyProyecto:1},(error,documentos) =>{
       if (error) {
           console.log(error)
           return callback({state:false})
@@ -53,7 +55,7 @@ tareasModel.CargarTodas = function(post, callback) {
 }
 
 tareasModel.CargarId = function(post, callback) {
-  MyModel.find({},(error,documentos) =>{
+  MyModel.find({_id:post.id},{titulo:1, fechaInicio:1, estado:1, keyEncargado:1, keyProyecto:1,descripcion:1,fechaFinal:1,actividades:1},(error,documentos) =>{
       if (error) {
           console.log(error)
           return callback({state:false})
@@ -67,13 +69,15 @@ tareasModel.CargarId = function(post, callback) {
 tareasModel.Actualizar =  function(post, callback) {
   MyModel.findByIdAndUpdate(post.id,{
     titulo: post.titulo,
-    miembros: post.miembros,
     descripcion: post.descripcion,
-    fecha: post.fecha,
+    fechaInicio: post.fechaInicio,
     fechaFinal :post.fechaFinal,
     estado: post.estado,
     actividades: post.actividades,
-    comentarios: post.comentarios
+    comentarios: post.comentarios,
+    keyProyecto: post.keyProyecto,
+    keyEncargado: post.keyEncargado,
+    miembros: post.miembros,
   },(error, respuesta) => {
       if (error) {
           console.log(error)

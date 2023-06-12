@@ -12,6 +12,9 @@ var proyectosSchema = new Schema({
   miembros:[
     {type: mongoose.Schema.Types.ObjectId, ref: 'usuarios'}
   ],
+  tareas:[
+    {type: mongoose.Schema.Types.ObjectId, ref: 'tareas'}
+  ],
   keyUser:mongoose.Schema.Types.ObjectId
 })
 
@@ -25,6 +28,7 @@ proyectosModel.Guardar = function(post, callback) {
     instancia.fechaEntrega = post.fechaEntrega,
     instancia.prosupuesto = post.prosupuesto,
     instancia.miembros = post.miembros,
+    instancia.tareas = post.tareas,
     instancia.keyUser = post.keyUser
 
     instancia.save((error, creado) => {
@@ -51,7 +55,7 @@ proyectosModel.CargarTodas = function(post, callback) {
 }
 
 proyectosModel.CargarId = function(post, callback) {
-  MyModel.find({_id:post.id},{nombreProyecto:1, descripcion:1, objetivo:1, fechaEntrega:1, prosupuesto:1},(error,documentos) =>{
+  MyModel.find({_id:post.id},{nombreProyecto:1, descripcion:1, objetivo:1, fechaEntrega:1, prosupuesto:1, miembros:1, tareas:1, keyUser:1},(error,documentos) =>{
       if (error) {
           console.log(error)
           return callback({state:false})
@@ -68,7 +72,9 @@ proyectosModel.Actualizar =  function(post, callback) {
         descripcion:post.descripcion,
         objetivo:post.objetivo,
         fechaEntrega:post.fechaEntrega,
-        prosupuesto:post.prosupuesto
+        prosupuesto:post.prosupuesto,
+        miembros: post.miembros,
+        tareas: post.tareas,
     },(error, respuesta) => {
         if (error) {
             console.log(error)
