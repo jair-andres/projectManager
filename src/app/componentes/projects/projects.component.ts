@@ -12,15 +12,30 @@ import { PeticionUsuariosService } from 'src/app/servicios/peticion-usuarios.ser
 export class ProjectsComponent implements OnInit {
   constructor(private peticion:PeticionUsuariosService, private msg:MensajesService){}
 
+  modal:any
   tareaModal:any
   proyectos:any[] = []
+<<<<<<< HEAD
   id:string = ""
+=======
+  nombreProyecto:string = ""
+  modalEliminar:any
+
+>>>>>>> ee452dff877e1043fb2b3660a48bbe7ebcd39526
 
   ngOnInit():void {
     /*this.tareaModal = new window.bootstrap.Modal(
       document.getElementById('tareaModal')
+<<<<<<< HEAD
     );*/
     this.miData()
+=======
+    );
+    this.miData();
+     this.modalEliminar = new window.bootstrap.Modal(
+    document.getElementById('eliminarModal')
+    ); 
+>>>>>>> ee452dff877e1043fb2b3660a48bbe7ebcd39526
   }
 
   miData(){
@@ -40,14 +55,82 @@ export class ProjectsComponent implements OnInit {
       host:this.peticion.urllocal,
       path:"Usuarios/CargarTodosMisProyectos",
       payload:{
-        idUser:idUser
+        idUser:idUser,
+        nombreProyecto: this.nombreProyecto
       }
     }
     this.peticion.Post(post.host + post.path, post.payload).then((res:any) => {
 
       this.proyectos=res?.datos[0].misProyectosinfo
+<<<<<<< HEAD
       console.log("Cargar todos mis proyectos",this.proyectos)
     })
   }
 
+=======
+      console.log("misproyectos",this.proyectos);
+    })
+  }
+
+  EliminarIdConModal(id:string, conModal:boolean){
+    console.log(id)
+    this.id = id
+
+    let post = {
+      hots:this.peticion.urllocal,
+      path:"Proyectos/CargarId",
+      payload:{
+        id:this.id
+      }
+    }
+
+    this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+      console.log(res)
+      if(res.state == false){
+        this.msg.Load(res.mensaje, "danger", 5000)
+      } else {
+        this.nombreProyecto = res?.datos[0].nombreProyecto
+        
+    }
+  })
+
+    if(conModal == true){
+      this.modal.show();
+    }
+    
+  }
+
+   QuererEliminar(id:string){
+    let foo = id
+    this.EliminarIdConModal(foo,false)
+    this.modalEliminar.show()
+    console.log(id);
+    
+  } 
+
+  Eliminar(id:string){
+    this.id = id
+    console.log(id)
+
+
+    let post = {
+      host:this.peticion.urllocal,
+      path:"Proyectos/Eliminar",
+      payload:{
+        id:this.id
+      }
+    }
+    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
+      
+      if(res.state == false){
+        this.msg.Load(res.mensaje, "danger", 5000)
+      } else {
+        this.msg.Load(res.mensaje, "success", 5000)
+        this.miData();
+      }
+    })
+  }
+  
+  
+>>>>>>> ee452dff877e1043fb2b3660a48bbe7ebcd39526
 }

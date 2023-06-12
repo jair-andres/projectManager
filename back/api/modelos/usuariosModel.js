@@ -11,6 +11,8 @@ var usuariosSchema = new Schema({
   apellido:String,
   telefono:String,
   rol:String,
+  apellido:String,
+  telefono:String,
   misProyectos:[
     {type: mongoose.Schema.Types.ObjectId, ref: 'proyectos'}
   ],
@@ -49,6 +51,8 @@ usuariosModel.Guardar = function(post, callback) {
     instancia.password = post.password
     instancia.email = post.email
     instancia.rol = "cliente"
+    instancia.apellido = ""
+    instancia.telefono = ""
     instancia.misProyectos = []
     instancia.misTareas = []
 

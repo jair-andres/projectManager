@@ -15,7 +15,6 @@ export class CreateProjectComponent implements OnInit{
   id:string = ""
   alias:string = ""
   email:string = ""
-  //
   nombreProyecto:string = ""
   descripcionProyecto:string = ""
   objetivoProyecto:string = ""
@@ -250,6 +249,8 @@ export class CreateProjectComponent implements OnInit{
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
+        this.route.navigate(['dashboard'])
+        location.reload()
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
         this.countProyectoEnUsuariosIsOk++

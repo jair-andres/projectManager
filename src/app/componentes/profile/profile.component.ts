@@ -72,6 +72,8 @@ export class ProfileComponent implements OnInit {
         this.telefono = res?.datos[0]?.telefono
         this.email = res?.datos[0].email
         this.password = res?.datos[0].password
+        this.apellido = res?.datos[0].apellido
+        this.telefono = res?.datos[0].telefono
       }
     })
   }
@@ -122,7 +124,7 @@ export class ProfileComponent implements OnInit {
         password:this.password
       }
     }
-
+    console.log(this.apellido,this.telefono)
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
       console.log(res)
       if(res.state == false){
