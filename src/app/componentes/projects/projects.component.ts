@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MensajesService } from 'src/app/servicios/mensajes.service';
 import { PeticionUsuariosService } from 'src/app/servicios/peticion-usuarios.service';
 
-//declare var window: any;
+declare var window: any;
 
 @Component({
   selector: 'app-projects',
@@ -15,27 +15,16 @@ export class ProjectsComponent implements OnInit {
   modal:any
   tareaModal:any
   proyectos:any[] = []
-<<<<<<< HEAD
   id:string = ""
-=======
   nombreProyecto:string = ""
   modalEliminar:any
 
->>>>>>> ee452dff877e1043fb2b3660a48bbe7ebcd39526
 
   ngOnInit():void {
-    /*this.tareaModal = new window.bootstrap.Modal(
-      document.getElementById('tareaModal')
-<<<<<<< HEAD
-    );*/
+    this.modalEliminar = new window.bootstrap.Modal(
+      document.getElementById('eliminarModal')
+    )
     this.miData()
-=======
-    );
-    this.miData();
-     this.modalEliminar = new window.bootstrap.Modal(
-    document.getElementById('eliminarModal')
-    ); 
->>>>>>> ee452dff877e1043fb2b3660a48bbe7ebcd39526
   }
 
   miData(){
@@ -45,7 +34,7 @@ export class ProjectsComponent implements OnInit {
       payload:{}
     }
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-     this.CargarTodosMisProyectos(res.id)
+      this.CargarTodosMisProyectos(res.id)
     })
 
   }
@@ -62,12 +51,6 @@ export class ProjectsComponent implements OnInit {
     this.peticion.Post(post.host + post.path, post.payload).then((res:any) => {
 
       this.proyectos=res?.datos[0].misProyectosinfo
-<<<<<<< HEAD
-      console.log("Cargar todos mis proyectos",this.proyectos)
-    })
-  }
-
-=======
       console.log("misproyectos",this.proyectos);
     })
   }
@@ -100,7 +83,7 @@ export class ProjectsComponent implements OnInit {
     
   }
 
-   QuererEliminar(id:string){
+  QuererEliminar(id:string){
     let foo = id
     this.EliminarIdConModal(foo,false)
     this.modalEliminar.show()
@@ -132,5 +115,4 @@ export class ProjectsComponent implements OnInit {
   }
   
   
->>>>>>> ee452dff877e1043fb2b3660a48bbe7ebcd39526
 }
