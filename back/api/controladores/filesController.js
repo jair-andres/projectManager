@@ -18,7 +18,7 @@ filesController.SubirArchivos = function(request,response) {
         callback(null,post.nombre)
       }
     }),
-    limits: { fileSize: 1048576 }, //10 mb
+    limits: { fileSize: 10485760 }, //10 MB
     fileFilter: function(req,file,callback) {
       var ext = path.extname(file.originalname)
       console.log(ext)

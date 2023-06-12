@@ -4,9 +4,9 @@
         <!--
         <button (click)="consoleMiembros()">Console.log(miembros)</button>
         <button (click)="consoleTareas()">Console.log(Tareas)</button>
-        
-        <button (click)="consoleTODO()">consoleTODO</button>
         -->
+        <button (click)="consoleTODO()">consoleTODO</button>
+        
         <div class="form-floating mb-3">
             <input type="text" class="form-control" id="floatingNombreProyecto" placeholder="Nombre del proyecto" [(ngModel)]="nombreProyecto">
             <label for="floatingNombreProyecto">Nombre del proyecto</label>
@@ -14,7 +14,7 @@
         <div class="row px-3 d-flex flex-wrap" *ngIf="miembros.length > 0">
             <hr>
             <div class="p-2 me-2 mb-2 text-light bg-purple w-auto rounded" *ngFor="let miembro of miembros">
-                {{miembro.nombre}}
+                {{miembro.alias}}
             <button type="button" class="btn-close btn-close-white ms-2" aria-label="Close" (click)="QuitarMiembros(miembro.id,miembros)"></button>
             </div>
             <hr>
@@ -34,7 +34,7 @@
             <div class="d-flex p-2 mb-2 bg-purple bg-opacity-25 w-100 rounded" *ngFor="let tarea of tareas">
                 <div class="col text-truncate">{{tarea.titulo}}</div>
                 <div class="vr mx-1"></div>
-                <div class="col text-truncate">{{tarea.miembros.nombre}}</div>
+                <div class="col text-truncate">{{tarea.miembros.alias}}</div>
                 <div class="vr mx-1"></div>
                 <div class="col text-truncate">{{tarea.fechaFinal}}</div>
             <button type="button" class="btn-close btn-close-white ms-2" aria-label="Close" (click)="QuitarTareas(tareas.indexOf(tarea),tareas)"></button>

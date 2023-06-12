@@ -19,11 +19,11 @@
                     <a class="font-monospace nav-link" routerLink="/aboutus">Nosotros</a>
                 </li>
                 <li class="nav-item fw-bold"
-                    *ngIf="nombreSesion == undefined || nombreSesion == null || nombreSesion.trim() == '';else menuDashboard">
+                    *ngIf="aliasSesion == undefined || aliasSesion == null || aliasSesion.trim() == '';else menuDashboard">
                     <a class="font-monospace nav-link" routerLink="/login">Conéctate</a>
                 </li>
                 <li class="nav-item fw-bold"
-                    *ngIf="nombreSesion == undefined || nombreSesion == null || nombreSesion.trim() == ''">
+                    *ngIf="aliasSesion == undefined || aliasSesion == null || aliasSesion.trim() == ''">
                     <a class="font-monospace nav-link" routerLink="/register">Regístrate</a>
                 </li>
 
@@ -31,7 +31,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link text-uppercase font-monospace fw-bold dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            {{nombreSesion}}
+                            {{aliasSesion}}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" routerLink="/profile">Perfil</a></li>
@@ -47,7 +47,7 @@
                     <div class="dropdown">
                         <button class="btn btn-purple dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            {{nombreSesion}}
+                            {{aliasSesion}}
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" routerLink="/dashboard">Panel</a></li>

@@ -1,5 +1,6 @@
 import { HttpEventType } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
+import { MensajesService } from 'src/app/servicios/mensajes.service';
 import { SubirArchivosService } from 'src/app/servicios/subir-archivos.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class UploadFilesComponent {
   mensaje:string = ""
   imagenprofile:string = ""
 
-  constructor(private uploadService: SubirArchivosService){}
+  constructor(private uploadService: SubirArchivosService,private msg:MensajesService){}
 
   @Input() urldestino:string = ""
   @Input() path:string = ""
@@ -61,6 +62,9 @@ export class UploadFilesComponent {
             this.progress = 0
             this.nombrearchivo = "Selecciona el Archivo"
             this.mensaje = ""
+            let mensajeBis = "Imagen actualizado"
+            this.msg.Load(mensajeBis, "success", 5000)
+            location.reload()
           },2000)
         }
 

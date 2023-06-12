@@ -15,9 +15,15 @@ export class ProfileComponent implements OnInit {
   destino:string = ""
   path:string = ""
   id:string = ""
+  alias:string =""
   nombre:string = ""
+  apellido:string =""
+  telefono:string =""
   email:string = ""
   password:string = ""
+
+  imageProfileUrl:string = ""
+  imagenEstaOk:boolean = false
 
   
   ngOnInit():void {
@@ -32,8 +38,14 @@ export class ProfileComponent implements OnInit {
       payload:{}
     }
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-/*       console.log("RES :",res)
- */      this.id = res.id
+      this.id = res.id
+      this.imageProfileUrl = `${this.peticion.urllocal}back/perfiles/${this.id}.png`
+      this.checkIfImageExists(this.imageProfileUrl, (exists:any) => {
+        if (exists) {
+          // console.log('Image exists. ')
+          this.imagenEstaOk = true
+        }
+      })
       this.EditarId(res.id)
     })
     
@@ -41,9 +53,7 @@ export class ProfileComponent implements OnInit {
 
   EditarId(id:string){
    /*  console.log("Usamos EditarId") */
-
     this.path = '/files/back/perfiles/' + id
-
     let post = {
       hots:this.peticion.urllocal,
       path:"Usuarios/CargarId",
@@ -53,15 +63,32 @@ export class ProfileComponent implements OnInit {
     }
     
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-/*       console.log("res de EditarId =>", res)
- */      if(res.state == false){
+      if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
+        this.alias = res?.datos[0]?.alias
         this.nombre = res?.datos[0].nombre
+        this.apellido = res?.datos[0]?.apellido
+        this.telefono = res?.datos[0]?.telefono
         this.email = res?.datos[0].email
         this.password = res?.datos[0].password
       }
     })
+  }
+
+  checkIfImageExists(urlparam:string, callback:any) {
+    const img = new Image();
+    img.src = urlparam;
+    if (img.complete) {
+      callback(true)
+    } else {
+      img.onload = () => {
+        callback(true)
+      }
+      img.onerror = () => {
+        callback(false)
+      }
+    }
   }
 
   logOut(){
@@ -87,7 +114,10 @@ export class ProfileComponent implements OnInit {
       path:"Usuarios/Actualizar",
       payload:{
         id:this.id,
+        alias:this.alias,
         nombre:this.nombre,
+        apellido:this.apellido,
+        telefono:this.telefono,
         email:this.email,
         password:this.password
       }
@@ -99,7 +129,9 @@ export class ProfileComponent implements OnInit {
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
-        // this.logOut()
+        this.logOut()
+        // this.route.navigate(['profile'])
+        // location.reload()
       }
     })
   }

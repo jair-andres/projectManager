@@ -16,10 +16,10 @@ export class AdminUsersComponent implements OnInit {
   modal:any
   modalEliminar:any
   id:string = ""
-  nombre:string = ""
+  alias:string = ""
   email:string = ""
   password:string = ""
-  nuevoNombre:string = ""
+  nuevoAlias:string = ""
   nuevoEmail:string = ""
   nuevoPassword:string = ""
   rol:string = "Cliente"
@@ -50,7 +50,7 @@ export class AdminUsersComponent implements OnInit {
       (res:any) => {
         if(res.state == true) {
           for (let index = 0; index < res.datos.length; index++) {
-            const element = res.datos[index]['nombre'];
+            const element = res.datos[index]['alias'];
             this.users.push(element)
           }
         }
@@ -65,7 +65,7 @@ export class AdminUsersComponent implements OnInit {
       hots:this.peticion.urllocal,
       path:"Usuarios/Guardar",
       payload:{
-        nombre:this.nuevoNombre,
+        alias:this.nuevoAlias,
         email:this.nuevoEmail,
         password:this.nuevoPassword
       }
@@ -77,7 +77,7 @@ export class AdminUsersComponent implements OnInit {
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
-        this.nombre = ""
+        this.alias = ""
         this.email = ""
         this.password = ""
       }
@@ -104,7 +104,7 @@ export class AdminUsersComponent implements OnInit {
       hots:this.peticion.urllocal,
       path:"Usuarios/Actualizar",
       payload:{
-        nombre:this.nombre,
+        alias:this.alias,
         email:this.email,
         password:this.password,
         rol:this.rol,
@@ -120,7 +120,7 @@ export class AdminUsersComponent implements OnInit {
         this.msg.Load(res.mensaje, "success", 5000)
         this.CargarTodas()
         this.modal.toggle();
-        this.nombre = ""
+        this.alias = ""
         this.email = ""
         this.password = ""
         this.rol = "Cliente"
@@ -146,7 +146,7 @@ export class AdminUsersComponent implements OnInit {
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
-        this.nombre = res?.datos[0].nombre
+        this.alias = res?.datos[0].alias
         this.email = res?.datos[0].email
         this.password = res?.datos[0].password
         this.rol = res?.datos[0].rol
