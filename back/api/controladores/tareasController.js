@@ -68,7 +68,7 @@ tareasController.Guardar = function (request, response) {
   if (
     post.fechaInicio == undefined ||
     post.fechaInicio == null ||
-    post.fecha.trim() == ""
+    post.fechaInicio.trim() == ""
   ) {
     response.json({ state: false, mensaje: "El campo fecha de inicio es obligatorio" });
     return false;
@@ -94,8 +94,8 @@ tareasController.Guardar = function (request, response) {
 
   if (
     post.actividades == undefined ||
-    post.actividades == null ||
-    post.actividades.trim() == ""
+    post.actividades == null //||
+    // post.actividades == []
   ) {
     response.json({ state: false, mensaje: "El campo actividades es obligatorio" });
     return false;
@@ -103,8 +103,8 @@ tareasController.Guardar = function (request, response) {
 
   if (
     post.comentarios == undefined ||
-    post.comentarios == null ||
-    post.comentarios.trim() == ""
+    post.comentarios == null //||
+    // post.comentarios == []
   ) {
     response.json({ state: false, mensaje: "El campo comentarios es obligatorio" });
     return false;
@@ -114,7 +114,8 @@ tareasController.Guardar = function (request, response) {
     if (resultado.state == true) {
       response.json({
         state: true,
-        mensaje: "registro guardado con exito",
+        mensaje: "tarea registrada con exito",
+        id: resultado.id
       });
     } else {
       response.json({ state: false, mensaje: "se presento un error" });

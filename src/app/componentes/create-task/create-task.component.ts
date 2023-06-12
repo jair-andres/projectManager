@@ -70,6 +70,9 @@ export class CreateTaskComponent implements OnInit{
     let quitarActo:any = this.actividades.splice(indexActividad,1)
     let mensaje:string = "Actividad elmininada con  éxito"
     this.msg.Load(mensaje, "success", 5000)
+    if(this.actividades.length == 0){
+      this.hayActividades = false
+    }
   }
 
   crearTarea(){
@@ -79,16 +82,15 @@ export class CreateTaskComponent implements OnInit{
       email: this.resultadoBusquedaEncargado[0].email
     }
     this.encargadoSelectionado.push(encargadoTemporal)
-    // console.log(this.encargadoSelectionado)
     let tarea = {
       titulo:this.tituloTarea,
       descripcion:this.descripcionTarea,
       fechaInicio:this.fechaInicioTarea,
       fechaFinal:this.fechaEntregaTarea,
       actividades:this.actividades,
-      miembros:this.encargadoSelectionado[0]
+      miembros:this.encargadoSelectionado[0],
+      keyEncargado:this.encargadoSelectionado[0].id
     }
-    // console.log(tarea)
     this.resultBis.emit(tarea)
     this.tareaModal.toggle()
     this.busquedaEncargado = ""
@@ -97,5 +99,8 @@ export class CreateTaskComponent implements OnInit{
     this.tituloTarea =""
     this.descripcionTarea =""
     this.fechaEntregaTarea =""
+    this.fechaInicioTarea =""
+    this.actividades = []
+    this.hayActividades = false
   }
 }

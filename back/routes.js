@@ -51,12 +51,13 @@ app.post("/Usuarios/logout", function(request, response) {
   request.session.destroy()
   response.json({state:true,mensaje:"cerrado la sesion"})
 })
-// Mis Proyectos
+
 app.post('/Usuarios/CargarTodosMisProyectos',validarSession,function(request, response) {
   usuariosController.CargarTodosMisProyectos(request, response)
 })
 
-// Pqrs
+//=== PQRS ===//
+
 var pqrsController = require("./api/controladores/pqrsController.js").pqrsController
 
 app.post("/Pqrs/Guardar",function(request, response) {
@@ -75,9 +76,9 @@ app.post("/Pqrs/Actualizar",validarAdmin,function(request, response) {
   pqrsController.Actualizar(request, response)
 })
 
-// Sesion
+//=== SESSION INFO ===//
+
 app.post("/miData",function(request, response) {
-  // console.log("On utile /miData")
   response.json({
     id:request.session.idUser,
     nombre:request.session.nombre,
@@ -86,19 +87,20 @@ app.post("/miData",function(request, response) {
     rol:request.session.rol})
 })
 
-//prueba
+//=== SESSION COMPLETA ===//
+
 app.post("/state", function(request, response) {
   response.json(request.session)
 })
 
-// prueba archivos
+//=== ARCHIVO ===//
 var filesController = require("./api/controladores/filesController.js").filesController
 
 app.post("/files/:carpeta/:carpeta/:id", function(request, response) {
   filesController.SubirArchivos(request, response)
 })
 
-// newsletter
+//=== NEWSLETTERS ===//
 var newslettersController = require("./api/controladores/newslettersController.js").newslettersController
 
 app.post("/Newsletters/Guardar",function(request, response) {
@@ -114,7 +116,7 @@ app.post("/Newsletters/Eliminar",validarSession,validarAdmin,function(request, r
 })
 
 
-// PROYECTOS
+//=== PROYECTOS ===//
 
 var proyectosController = require("./api/controladores/proyectosController.js").proyectosController
 
@@ -146,14 +148,20 @@ app.post('/Proyectos/detalleProyecto',validarSession,function(request, response)
   proyectosController.detalleProyecto(request, response)
 })
 
-var tareasController = require("./api/controladores/tareasController.js").tareasController
+//=== TAREAS ===//
 
-app.post('/Tareas/Consultar',validarSession,function(request, response) {
-  tareasController.Consultar(request, response)
-})
+var tareasController = require("./api/controladores/tareasController.js").tareasController
 
 app.post('/Tareas/Guardar',validarSession,function(request, response) {
   tareasController.Guardar(request, response)
+})
+
+app.post('/Tareas/CargarTodas',validarSession,function(request, response) {
+  tareasController.CargarTodas(request, response)
+})
+
+app.post('/Tareas/CargarId',validarSession,function(request, response) {
+  tareasController.CargarId(request, response)
 })
 
 app.post('/Tareas/Actualizar',validarSession,function(request, response) {

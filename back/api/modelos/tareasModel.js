@@ -13,20 +13,19 @@ var tareasSchema = new Schema({
   comentarios: Array,
   keyProyecto: {type: mongoose.Schema.Types.ObjectId, ref: 'proyectos'},
   keyEncargado:{type: mongoose.Schema.Types.ObjectId, ref: 'usuarios'},
-  miembros: Array,
-
+  miembros: Array
 })
 
 const MyModel = mongoose.model("tareas", tareasSchema)
 
 tareasModel.Guardar = function(post, callback) {
-
   const instancia = new MyModel
   instancia.titulo = post.titulo
   instancia.descripcion = post.descripcion
   instancia.fechaInicio = post.fechaInicio
   instancia.fechaFinal = post.fechaFinal
-  instancia.estado = post.estado
+  instancia.estado = "Nuevo"
+  instancia.comentarios = []
   instancia.actividades = post.actividades
   instancia.keyProyecto = post.keyProyecto
   instancia.keyEncargado = post.keyEncargado
@@ -38,7 +37,7 @@ tareasModel.Guardar = function(post, callback) {
           return callback({state:false})
       }
       else {
-          return callback({state:true})
+          return callback({state:true, id:instancia.id})
       }
   })
 }
