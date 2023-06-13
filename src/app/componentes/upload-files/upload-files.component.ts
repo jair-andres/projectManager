@@ -1,6 +1,7 @@
 import { HttpEventType } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { MensajesService } from 'src/app/servicios/mensajes.service';
+import { PeticionUsuariosService } from 'src/app/servicios/peticion-usuarios.service';
 import { SubirArchivosService } from 'src/app/servicios/subir-archivos.service';
 
 @Component({
@@ -16,11 +17,14 @@ export class UploadFilesComponent {
   mensaje:string = ""
   imagenprofile:string = ""
 
-  constructor(private uploadService: SubirArchivosService,private msg:MensajesService){}
+  testUrl:string = ""
+
+  constructor(private uploadService: SubirArchivosService,private msg:MensajesService,public peticion:PeticionUsuariosService){}
 
   @Input() urldestino:string = ""
   @Input() path:string = ""
   @Input() fileName:string = ""
+  @Input() idUsuario:any
 
 
   nombrearchivo:string = "Selecciona el Archivo"
@@ -38,33 +42,19 @@ export class UploadFilesComponent {
     this.archivoseleccionado = this.selectedFiles.item(0)
     this.imagenprofile = this.urldestino + this.path + this.fileName + ".png"
     console.log(this.imagenprofile)
-/*     console.log(
-      `archivoseleccionado: ${this.archivoseleccionado}\n 
-      urldestino: ${this.urldestino}\n
-      path: ${this.path}\n
-      fileName: ${this.fileName}\n`
-      ) */
     this.uploadService.upload(this.archivoseleccionado,this.urldestino + this.path,this.fileName).subscribe(
       (event:any) => {
-        
-/*          console.log(event)
-        console.log(event.body) */
- 
         if(event.type === HttpEventType.UploadProgress){
           this.progress = Math.round(100 * event.loaded / event.total)
         }
         else{
-/*           console.log(event.body)
- */        
-/*             this.mensaje = event.body.mensaje
-            console.log(this.mensaje) */
           setTimeout(()=>{
             this.progress = 0
             this.nombrearchivo = "Selecciona el Archivo"
             this.mensaje = ""
             let mensajeBis = "Imagen actualizado"
             this.msg.Load(mensajeBis, "success", 5000)
-            location.reload()
+            this.actualizarImagenUsuario(this.idUsuario)
           },2000)
         }
 
@@ -82,5 +72,27 @@ export class UploadFilesComponent {
 
   }
 
-
+  actualizarImagenUsuario(idUsuario:string){
+    console.log("PATH ===> ",this.path)
+    this.testUrl = this.urldestino + "/back/perfiles/"+ idUsuario + ".png"
+    console.log(this.testUrl)
+    let post = {
+      hots:this.peticion.urllocal,
+      path:"Usuarios/Actualizar",
+      payload:{
+        id:idUsuario,
+        imageUrl:this.testUrl
+      }
+    }
+    this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+      console.log(res)
+      if(res.state == false){
+        this.msg.Load(res.mensaje, "danger", 5000)
+      } else {
+        this.msg.Load(res.mensaje, "success", 5000)
+        location.reload()
+      }
+    })
+    
+  }
 }

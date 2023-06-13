@@ -150,7 +150,7 @@ proyectosModel.detalleProyecto = function(post, callback) {
       $lookup:{
         from: "tareas",
         localField: "_id",
-        foreignField: "keyProyect",
+        foreignField: "keyProyecto",
         as: "tareasInfo",
       }
     },

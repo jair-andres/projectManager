@@ -52,7 +52,7 @@ export class ProyectosDatalleComponent implements OnInit {
 
       //Info Tareas
       this.tareasInfo = res?.datos[0].tareasInfo
-      console.log("Cargar detalle proyecto",this.detalleProyecto)
+      console.log("Cargar detalle proyecto : ",this.detalleProyecto)
     })
   }
   // Crear -> Proyecto -> reenviar

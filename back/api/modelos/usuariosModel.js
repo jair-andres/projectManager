@@ -13,6 +13,7 @@ var usuariosSchema = new Schema({
   rol:String,
   apellido:String,
   telefono:String,
+  imageUrl:String,
   misProyectos:[
     {type: mongoose.Schema.Types.ObjectId, ref: 'proyectos'}
   ],
@@ -53,6 +54,7 @@ usuariosModel.Guardar = function(post, callback) {
     instancia.rol = "cliente"
     instancia.apellido = ""
     instancia.telefono = ""
+    instancia.imageUrl = ""
     instancia.misProyectos = []
     instancia.misTareas = []
 
@@ -78,7 +80,7 @@ usuariosModel.CargarTodas = function(post, callback) {
     })
 }
 usuariosModel.CargarId = function(post, callback) {
-    MyModel.find({_id:post.id},{_id:1,alias:1,nombre:1,apellido:1,telefono:1,email:1,rol:1,password:1,misProyectos:1,misTareas:1},(error,documentos) =>{
+    MyModel.find({_id:post.id},{_id:1,alias:1,nombre:1,apellido:1,telefono:1,email:1,rol:1,password:1,misProyectos:1,misTareas:1,imageUrl:1},(error,documentos) =>{
         if (error) {
             console.log(error)
             return callback({state:false})
@@ -105,6 +107,7 @@ usuariosModel.Actualizar =  function(post, callback) {
         nombre:post.nombre,
         apellido:post.apellido,
         telefono:post.telefono,
+        imageUrl:post.imageUrl,
         email:post.email,
         password:post.password,
         rol:post.rol,
@@ -157,6 +160,7 @@ usuariosModel.CargarTodasMisTareas = function(post, callback) {
             as: "misTareasinfo",
           }
         }
+
       ],(error, documentos) =>{
         if (error) {
           return callback({state:false,error:error})

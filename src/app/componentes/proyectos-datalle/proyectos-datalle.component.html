@@ -11,7 +11,7 @@
           </div>
           <div class="col-8">
             <p class="">
-              <span class="text-purple">objetivo:</span>
+              <span class="text-purple">Objetivo:</span>
               <br>
               {{ this.detalleProyecto.objetivo }}
             </p>
@@ -20,19 +20,19 @@
             <p class="">
               <span class="text-purple">Preupuesto:</span>
               <br>
-              {{ this.detalleProyecto.prosupuesto }}
+              {{ this.detalleProyecto.prosupuesto }} COP
             </p>
           </div>
           <div class="col-8">
             <p class="">
-              <span class="text-purple">descripción:</span>
+              <span class="text-purple">Descripción:</span>
               <br>
               {{ this.detalleProyecto.descripcion }}
             </p>
           </div>
           <div class="col-4">
             <p class="">
-              <span class="text-purple">Fecha Terminación</span>
+              <span class="text-purple">Fecha de culminación</span>
               <br>
               {{ this.detalleProyecto.fechaEntrega }}
             </p>
@@ -59,9 +59,9 @@
                 </p>
                  <div class="border border-purple mx-2"></div>
                 <p class="m-2 p-1">
-                  <b class="text-purple">Fecha</b>
+                  <b class="text-purple">Fecha Inicio</b>
                   <br>
-                  {{ tarea.fecha }}
+                  {{ tarea.fechaInicio }}
                 </p>
                  <div class="border border-purple mx-2"></div>
                 <p class="m-2 p-1">
@@ -76,11 +76,13 @@
                   {{ tarea.estado }}
                 </p>
                  <div class="border border-purple mx-2"></div>
-                <p class="m-2 p-1">
+                <div class="m-2 p-1">
                   <b class="text-purple">Actividades</b>
                   <br>
-                  {{ tarea.actividades }}
-                </p>
+                  <ul *ngFor="let actividad of tarea.actividades">
+                      <li>{{actividad.actividad}}</li>
+                  </ul>
+                </div>
                  <div class="border border-purple mx-2"></div>
                 <p class="m-2 p-1">
                   <b class="text-purple">Comentarios</b>
@@ -94,28 +96,45 @@
     </div>
     <div class="container">
       <div class="row">
-        <h2 class="text-purple text-center">miembros</h2>
-        <div  class="col" *ngFor="let miembro of miembrosInfo">
-          <p>
-            <span class="text-purple">Nombre</span>
-            <br>
-            {{ miembro.nombre }}
-          </p>
-          <p>
-            <span class="text-purple">Apellido</span>
-            <br>
-            {{ miembro.apellido }}
-          </p>
-          <p>
-            <span class="text-purple">Email</span>
-            <br>
-            {{ miembro.email }}
-          </p>
-          <p>
-            <span class="text-purple">Télefono</span>
-            <br>
-            {{ miembro.telefono }}
-          </p>
+        <h2 class="text-purple text-center">Miembros</h2>
+        <div class="border border-purple m-2"></div>
+        <div  class="col-12 col-sm-6 col-md-4" *ngFor="let miembro of miembrosInfo">
+          <div class="bg-gradiente my-2 p-1 shadow">
+            <div class="contaier d-flex flex-column align-items-center bg-light p-1 my-3 mx-4 rounded-3 shadow">
+              <div *ngIf="miembro.imageUrl !== '' && miembro.imageUrl !== undefined && miembro.imageUrl !== null;else neutralPerfile" class="border border-3 border-purple-dark rounded-circle "
+                style="width:6rem; height:6rem; background-image: url({{miembro.imageUrl}}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
+              <ng-template #neutralPerfile>
+              <div class="border border-3 border-purple-dark rounded-circle"
+                style="width:6rem; height:6rem; background-image: url('http://localhost:3000/back/perfiles/logo_skull.png'); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
+              </ng-template>
+              <p class="w-100 ps-3">
+                <span class="text-purple">Alias</span>
+                <br>
+                {{ miembro.alias }}
+              </p>
+              <p class="w-100 ps-3">
+                <span class="text-purple">Nombre</span>
+                <br>
+                {{ miembro.nombre }}
+              </p>
+              <p class="w-100 ps-3">
+                <span class="text-purple">Apellido</span>
+                <br>
+                {{ miembro.apellido }}
+              </p>
+              <p class="w-100 ps-3">
+                <span class="text-purple">Email</span>
+                <br>
+                {{ miembro.email }}
+              </p>
+              <p class="w-100 ps-3">
+                <span class="text-purple">Télefono</span>
+                <br>
+                {{ miembro.telefono }}
+              </p>
+            </div>
+          </div>
+          
         </div>
       </div>
     </div>

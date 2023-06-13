@@ -132,6 +132,7 @@ usuariosController.Actualizar = function (request, response) {
     nombre: request.body.nombre,
     apellido: request.body.apellido,
     telefono: request.body.telefono,
+    imageUrl:request.body.imageUrl,
     email: request.body.email,
     password: request.body.password,
     id: request.body.id,
