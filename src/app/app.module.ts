@@ -30,6 +30,7 @@ import { SearchbarComponent } from './componentes/searchbar/searchbar.component'
 import { ProjectadminComponent } from './componentes/projectadmin/projectadmin.component';
 import { CreateTaskComponent } from './componentes/create-task/create-task.component';
 import { ProyectosDatalleComponent } from './componentes/proyectos-datalle/proyectos-datalle.component';
+import { UpdateProjectComponent } from './componentes/update-project/update-project.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ProyectosDatalleComponent } from './componentes/proyectos-datalle/proye
     SearchbarComponent,
     ProjectadminComponent,
     CreateTaskComponent,
-    ProyectosDatalleComponent
+    ProyectosDatalleComponent,
+    UpdateProjectComponent
   ],
   imports: [
     BrowserModule,

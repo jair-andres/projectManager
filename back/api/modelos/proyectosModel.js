@@ -153,12 +153,12 @@ proyectosModel.detalleProyecto = function(post, callback) {
         foreignField: "keyProyecto",
         as: "tareasInfo",
       }
-    },
-    {
-      $project: {
-        miembros:0, keyUser:0,
-      },
-    }
+    }//,
+    // {
+    //   $project: {
+    //     miembros:0, keyUser:0,
+    //   },
+    // }
   ],(error, documentos) =>{
     if (error) {
       return callback({state:false,error:error})
