@@ -9,8 +9,9 @@
                 </svg>
                 Volver al panel
             </button>
-            <button (click)="consoleTODO()">Console Variable</button>
-            <h3 class="text-purple">Informaciones generales</h3>
+            <!--
+            <button (click)="consoleTODO()">Console Variable</button>-->
+            <h3 class="text-purple text-center">Informaciones generales</h3>
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingNombreProyecto" placeholder="Nombre del proyecto" [(ngModel)]="nombreProyecto">
                 <label for="floatingNombreProyecto">Nombre del proyecto</label>
@@ -33,7 +34,7 @@
                 <input type="number" class="form-control rounded-end" id="floatingProsupuesto" placeholder="Prosupuesto" [(ngModel)]="prosupuesto">
                 <label class="ms-5" for="floatingProsupuesto">Prosupuesto</label>
             </div>
-            <h3 class="text-purple">Miembros</h3>
+            <h3 class="text-purple text-center">Miembros</h3>
             <!---->
             <div class="row px-3 d-flex flex-wrap" *ngIf="miembros.length > 0">
                 <hr>
@@ -43,7 +44,7 @@
                 </div>
                 <hr>
             </div>
-            
+            <h3 class="text-purple text-center">Actividades</h3>
             <div class="row px-3 d-flex flex-wrap pb-3" *ngIf="tareas.length > 0">
                 <div *ngFor="let tarea of tareasInfo" class="col">
                     <div class="card bg-purple bg-opacity-25 border border-purple">
