@@ -49,9 +49,8 @@ export class ProjectsComponent implements OnInit {
       }
     }
     this.peticion.Post(post.host + post.path, post.payload).then((res:any) => {
-
       this.proyectos=res?.datos[0].misProyectosinfo
-      console.log("misproyectos",this.proyectos);
+      console.log("Cargar todos mis proyectos",this.proyectos)
     })
   }
 
@@ -95,7 +94,6 @@ export class ProjectsComponent implements OnInit {
     this.id = id
     console.log(id)
 
-
     let post = {
       host:this.peticion.urllocal,
       path:"Proyectos/Eliminar",
@@ -103,8 +101,8 @@ export class ProjectsComponent implements OnInit {
         id:this.id
       }
     }
-    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => { 
-      
+    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => {
+
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
@@ -113,6 +111,5 @@ export class ProjectsComponent implements OnInit {
       }
     })
   }
-  
   
 }

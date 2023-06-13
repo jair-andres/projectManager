@@ -1,1 +1,125 @@
-<p>proyectos-datalle works!</p>
+<div class="container-fluid d-flex flex-column p-0 m-0 min-vh-100">
+  <app-menu></app-menu>
+  <app-notification></app-notification>
+  <div class="container mt-5">
+      <div class="bg-purple ps-4 mx-3">
+        <div class="row p-3 bg-light border border-purple rounded-end">
+          <div class="col-12">
+            <h2 class="text-purple text-center">
+              Nombre Proyecto: {{ this.detalleProyecto.nombreProyecto }}
+            </h2>
+          </div>
+          <div class="col-8">
+            <p class="">
+              <span class="text-purple">objetivo:</span>
+              <br>
+              {{ this.detalleProyecto.objetivo }}
+            </p>
+          </div>
+          <div class="col-4">
+            <p class="">
+              <span class="text-purple">Preupuesto:</span>
+              <br>
+              {{ this.detalleProyecto.prosupuesto }}
+            </p>
+          </div>
+          <div class="col-8">
+            <p class="">
+              <span class="text-purple">descripción:</span>
+              <br>
+              {{ this.detalleProyecto.descripcion }}
+            </p>
+          </div>
+          <div class="col-4">
+            <p class="">
+              <span class="text-purple">Fecha Terminación</span>
+              <br>
+              {{ this.detalleProyecto.fechaEntrega }}
+            </p>
+          </div>
+        </div>
+      </div>
+    <div class="container mt-3">
+      <div class="row">
+        <h2 class="text-purple text-center">Tareas</h2>
+        <div class="border border-purple m-2"></div>
+          <div class="col-12 col-sm-6 col-md-4" *ngFor="let tarea of tareasInfo">
+            <div class="bg-gradiente my-2 p-1 shadow">
+              <div class="contaier bg-light p-1 my-3 mx-4 rounded-3 shadow">
+                <p class="m-2 p-1">
+                  <b class="text-purple">Titulo</b>
+                  <br>
+                  {{ tarea.titulo }}
+                </p>
+                <div class="border border-purple mx-2"></div>
+                <p class="m-2 p-1">
+                  <b class="text-purple">Descripcion</b>
+                  <br>
+                  {{ tarea.descripcion }}
+                </p>
+                 <div class="border border-purple mx-2"></div>
+                <p class="m-2 p-1">
+                  <b class="text-purple">Fecha</b>
+                  <br>
+                  {{ tarea.fecha }}
+                </p>
+                 <div class="border border-purple mx-2"></div>
+                <p class="m-2 p-1">
+                  <b class="text-purple">Fecha Final</b>
+                  <br>
+                  {{ tarea.fechaFinal }}
+                </p>
+                 <div class="border border-purple mx-2"></div>
+                <p class="m-2 p-1">
+                  <b class="text-purple">Estado</b>
+                  <br>
+                  {{ tarea.estado }}
+                </p>
+                 <div class="border border-purple mx-2"></div>
+                <p class="m-2 p-1">
+                  <b class="text-purple">Actividades</b>
+                  <br>
+                  {{ tarea.actividades }}
+                </p>
+                 <div class="border border-purple mx-2"></div>
+                <p class="m-2 p-1">
+                  <b class="text-purple">Comentarios</b>
+                  <br>
+                  {{ tarea.comentarios }}
+                </p>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <h2 class="text-purple text-center">miembros</h2>
+        <div  class="col" *ngFor="let miembro of miembrosInfo">
+          <p>
+            <span class="text-purple">Nombre</span>
+            <br>
+            {{ miembro.nombre }}
+          </p>
+          <p>
+            <span class="text-purple">Apellido</span>
+            <br>
+            {{ miembro.apellido }}
+          </p>
+          <p>
+            <span class="text-purple">Email</span>
+            <br>
+            {{ miembro.email }}
+          </p>
+          <p>
+            <span class="text-purple">Télefono</span>
+            <br>
+            {{ miembro.telefono }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>
+
