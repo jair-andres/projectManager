@@ -142,7 +142,7 @@ usuariosModel.Login = function(post, callback) {
         }
     })
 }
-usuariosModel.CargarTodosMisTareas = function(post, callback) {
+usuariosModel.CargarTodasMisTareas = function(post, callback) {
     MyModel.aggregate([
         { 
             $match:{

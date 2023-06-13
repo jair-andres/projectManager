@@ -55,6 +55,9 @@ app.post("/Usuarios/logout", function(request, response) {
 app.post('/Usuarios/CargarTodosMisProyectos',validarSession,function(request, response) {
   usuariosController.CargarTodosMisProyectos(request, response)
 })
+app.post('/Usuarios/CargarTodasMisTareas',validarSession,function(request, response) {
+  usuariosController.CargarTodasMisTareas(request, response)
+})
 
 //=== PQRS ===//
 

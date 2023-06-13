@@ -347,7 +347,7 @@ usuariosController.CargarTodosMisProyectos = function (request, response) {
   }); 
 };
 
-usuariosController.CargarTodosMisTareas = function (request, response) {
+usuariosController.CargarTodasMisTareas = function (request, response) {
   var post = {
     idUser: request.body.idUser
   };
@@ -355,7 +355,7 @@ usuariosController.CargarTodosMisTareas = function (request, response) {
     response.json({ state: false, mensaje: "el campo en obligatorio id" });
     return false;
   }
-  usuariosModel.CargarTodosMisTareas(post, function (respuesta) {
+  usuariosModel.CargarTodasMisTareas(post, function (respuesta) {
       if (respuesta.state == false) {
           response.json({
               state: false,

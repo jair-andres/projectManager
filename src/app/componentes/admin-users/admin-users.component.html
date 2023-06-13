@@ -166,7 +166,7 @@
                 <tbody>
                   <tr *ngFor="let item of newsletters">
                     <th scope="row">{{item.email}}</th>
-                    <td data-bs-toggle="modal">{{item.alias}}</td>
+                    <td data-bs-toggle="modal">{{item.nombre}}</td>
                     <td>
                       <button type="button" class="btn btn-outline-danger align-items-center" (click)="EliminarNewsletter(item._id)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash me-2" viewBox="0 0 16 16">
