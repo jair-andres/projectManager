@@ -1,7 +1,7 @@
 var config = {}
 config.puerto = 3000
-config.bd = "Final"
-config.palabraClave = "ibero03"
+config.bd = "projectManagerBD"
+config.palabraClave = "palabraClave"
 // config.tiempoDeSesion = 300000
 config.tiempoDeSesion = 3600000
 config.listablanca = [
