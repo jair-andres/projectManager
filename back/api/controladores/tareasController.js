@@ -162,12 +162,13 @@ tareasController.Actualizar = function (request, response) {
   var post = {
     id: request.body.id,
     titulo: request.body.titulo,
-    // miembros: request.body.miembros,
     descripcion: request.body.descripcion,
     fechaInicio: request.body.fechaInicio,
     fechaFinal: request.body.fechaFinal,
-    estado: request.body.estado,
     actividades: request.body.actividades,
+    keyEncargado:request.body.keyEncargado,
+    miembros: request.body.miembros,
+    estado: request.body.estado,
     comentarios: request.body.comentarios
   };
 
@@ -178,6 +179,17 @@ tareasController.Actualizar = function (request, response) {
   ) {
     response.json({ state: false, mensaje: "El campo id es obligatorio" });
     return false;
+  }
+
+  if(post.keyEncargado){
+    if (
+      post.keyEncargado == undefined ||
+      post.keyEncargado == null ||
+      post.keyEncargado.trim() == ""
+    ) {
+      response.json({ state: false, mensaje: "El campo keyEncargado es obligatorio" });
+      return false;
+    }
   }
 
   if(post.titulo){
@@ -242,6 +254,17 @@ tareasController.Actualizar = function (request, response) {
       //post.actividades == []
     ) {
       response.json({ state: false, mensaje: "El campo actividades es obligatorio" });
+      return false;
+    }
+  }
+
+  if(post.miembros){
+    if (
+      post.miembros == undefined ||
+      post.miembros == null //||
+      //post.actividades == []
+    ) {
+      response.json({ state: false, mensaje: "El campo miembros es obligatorio" });
       return false;
     }
   }

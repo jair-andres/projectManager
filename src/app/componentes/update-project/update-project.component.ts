@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MensajesService } from 'src/app/servicios/mensajes.service';
 import { PeticionUsuariosService } from 'src/app/servicios/peticion-usuarios.service';
 
+declare var window: any; 
 @Component({
   selector: 'app-update-project',
   templateUrl: './update-project.component.html',
@@ -10,7 +11,10 @@ import { PeticionUsuariosService } from 'src/app/servicios/peticion-usuarios.ser
 })
 export class UpdateProjectComponent implements OnInit {
 
-  constructor(private peticion:PeticionUsuariosService, private msg:MensajesService, private activateRoute:ActivatedRoute) {}
+  constructor(private peticion:PeticionUsuariosService, private msg:MensajesService, private activateRoute:ActivatedRoute, private route:Router) {}
+
+  cambiarEncargadoModal:any
+  actividadesContainer:any
 
   miId:string = ""
   miAlias:string =""
@@ -29,10 +33,27 @@ export class UpdateProjectComponent implements OnInit {
   tareasInfo:any[]=[]
   miembrosInfo:any[]=[]
 
+  busquedaEncargado:string =""
   resultadoBusquedaEncargado:any[] = []
+  idTemporalTarea:string =""
 
+  miembrosEliminados:string[] = []
+  eliminadosInfo:any[] = []
+  
+  ProyectoIsOk:boolean = false // done
+  TareaIsOk:boolean = false // done
+  TareasEnUsuariosIsOk:boolean = false // done
+  countTareasEnUsuariosIsOk:number = 0 // done
+  ProyectoEnUsuariosIsOk:boolean = false //done
+  countProyectoEnUsuariosIsOk:number = 0 //done
+  EliminadosIsOk:boolean = false // done
+  countEliminadosIsOk:number = 0 // done
 
   ngOnInit():void {
+    this.cambiarEncargadoModal = new window.bootstrap.Modal(
+      document.getElementById('cambiarEncargadoModal')
+    )
+    this.actividadesContainer = window.document.getElementById("actividadesContainer")
     this.miData()
     this.idProyectoGet()
   }
@@ -103,10 +124,55 @@ export class UpdateProjectComponent implements OnInit {
 
     console.log("this.tareasInfo : ",this.tareasInfo)
     console.log("this.miembrosInfo : ",this.miembrosInfo)
+
+    console.log("this.busquedaEncargado : ",this.busquedaEncargado)
+    console.log("this.resultadoBusquedaEncargado : ",this.resultadoBusquedaEncargado)
+    console.log("this.idTemporalTarea : ",this.idTemporalTarea)
+    console.log("this.miembrosEliminados : ",this.miembrosEliminados)
+    console.log("this.eliminadosInfo : ",this.eliminadosInfo)
+    console.log("this.ProyectoIsOk : ",this.ProyectoIsOk)
+    console.log("this.TareaIsOk : ",this.TareaIsOk)
+    console.log("this.TareasEnUsuariosIsOk : ",this.TareasEnUsuariosIsOk)
+    console.log("this.countTareasEnUsuariosIsOk : ",this.countTareasEnUsuariosIsOk)
+    console.log("this.EliminadosIsOk : ",this.EliminadosIsOk)
+    console.log("this.countEliminadosIsOk : ",this.countEliminadosIsOk)
+    console.log("this.ProyectoEnUsuariosIsOk : ",this.ProyectoEnUsuariosIsOk)
+    console.log("this.countProyectoEnUsuariosIsOk : ",this.countProyectoEnUsuariosIsOk)
+    // console.log("this.nuevoComentario : ",this.nuevoComentario)
+  }
+
+  ActualizarMiembros(newArrayMembers:any[]){
+    console.log("newArrayMembers ===>",newArrayMembers[0].id)
+    this.miembros.push(newArrayMembers[0].id)
+    if(this.miembrosEliminados.indexOf(newArrayMembers[0].id) !== -1){
+      let indexTempo = this.miembrosEliminados.indexOf(newArrayMembers[0].id)
+      this.miembrosEliminados.splice(indexTempo,1)
+    }
+
+    let LocalNuevoMiembro:any[] =[]
+
+    let post = {
+      host:this.peticion.urllocal,
+      path:"Usuarios/CargarId",
+      payload:{
+        id:newArrayMembers[0].id
+      }
+    }
+    this.peticion.Post(post.host + post.path, post.payload).then((res:any) => {
+      if(res.state == false){
+        this.msg.Load(res.mensaje, "danger", 5000)
+      } else {
+        LocalNuevoMiembro = res.datos[0]
+        console.log("LocalNuevoMiembro : ",LocalNuevoMiembro)
+        this.miembrosInfo.push(LocalNuevoMiembro)
+      }
+    })
+
   }
 
   QuitarMiembros(idMiembro:string){
     // console.log("ID => ",idMiembro)
+    this.miembrosEliminados.push(idMiembro)
     let quitarDeMiembros:number = this.miembros.indexOf(idMiembro)
     this.miembros.splice(quitarDeMiembros,1)
     //
@@ -114,21 +180,70 @@ export class UpdateProjectComponent implements OnInit {
     let quitarDeMiembrosInfo:number = this.miembrosInfo.findIndex(foe)
     // console.log("Quitar este index en miembrosInfo: ",quitarDeMiembrosInfo)
     let suNombre:string = this.miembrosInfo[quitarDeMiembrosInfo]?.alias
-    this.miembrosInfo.splice(quitarDeMiembrosInfo,1)
+    let miembroInfoEliminado = this.miembrosInfo.splice(quitarDeMiembrosInfo,1)
+    this.eliminadosInfo.push(miembroInfoEliminado[0])
+    console.log(this.eliminadosInfo)
     let mensaje:string = `${suNombre} eliminado con éxito`
     this.msg.Load(mensaje, "success", 5000)
   }
 
-  QuitarTareas(idTarea:string){
-    console.log("Quiero quitar esta tarea : ",idTarea)
+  AbrirCambiarEncargadoModal(idTarea:string){
+    this.idTemporalTarea = idTarea
+    this.cambiarEncargadoModal.show()
   }
 
   CambiarEncargado(){
     console.log("cambiar encargado")
+    let post = {
+      hots:this.peticion.urllocal,
+      path:"Usuarios/Buscar",
+      payload:{
+        foo:this.busquedaEncargado
+      }
+    }
+    this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+      // console.log(res)
+      if(res.state == false){
+        this.msg.Load(res.mensaje, "danger", 5000)
+      } else {
+        this.resultadoBusquedaEncargado = res?.datos
+      }
+    })
   }
 
-  NuevaActividad(){
+  AnadirNuevoEncargado(){
+    console.log("AnadirNuevoEncargado")
+    let foa:any = (elArray:any) => elArray._id == this.idTemporalTarea
+    let indexDeLaTarea:number = this.tareasInfo.findIndex(foa)
+    this.tareasInfo[indexDeLaTarea].keyEncargado = this.resultadoBusquedaEncargado[0]._id
+    this.tareasInfo[indexDeLaTarea].miembros = this.resultadoBusquedaEncargado[0]
+    this.cambiarEncargadoModal.toggle()
+  }
+
+  NuevaActividad(idTarea:string){
     console.log("Queremos añadir una nueva actividad")
+    let fuo:any = (elArray:any) => elArray._id == idTarea
+    let indexDeLaTareaDondeEstaLaActividad:number = this.tareasInfo.findIndex(fuo)
+    let idTempo:string = this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].actividades.length
+    this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].actividades.push(
+      {id: idTempo,
+      actividad: "",
+      finalisada:false}
+    )
+  }
+
+  CheckActividad(indexActividad:any, idTarea:string){
+    console.log(`Tarea ${idTarea} con Actividad Index : ${indexActividad}`)
+    let fuo:any = (elArray:any) => elArray._id == idTarea
+    let indexDeLaTareaDondeEstaLaActividad:number = this.tareasInfo.findIndex(fuo)
+    if(this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].actividades[indexActividad].finalisada == false){
+      console.log("Je passe à true ==> ",this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].actividades[indexActividad].finalisada)
+      this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].actividades[indexActividad].finalisada = true
+    } else {
+      console.log("Je passe à false ==> ",this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].actividades[indexActividad].finalisada)
+      this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].actividades[indexActividad].finalisada = false
+    }
+    
   }
 
   QuitarActividad(indexActividad:any, idTarea:string){
@@ -142,11 +257,248 @@ export class UpdateProjectComponent implements OnInit {
     this.msg.Load(mensaje, "success", 5000)
   }
 
-  ActualizarTarea(){
-    console.log("actualizar esta tarea")
+  EnviarComentario(idTarea:string){
+    // console.log(idTarea)
+    // console.log(typeof(idTarea))
+    let foo:any = (elArray:any) => elArray._id == idTarea
+    let indexDeLaTareaDondeEstaLaActividad:number = this.tareasInfo.findIndex(foo)
+    let toStringId = idTarea.toString()
+    // console.log(toStringId)
+    let elId = "formControlComentariosNuevo"+idTarea
+    // console.log(elId)
+    let comentarioTextarea:any = window.document.getElementById("formControlComentariosNuevo"+idTarea)
+    // console.log(comentarioTextarea)
+    let nuevoComentario:string = comentarioTextarea.value
+
+    let today = new Date();
+
+    let creoUnNuevoComentario:any = {
+      date : today,
+      autor : this.miAlias,
+      autorId : this.miId,
+      comentario : nuevoComentario
+    } 
+    if(this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].comentarios == undefined){
+      this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].comentarios = []
+      this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].comentarios.push(creoUnNuevoComentario)
+    } else {
+      this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].comentarios.push(creoUnNuevoComentario)
+    }
+    comentarioTextarea.value = ""
   }
 
-  QuieroEliminarTarea(){
+  ActualizarUnaTarea(idTarea:string){
+    console.log("actualizar esta tarea")
+    let foo:any = (elArray:any) => elArray._id == idTarea
+    let indexDeLaTareaDondeEstaLaActividad:number = this.tareasInfo.findIndex(foo)
+    
+    let post = {
+      hots:this.peticion.urllocal,
+      path:"Tareas/Actualizar",
+      payload:{
+        id:idTarea,
+        titulo:this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].titulo,
+        descripcion:this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].descripcion,
+        fechaInicio:this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].fechaInicio,
+        fechaFinal:this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].fechaFinal,
+        actividades:this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].actividades,
+        comentarios:this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].comentarios,
+        estado:this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].estado,
+        keyEncargado:this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].keyEncargado,
+        miembros:this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].miembros,
+      }
+    }
+    this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+      if(res.state == false){
+        this.msg.Load(res.mensaje, "danger", 5000)
+      } else {
+        this.msg.Load(res.mensaje, "success", 5000)
+        location.reload()
+      }
+    })
+  }
+
+  QuieroEliminarTarea(idTarea:string){
     console.log("quiero eliminar esta tarea")
+  }
+  
+  QuitarTareas(idTarea:string){
+    console.log("Quiero quitar esta tarea : ",idTarea)
+  }
+
+  ActualizarProyecto(){
+    console.log("actualizar el proyecto : ",this.idProyecto)
+    let post = {
+      hots:this.peticion.urllocal,
+      path:"Proyectos/Actualizar",
+      payload:{
+        id:this.idProyecto,
+        nombreProyecto: this.nombreProyecto,
+        descripcion: this.descripcion,
+        objetivo: this.objetivo,
+        fechaEntrega: this.fechaEntrega,
+        prosupuesto:this.prosupuesto,
+        miembros:this.miembros,
+        tareas:this.tareas,
+      }
+    }
+    this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+      if(res.state == false){
+        this.msg.Load(res.mensaje, "danger", 5000)
+      } else {
+        this.msg.Load(res.mensaje, "success", 5000)
+        this.ProyectoIsOk = true
+        this.tareasInfo.map( tarea => this.ActualizarTodasLasTareas(this.idProyecto,tarea))
+        this.miembrosInfo.map( miembro => this.ActualizarUsuarioConProyecto(this.idProyecto,miembro._id))
+        if(this.miembrosEliminados.length > 0){
+          this.miembrosEliminados.map( miembro => this.ActualizarLosEliminados(miembro))
+        } else {
+          this.EliminadosIsOk = true
+        }
+      }
+    })
+  }
+
+  ActualizarTodasLasTareas(idProyecto:string, tarea:any){
+    console.log("ActualizarTodasLasTareas")
+    let post = {
+      hots:this.peticion.urllocal,
+      path:"Tareas/Actualizar",
+      payload:{
+        id:tarea._id,
+        titulo:tarea.titulo,
+        descripcion:tarea.descripcion,
+        fechaInicio:tarea.fechaInicio,
+        fechaFinal:tarea.fechaFinal,
+        actividades:tarea.actividades,
+        keyEncargado:tarea.keyEncargado,
+        miembros:tarea.miembros,
+        comentarios:tarea.comentarios,
+        estado:tarea.estado
+      }
+    }
+    this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+      if(res.state == false){
+        this.msg.Load(res.mensaje, "danger", 5000)
+      } else {
+        this.msg.Load(res.mensaje, "success", 5000)
+        this.TareaIsOk = true
+        this.ActualizarUsuarioConTarea(tarea.keyEncargado,tarea._id)
+      }
+    })
+  }
+
+  ActualizarUsuarioConTarea(idUsuario:string, idTarea:string){
+    console.log("ActualizarUsuarioConTarea")
+    let foo:any = (elArray:any) => elArray._id == idUsuario
+    let indexDelUsuaruio:number = this.miembrosInfo.findIndex(foo)
+    if(this.miembrosInfo[indexDelUsuaruio].misTareas.indexOf(idTarea) == -1){
+      console.log(this.miembrosInfo[indexDelUsuaruio].misTareas.indexOf(idTarea))
+      this.miembrosInfo[indexDelUsuaruio].misTareas.push(idTarea)
+      let post = {
+        hots:this.peticion.urllocal,
+        path:"Usuarios/Actualizar",
+        payload:{
+          id:idUsuario,
+          misTareas:this.miembrosInfo[indexDelUsuaruio].misTareas
+        }
+      }
+      this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+        if(res.state == false){
+          this.msg.Load(res.mensaje, "danger", 5000)
+        } else {
+          this.msg.Load(res.mensaje, "success", 5000)
+        }
+      })
+    }
+    this.countTareasEnUsuariosIsOk++
+    // console.log("FIN ActualizarUsuarioConTarea "+idTarea)
+    if(this.countTareasEnUsuariosIsOk == this.miembros.length){
+      this.TareasEnUsuariosIsOk = true
+    }
+    if(this.ProyectoIsOk == true && this.TareaIsOk == true && this.TareasEnUsuariosIsOk == true && this.ProyectoEnUsuariosIsOk == true && this.EliminadosIsOk == true){
+      this.route.navigate([`proyectos/${this.idProyecto}`])
+      //location.reload()
+    }
+  }
+
+  ActualizarUsuarioConProyecto(idProyecto:string, idUsuario:string){
+    console.log("ActualizarUsuarioConProyecto")
+    let foo:any = (elArray:any) => elArray._id == idUsuario
+    let indexDelUsuaruio:number = this.miembrosInfo.findIndex(foo)
+    if(this.miembrosInfo[indexDelUsuaruio].misProyectos.indexOf(idProyecto) == -1){
+      console.log(this.miembrosInfo[indexDelUsuaruio].misProyectos.indexOf(idProyecto))
+      this.miembrosInfo[indexDelUsuaruio].misProyectos.push(idProyecto)
+      let post = {
+        hots:this.peticion.urllocal,
+        path:"Usuarios/Actualizar",
+        payload:{
+          id:idUsuario,
+          misProyectos:this.miembrosInfo[indexDelUsuaruio].misProyectos
+        }
+      }
+      this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+        if(res.state == false){
+          this.msg.Load(res.mensaje, "danger", 5000)
+        } else {
+          this.msg.Load(res.mensaje, "success", 5000)
+        }
+      })
+    }
+    this.countProyectoEnUsuariosIsOk++
+    if(this.countProyectoEnUsuariosIsOk == this.miembros.length){
+      this.ProyectoEnUsuariosIsOk = true
+    }
+    if(this.ProyectoIsOk == true && this.TareaIsOk == true && this.TareasEnUsuariosIsOk == true && this.ProyectoEnUsuariosIsOk == true && this.EliminadosIsOk == true){
+      this.route.navigate([`proyectos/${this.idProyecto}`])
+      //location.reload()
+    }
+  }
+
+  ActualizarLosEliminados(idUsuario:string){
+    console.log("ActualizarLosEliminados")
+    console.log(idUsuario)
+    let foo:any = (elArray:any) => elArray._id == idUsuario
+    let indexDelUsuaruio:number = this.eliminadosInfo.findIndex(foo)
+    if(this.eliminadosInfo[indexDelUsuaruio].misProyectos.indexOf(this.idProyecto) !== -1){
+      let indexDelProyecto = this.eliminadosInfo[indexDelUsuaruio].misProyectos.indexOf(this.idProyecto)
+      this.eliminadosInfo[indexDelUsuaruio].misProyectos.splice(indexDelProyecto,1)
+      console.log("this.eliminadosInfo[indexDelUsuaruio].misProyectos : ",this.eliminadosInfo[indexDelUsuaruio].misProyectos)
+    }
+    this.tareas.map( (tareaIdEnTareas:any) => {
+      this.eliminadosInfo[indexDelUsuaruio].misTareas.map( (tareaIdEnUsuario:any) => {
+        if(tareaIdEnTareas == tareaIdEnUsuario){
+          if(this.eliminadosInfo[indexDelUsuaruio].misTareas.indexOf(tareaIdEnTareas) !== -1){
+            let indexDeLaTarea = this.eliminadosInfo[indexDelUsuaruio].misTareas.indexOf(tareaIdEnTareas)
+            this.eliminadosInfo[indexDelUsuaruio].misTareas.splice(indexDeLaTarea,1)
+            console.log("this.eliminadosInfo[indexDelUsuaruio].misTareas :",this.eliminadosInfo[indexDelUsuaruio].misTareas)
+          }
+        }
+      })
+    })
+    let post = {
+      hots:this.peticion.urllocal,
+      path:"Usuarios/Actualizar",
+      payload:{
+        id:idUsuario,
+        misTareas:this.eliminadosInfo[indexDelUsuaruio].misTareas,
+        misProyectos:this.eliminadosInfo[indexDelUsuaruio].misProyectos
+      }
+    }
+    this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
+      if(res.state == false){
+        this.msg.Load(res.mensaje, "danger", 5000)
+      } else {
+        this.msg.Load(res.mensaje, "success", 5000)
+      }
+    })
+    this.countEliminadosIsOk++
+    if(this.countEliminadosIsOk == this.miembrosEliminados.length){
+      this.EliminadosIsOk = true
+    }
+    if(this.ProyectoIsOk == true && this.TareaIsOk == true && this.TareasEnUsuariosIsOk == true && this.ProyectoEnUsuariosIsOk == true && this.EliminadosIsOk == true){
+      this.route.navigate([`proyectos/${this.idProyecto}`])
+      //location.reload()
+    }
   }
 }
