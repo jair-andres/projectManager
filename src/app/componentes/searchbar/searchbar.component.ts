@@ -28,9 +28,13 @@ export class SearchbarComponent implements OnInit {
     this.miembrosModal = new window.bootstrap.Modal(
       document.getElementById('miembrosModal')
     );
-    // console.log("Miembros :", this.miembros)
+    console.log("Miembros :", this.miembros)
   }
 
+  consoleMiembros(){
+    console.log("Miembros :", this.miembros)
+  }
+  
   leerOnChange(){
     let post = {
       hots:this.peticion.urllocal,
@@ -57,11 +61,11 @@ export class SearchbarComponent implements OnInit {
     this.usuarioSelectionado.push(temporalData)
 
     let localMiembros: any[] = this.miembros
-
+    console.log("LocalMiembros => ",localMiembros)
     let yaEsta = false
 
     localMiembros.map( miembro => {
-      if(miembro.id == this.usuarioSelectionado[0]?.id){
+      if(miembro.id == this.usuarioSelectionado[0]?.id || miembro ==this.usuarioSelectionado[0]?.id){
         yaEsta = true
       }
     })

@@ -133,6 +133,7 @@ export class TasksComponent implements OnInit {
       }
     })
   }
+
   ActualizarTarea(){
     if(this.nuevoComentario !== undefined && this.nuevoComentario !== null && this.nuevoComentario !== ""){
       let today = new Date();
@@ -174,6 +175,7 @@ export class TasksComponent implements OnInit {
     })
 
   }
+
   QuieroEliminarEstaTarea(idTarea:string, tituloTarea:string){
     console.log("Eliminar esta tarea :",idTarea,tituloTarea)
     this.EditarUnaTarea(idTarea,false)
@@ -215,15 +217,6 @@ export class TasksComponent implements OnInit {
     // Actuaizar misTareas en la base Usuario
     // Actualizar tareas en la base Proyecto
   }
-
-  // QuitarMiembros(idMiembro:any, miembros:any[]){
-  //   let foe:any = (elArray:any) => elArray.id == idMiembro
-  //   let quitarEsteIndex:number = miembros.findIndex(foe)
-  //   let suNombre:string = this.miembros[quitarEsteIndex]?.alias
-  //   let quitarLo:any = this.miembros.splice(quitarEsteIndex,1)
-  //   let mensaje:string = `${suNombre} eliminado con éxito`
-  //   this.msg.Load(mensaje, "success", 5000)
-  // }
 
   ActualizarMisTareasEnUsuario(idUsuario:string){
     let post = {
