@@ -49,7 +49,7 @@
                     -->
                     <div id="actividadesContainer" class=" mb-3" >
                         <div class="input-group mb-3" *ngFor="let acto of actividades">
-                            <input type="text" class="form-control" id="actividades_{{actividades.indexOf(acto)}}" [(ngModel)]="acto.actividad" placeholder="Actididad..." >
+                            <input type="text" class="form-control" id="actividades_{{actividades.indexOf(acto)}}" [(ngModel)]="acto.actividad" placeholder="Actididad..." autocomplete="off">
                             <span class="input-group-text">
                                 <button type="button" class=" btn-close ms-2" aria-label="Close" (click)="quitarActividad(actividades.indexOf(acto))"></button>
                             </span>

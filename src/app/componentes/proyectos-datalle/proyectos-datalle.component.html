@@ -101,7 +101,7 @@
                   <p class="m-0 fw-bold text-purple mb-2">Comentarios</p>
                   <div *ngFor="let comentario of tarea.comentarios">
                     <div *ngFor="let miembro of detalleProyecto.miembrosInfo">
-                        <div class="d-flex flex-column border border-1 border-purple rounded" *ngIf="comentario.autorId == miembro._id">
+                        <div class="d-flex flex-column border border-1 border-purple rounded mt-2" *ngIf="comentario.autorId == miembro._id">
                           <p class="mb-1 p-1 ">{{comentario.comentario}}</p>
                           <div class="d-flex justify-content-end">
                             <small class="text-end text-purple-dark bg-purple bg-opacity-25 rounded p-1">{{miembro.alias}}</small>

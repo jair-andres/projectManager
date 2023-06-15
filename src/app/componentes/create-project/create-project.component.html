@@ -8,7 +8,7 @@
         <button (click)="consoleTODO()">consoleTODO</button>
         -->
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingNombreProyecto" placeholder="Nombre del proyecto" [(ngModel)]="nombreProyecto">
+            <input type="text" class="form-control" id="floatingNombreProyecto" placeholder="Nombre del proyecto" [(ngModel)]="nombreProyecto" autocomplete="off">
             <label for="floatingNombreProyecto">Nombre del proyecto</label>
         </div>
         <div class="row px-3 d-flex flex-wrap" *ngIf="miembros.length > 0">
@@ -42,11 +42,11 @@
             <hr>
         </div>
         <div class="form-floating mb-3">
-            <input type="date" class="form-control" id="floatingDateEntrega" [(ngModel)]="fechaEntregaProyecto">
+            <input type="date" class="form-control" id="floatingDateEntrega" [(ngModel)]="fechaEntregaProyecto" autocomplete="off">
             <label for="floatingInputAsunto">Fecha de Entrega</label>
         </div>
         <div class="input-group form-floating mb-3"><span class="input-group-text">$</span>
-            <input type="number" class="form-control rounded-end" id="floatingProsupuesto" placeholder="Prosupuesto" [(ngModel)]="prosupuesto">
+            <input type="number" class="form-control rounded-end" id="floatingProsupuesto" placeholder="Prosupuesto" [(ngModel)]="prosupuesto" autocomplete="off">
             <label class="ms-5" for="floatingProsupuesto">Prosupuesto</label>
         </div>
         <div class="mt-3 d-flex justify-content-center row">
