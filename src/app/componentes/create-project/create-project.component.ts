@@ -90,7 +90,7 @@ export class CreateProjectComponent implements OnInit{
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
-        this.msg.Load(res.mensaje, "success", 5000)
+        //this.msg.Load(res.mensaje, "success", 5000)
         this.ProyectoIsOk = true
         this.idDelProyectoDespuesGuardarLo = res.id
         this.nombreProyecto = ""
@@ -130,7 +130,7 @@ export class CreateProjectComponent implements OnInit{
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
-        this.msg.Load(res.mensaje, "success", 5000)
+        //this.msg.Load(res.mensaje, "success", 5000)
         let idTempoDeLaTarea = res.id
         // console.log(`Tarea ${idTempoDeLaTarea} registrada en la colleccion de Tareas`)
         this.tareasDelProyecto.push(idTempoDeLaTarea)
@@ -159,7 +159,7 @@ export class CreateProjectComponent implements OnInit{
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
-        this.msg.Load(res.mensaje, "success", 5000)
+        //this.msg.Load(res.mensaje, "success", 5000)
         // console.log("Array con id de as tareas actualizado en el proyecto")
         this.TareasEnProyectoIsOk = true
       }
@@ -200,13 +200,15 @@ export class CreateProjectComponent implements OnInit{
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
-        this.msg.Load(res.mensaje, "success", 5000)
+        //this.msg.Load(res.mensaje, "success", 5000)
         this.countTareasEnUsuariosIsOk++
         // console.log("FIN ActualizarUsuarioConTarea "+idTarea)
         if(this.countTareasEnUsuariosIsOk == this.miembros.length){
           this.TareasEnUsuariosIsOk = true
         }
         if(this.ProyectoIsOk == true && this.TareaIsOk == true && this.TareasEnProyectoIsOk == true && this.TareasEnUsuariosIsOk == true && this.ProyectoEnUsuariosIsOk == true){
+          let msg = "Proyecto guardado con exito"
+          this.msg.Load(msg, "success", 5000)
           this.route.navigate(['dashboard'])
           location.reload()
         }
@@ -252,13 +254,21 @@ export class CreateProjectComponent implements OnInit{
         this.route.navigate(['dashboard'])
         location.reload()
       } else {
-        this.msg.Load(res.mensaje, "success", 5000)
+        //this.msg.Load(res.mensaje, "success", 5000)
         this.countProyectoEnUsuariosIsOk++
         // console.log("FIN ActualizarProyectosDeLosUsuarios : "+idMiembro)
         if(this.countProyectoEnUsuariosIsOk == this.miembros.length){
           this.ProyectoEnUsuariosIsOk = true
         }
+        if(this.tareas.length == 0 && this.ProyectoEnUsuariosIsOk == true){
+          let msg = "Proyecto guardado con exito"
+          this.msg.Load(msg, "success", 5000)
+          this.route.navigate(['dashboard'])
+          location.reload()
+        }
         if(this.ProyectoIsOk == true && this.TareaIsOk == true && this.TareasEnProyectoIsOk == true && this.TareasEnUsuariosIsOk == true && this.ProyectoEnUsuariosIsOk == true){
+          let msg = "Proyecto guardado con exito"
+          this.msg.Load(msg, "success", 5000)
           this.route.navigate(['dashboard'])
           location.reload()
         }

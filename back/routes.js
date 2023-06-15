@@ -11,10 +11,10 @@ var validarSession = function(request, response, next) {
 
 var validarAdmin = function(request, response, next) {
   // console.log("request.session.rol ===>",request.session.rol)
-  if (request.session.rol == undefined || request.session.rol == null || request.session.rol == "") {
-    response.json({state:false,error:true,mensaje:"Para ser uso de esta api tiene que iniciar sesion"})
-  }else if(request.session.rol == "Cliente"){
+  if (request.session.rol == "cliente") {
     response.json({state:false,error:true,mensaje:"Para ser uso de esta api tiene que ser administrador"})
+  }else if(request.session.rol == undefined || request.session.rol == null || request.session.rol == ""){
+    response.json({state:false,error:true,mensaje:"Para ser uso de esta api tiene que iniciar sesion"})
   } else {
     next()
   }
@@ -24,11 +24,11 @@ app.post('/Usuarios/Guardar',function(request, response) {
   usuariosController.Guardar(request, response)
 })
 
-app.post('/Usuarios/CargarTodas',validarSession,function(request, response) {
+app.post('/Usuarios/CargarTodas',validarAdmin,function(request, response) {
   usuariosController.CargarTodas(request, response)
 })
 
-app.post('/Usuarios/CargarId',validarSession,function(request, response) {
+app.post('/Usuarios/CargarId',function(request, response) {
   usuariosController.CargarId(request, response)
 })
 app.post('/Usuarios/Buscar',validarSession,function(request, response) {
@@ -55,7 +55,7 @@ app.post("/Usuarios/logout", function(request, response) {
 app.post('/Usuarios/CargarTodosMisProyectos',validarSession,function(request, response) {
   usuariosController.CargarTodosMisProyectos(request, response)
 })
-app.post('/Usuarios/CargarTodasMisTareas',validarSession,function(request, response) {
+app.post('/Usuarios/CargarTodasMisTareas',function(request, response) {
   usuariosController.CargarTodasMisTareas(request, response)
 })
 
@@ -67,11 +67,11 @@ app.post("/Pqrs/Guardar",function(request, response) {
   pqrsController.Guardar(request, response)
 })
 
-app.post("/Pqrs/CargarTodas",validarAdmin,function(request, response) {
+app.post("/Pqrs/CargarTodas",function(request, response) {
   pqrsController.CargarTodas(request, response)
 })
 
-app.post("/Pqrs/CargarId",validarAdmin,function(request, response) {
+app.post("/Pqrs/CargarId",function(request, response) {
   pqrsController.CargarId(request, response)
 })
 
@@ -100,7 +100,7 @@ app.post("/state", function(request, response) {
 //=== ARCHIVO ===//
 var filesController = require("./api/controladores/filesController.js").filesController
 
-app.post("/files/:carpeta/:carpeta/:id", function(request, response) {
+app.post("/files/:carpeta/:carpeta/:id",validarSession, function(request, response) {
   filesController.SubirArchivos(request, response)
 })
 
@@ -111,11 +111,11 @@ app.post("/Newsletters/Guardar",function(request, response) {
   newslettersController.Guardar(request, response)
 })
 
-app.post("/Newsletters/CargarTodas",validarSession,validarAdmin,function(request, response) {
+app.post("/Newsletters/CargarTodas",function(request, response) {
   newslettersController.CargarTodas(request, response)
 })
 
-app.post("/Newsletters/Eliminar",validarSession,validarAdmin,function(request, response) {
+app.post("/Newsletters/Eliminar",validarAdmin,function(request, response) {
   newslettersController.EliminarNewsletters(request, response)
 })
 
@@ -128,11 +128,11 @@ app.post('/Proyectos/Guardar',validarSession,function(request, response) {
   proyectosController.Guardar(request, response)
 })
 
-app.post('/Proyectos/CargarTodas',validarSession,function(request, response) {
+app.post('/Proyectos/CargarTodas',function(request, response) {
   proyectosController.CargarTodas(request, response)
 })
 
-app.post('/Proyectos/CargarId',validarSession,function(request, response) {
+app.post('/Proyectos/CargarId',function(request, response) {
   proyectosController.CargarId(request, response)
 })
 
@@ -144,7 +144,7 @@ app.post('/Proyectos/Eliminar',validarSession,function(request, response) {
   proyectosController.Eliminar(request, response)
 })
 
-app.post('/Proyectos/CargarTareas',validarSession,function(request, response) {
+app.post('/Proyectos/CargarTareas',function(request, response) {
   proyectosController.CargarTareas(request, response)
 })
 
@@ -160,11 +160,11 @@ app.post('/Tareas/Guardar',validarSession,function(request, response) {
   tareasController.Guardar(request, response)
 })
 
-app.post('/Tareas/CargarTodas',validarSession,function(request, response) {
+app.post('/Tareas/CargarTodas',function(request, response) {
   tareasController.CargarTodas(request, response)
 })
 
-app.post('/Tareas/CargarId',validarSession,function(request, response) {
+app.post('/Tareas/CargarId',function(request, response) {
   tareasController.CargarId(request, response)
 })
 

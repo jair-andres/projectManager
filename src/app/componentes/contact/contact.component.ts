@@ -66,6 +66,10 @@ export class ContactComponent implements OnInit {
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
+        this.email = ""
+        this.nombre = ""
+        this.asunto = ""
+        this.observacion = ""
       }
     })
   }

@@ -9,9 +9,9 @@
                 </svg>
                 Volver al panel
             </button>
-            <!---->
+            <!--
             <button (click)="consoleTODO()">Console Variable</button>
-            <!---->
+            -->
             <div class="col col-md-9 col-lg-7 col-xl-6">
                 <div class="w-100 d-flex justify-content-between align-items-center">
                 <h3 class="text-purple">Informaciones generales</h3>
@@ -19,7 +19,7 @@
                 </div>
                 
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingNombreProyecto" placeholder="Nombre del proyecto" [(ngModel)]="nombreProyecto">
+                    <input type="text" class="form-control" id="floatingNombreProyecto" placeholder="Nombre del proyecto" [(ngModel)]="nombreProyecto" autocomplete="off">
                     <label for="floatingNombreProyecto">Nombre del proyecto</label>
                 </div>
                 <div class="form-floating textarea mb-3 h-auto">
@@ -33,11 +33,11 @@
                     <label for="floatingObjetivo">Objetivos</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="date" class="form-control" id="floatingDateEntrega" [(ngModel)]="fechaEntrega">
+                    <input type="date" class="form-control" id="floatingDateEntrega" [(ngModel)]="fechaEntrega" autocomplete="off">
                     <label for="floatingInputAsunto">Fecha de entrega del proyecto</label>
                 </div>
                 <div class="input-group form-floating mb-3"><span class="input-group-text">$</span>
-                    <input type="number" class="form-control rounded-end" id="floatingProsupuesto" placeholder="Prosupuesto" [(ngModel)]="prosupuesto">
+                    <input type="number" class="form-control rounded-end" id="floatingProsupuesto" placeholder="Prosupuesto" [(ngModel)]="prosupuesto" autocomplete="off">
                     <label class="ms-5" for="floatingProsupuesto">Prosupuesto</label>
                 </div>
                 <h3 class="text-purple text-center">Miembros</h3>
@@ -96,19 +96,19 @@
                         <div class="w-100 mb-3">
                             <p class="fw-bold text-purple ps-1 mb-0">Estado :</p>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="estado_{{tarea.keyEncargado}}" id="estado_01{{tarea.keyEncargado}}" value="Nuevo" [(ngModel)]="tarea.estado">
+                                <input class="form-check-input" type="radio" name="estado_{{tarea.keyEncargado}}" id="estado_01{{tarea.keyEncargado}}" value="Nuevo" [(ngModel)]="tarea.estado" autocomplete="off">
                                 <label class="form-check-label" for="estado_01{{tarea.keyEncargado}}">
                                 Nuevo
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="estado_{{tarea.keyEncargado}}" id="estado_02{{tarea.keyEncargado}}" value="Pendiente" [(ngModel)]="tarea.estado">
+                                <input class="form-check-input" type="radio" name="estado_{{tarea.keyEncargado}}" id="estado_02{{tarea.keyEncargado}}" value="Pendiente" [(ngModel)]="tarea.estado" autocomplete="off">
                                 <label class="form-check-label" for="estado_02{{tarea.keyEncargado}}">
                                     Pendiente
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="estado_{{tarea.keyEncargado}}" id="estado_03{{tarea.keyEncargado}}" value="Resuelto" [(ngModel)]="tarea.estado">
+                                <input class="form-check-input" type="radio" name="estado_{{tarea.keyEncargado}}" id="estado_03{{tarea.keyEncargado}}" value="Resuelto" [(ngModel)]="tarea.estado" autocomplete="off">
                                 <label class="form-check-label" for="estado_03{{tarea.keyEncargado}}">
                                     Resuelto
                                 </label>
@@ -130,7 +130,7 @@
                                         <input class="form-check-input mt-0" type="checkbox" value="true" aria-label="Checkbox for following text input" (change)="CheckActividad(tarea.actividades.indexOf(actividad),tarea._id)">
                                     </ng-template>
                                 </div>
-                                <input type="text" class="form-control" id="actividadesInput_{{actividad.id}}" [(ngModel)]="actividad.actividad" placeholder="Actididad..." >
+                                <input type="text" class="form-control" id="actividadesInput_{{actividad.id}}" [(ngModel)]="actividad.actividad" placeholder="Actididad..." autocomplete="off">
                                 <span class="input-group-text">
                                     <button type="button" class=" btn-close ms-2" aria-label="Close" (click)="QuitarActividad(tarea.actividades.indexOf(actividad),tarea._id)"></button>
                                 </span>

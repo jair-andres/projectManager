@@ -59,6 +59,7 @@ export class MenuComponent implements OnInit {
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
         this.route.navigate(['home'])
+        location.reload()
       }
     })
   }

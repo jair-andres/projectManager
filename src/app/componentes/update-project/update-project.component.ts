@@ -269,7 +269,7 @@ export class UpdateProjectComponent implements OnInit {
     let comentarioTextarea:any = window.document.getElementById("formControlComentariosNuevo"+idTarea)
     // console.log(comentarioTextarea)
     let nuevoComentario:string = comentarioTextarea.value
-
+    
     let today = new Date();
 
     let creoUnNuevoComentario:any = {
@@ -346,7 +346,7 @@ export class UpdateProjectComponent implements OnInit {
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
-        this.msg.Load(res.mensaje, "success", 5000)
+        // this.msg.Load(res.mensaje, "success", 5000)
         this.ProyectoIsOk = true
         this.tareasInfo.map( tarea => this.ActualizarTodasLasTareas(this.idProyecto,tarea))
         this.miembrosInfo.map( miembro => this.ActualizarUsuarioConProyecto(this.idProyecto,miembro._id))
@@ -381,7 +381,7 @@ export class UpdateProjectComponent implements OnInit {
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
-        this.msg.Load(res.mensaje, "success", 5000)
+        // this.msg.Load(res.mensaje, "success", 5000)
         this.TareaIsOk = true
         this.ActualizarUsuarioConTarea(tarea.keyEncargado,tarea._id)
       }
@@ -489,7 +489,7 @@ export class UpdateProjectComponent implements OnInit {
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
-        this.msg.Load(res.mensaje, "success", 5000)
+        // this.msg.Load(res.mensaje, "success", 5000)
       }
     })
     this.countEliminadosIsOk++
