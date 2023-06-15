@@ -28,7 +28,7 @@ app.post('/Usuarios/CargarTodas',validarAdmin,function(request, response) {
   usuariosController.CargarTodas(request, response)
 })
 
-app.post('/Usuarios/CargarId',function(request, response) {
+app.post('/Usuarios/CargarId',validarSession,function(request, response) {
   usuariosController.CargarId(request, response)
 })
 app.post('/Usuarios/Buscar',validarSession,function(request, response) {
