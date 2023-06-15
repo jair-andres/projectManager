@@ -22,6 +22,10 @@ export class MenuComponent implements OnInit {
   aliasSesion:string = ""
   rolSesion:string = ""
   res: object ={}
+  id:string = ""
+
+  imageProfileUrl:string = ""
+  imagenEstaOk:boolean = false
 
   ngOnInit(): void {
     this.miData()
@@ -37,13 +41,36 @@ export class MenuComponent implements OnInit {
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
       this.res = res
+      this.id = res.id
       this.aliasSesion = res.alias
       this.rolSesion = res.rol
+      this.imageProfileUrl = `${this.peticion.urllocal}back/perfiles/${this.id}.png`
+      this.checkIfImageExists(this.imageProfileUrl, (exists:any) => {
+        if (exists) {
+          // console.log('Image exists. ')
+          this.imagenEstaOk = true
+        }
+      })
     })
     // console.log("=== CONSOLE.LOG DE MENU COMPONENT ===")
     // console.log(this.res)
     // console.log(this.rolSesion)
     // console.log(typeof(this.rolSesion))
+  }
+
+  checkIfImageExists(urlparam:string, callback:any) {
+    const img = new Image();
+    img.src = urlparam;
+    if (img.complete) {
+      callback(true)
+    } else {
+      img.onload = () => {
+        callback(true)
+      }
+      img.onerror = () => {
+        callback(false)
+      }
+    }
   }
 
   logOut(){
