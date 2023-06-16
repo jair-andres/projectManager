@@ -1,0 +1,163 @@
+<div class="container-fluid d-flex flex-column p-0 m-0 min-vh-100">
+  <app-menu></app-menu>
+  <app-notification></app-notification>
+  <div class="container-fluid d-flex flex-column align-items-center p-2">
+    <button type="button" class="btn btn-outline-purple font-monospace align-self-start" routerLink="/dashboard">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+      </svg>
+      Volver al panel
+    </button>
+    <button type="button" class="btn btn-purple font-monospace position-fixed top-5 end-0" routerLink="/updateProject/{{idProyectos}}">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-plus" viewBox="0 0 16 16">
+        <path d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z"/>
+        <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
+      </svg>
+      Modificar proyecto
+    </button>
+    <div class="container bg-purple ps-4 mt-5 mx-3 rounded-end">
+      <div class="row p-3 bg-light border border-purple rounded-end">
+        <div class="col-12">
+          <h2 class="text-purple text-center">
+            Nombre Proyecto: {{ this.detalleProyecto.nombreProyecto }}
+          </h2>
+        </div>
+        <div class="col-8">
+          <p class="">
+            <span class="text-purple">Objetivo:</span>
+            <br>
+            {{ this.detalleProyecto.objetivo }}
+          </p>
+        </div>
+        <div class="col-4">
+          <p class="">
+            <span class="text-purple">Preupuesto:</span>
+            <br>
+            {{ this.detalleProyecto.prosupuesto }} COP
+          </p>
+        </div>
+        <div class="col-8">
+          <p class="">
+            <span class="text-purple">Descripción:</span>
+            <br>
+            {{ this.detalleProyecto.descripcion }}
+          </p>
+        </div>
+        <div class="col-4">
+          <p class="">
+            <span class="text-purple">Fecha de culminación</span>
+            <br>
+            {{ this.detalleProyecto.fechaEntrega }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt-3">
+      <div class="row px-2">
+        <h2 class="text-purple text-center">Tareas</h2>
+        <div class="border border-purple my-2"></div>
+        <div class="container-fluid d-flex flex-wrap w-100 p-0 pb-2">
+          <div class="col-12 col-sm-6 col-md-4 p-1 pb-1" *ngFor="let tarea of tareasInfo">
+            <div class="bg-gradiente h-100 px-4 py-3 m-1">
+              <div class="d-flex flex-column align-items-center bg-light h-100 p-3 rounded-3">
+                <div class="w-100 mb-2 pb-3 border-bottom border-purple border-2">
+                  <p class="m-0 fw-bold text-purple">Titulo</p>
+                  <p class="m-0">{{ tarea.titulo }}</p>
+                </div>
+                <div class="w-100" *ngFor="let usuario of detalleProyecto.miembrosInfo">
+                  <div class="w-100 mb-2 pb-3 border-bottom border-purple border-2" *ngIf="tarea.keyEncargado == usuario._id">
+                    <p class="m-0 fw-bold text-purple">Encargado</p>
+                    <p class="m-0">{{ usuario.alias }}</p>
+                  </div>
+                </div>
+                <div class="w-100 mb-2 pb-3 border-bottom border-purple border-2">
+                  <p class="m-0 fw-bold text-purple">Descripcion</p>
+                  <p class="m-0">{{ tarea.descripcion }}</p>
+                </div>
+                <div class="w-100 mb-2 pb-3 border-bottom border-purple border-2">
+                  <p class="m-0 fw-bold text-purple">Fecha inicio</p>
+                  <p class="m-0">{{ tarea.fechaInicio}}</p>
+                </div>
+                <div class="w-100 mb-2 pb-3 border-bottom border-purple border-2">
+                  <p class="m-0 fw-bold text-purple">Fecha fina</p>
+                  <p class="m-0">{{ tarea.fechaFinal}}</p>
+                </div>
+                <div class="w-100 mb-2 pb-3 border-bottom border-purple border-2">
+                  <p class="m-0 fw-bold text-purple">Estado</p>
+                  <p class="m-0">{{ tarea.estado}}</p>
+                </div>
+                <div class="w-100 mb-2 pb-3 border-bottom border-purple border-2">
+                  <p class="m-0 fw-bold text-purple">Actividades</p>
+                  <div *ngFor="let actividad of tarea.actividades">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value={{actividad.finalisada}} id="actividadCheck_{{actividad.id}}">
+                      <label class="form-check-label" for="actividadCheck_{{actividad.id}}">
+                        {{actividad.actividad}}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="w-100">
+                  <p class="m-0 fw-bold text-purple mb-2">Comentarios</p>
+                  <div *ngFor="let comentario of tarea.comentarios">
+                    <div *ngFor="let miembro of detalleProyecto.miembrosInfo">
+                        <div class="d-flex flex-column border border-1 border-purple rounded mt-2" *ngIf="comentario.autorId == miembro._id">
+                          <p class="mb-1 p-1 ">{{comentario.comentario}}</p>
+                          <div class="d-flex justify-content-end">
+                            <small class="text-end text-purple-dark bg-purple bg-opacity-25 rounded p-1">{{miembro.alias}}</small>
+                          </div>
+                          
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row px-2">
+        <h2 class="text-purple text-center">Miembros</h2>
+        <div class="border border-purple my-2"></div>
+        <div class="container d-flex flex-wrap w-100 p-0 pb-2">
+          <div class="col-12 col-sm-6 col-md-4 p-1 pb-1" *ngFor="let miembro of miembrosInfo">
+            <div class="bg-gradiente h-100 px-4 py-3 m-1">
+              <div class="d-flex flex-column align-items-center bg-light h-100 px-4 py-2 rounded-3">
+                <div *ngIf="miembro.imageUrl !== '' && miembro.imageUrl !== undefined && miembro.imageUrl !== null;else neutralPerfile" class="border border-3 border-purple-dark rounded-circle "
+                  style="width:6rem; height:6rem; background-image: url({{miembro.imageUrl}}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
+                <ng-template #neutralPerfile>
+                <div class="border border-3 border-purple-dark rounded-circle"
+                  style="width:6rem; height:6rem; background-image: url('http://localhost:3000/back/perfiles/logo_skull.png'); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
+                </ng-template>
+                <div class="w-100 mb-2">
+                  <p class="m-0 text-purple">Alias</p>
+                  <p class="m-0">{{ miembro.alias }}</p>
+                </div>
+                <div class="w-100 mb-2">
+                  <p class="m-0 text-purple">Nombre</p>
+                  <p class="m-0">{{ miembro.nombre }}</p>
+                </div>
+                <div class="w-100 mb-2">
+                  <p class="m-0 text-purple">Apellido</p>
+                  <p class="m-0">{{ miembro.apellido }}</p>
+                </div>
+                <div class="w-100 mb-2">
+                  <p class="m-0 text-purple">Correo</p>
+                  <p class="m-0">{{ miembro.email }}</p>
+                </div>
+                <div class="w-100">
+                  <p class="m-0 text-purple">Telefono</p>
+                  <p class="m-0">{{ miembro.telefono }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>
+

@@ -1,36 +1,49 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-info">
-    <div class="container-fluid px-0">
-        <a class="navbar-brand me-2" href="#">ProjectManager</a>
+<nav class="navbar navbar-expand-md navbar-dark bg-purple-dark">
+    <div class="container-fluid px-2">
+        <a class="navbar-brand me-2" href="#">
+            <img src="{{logo}}" alt="Project_Manager_Logo" width="250">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav w-100 me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+            <ul class="navbar-nav w-100 me-auto mb-lg-0">
+                <li class="nav-item d-flex align-items-center">
+                    <a class="font-monospace nav-link active" aria-current="page" routerLink="/home">Inicio</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contactanos">Contactanos</a>
+                <li class="nav-item d-flex align-items-center">
+                    <a class="font-monospace nav-link" routerLink="/contact">Contactanos</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/nosotros">Nosotros</a>
+                <li class="nav-item d-flex align-items-center me-auto">
+                    <a class="font-monospace nav-link" routerLink="/aboutus">Nosotros</a>
                 </li>
-                <li class="nav-item ms-auto fw-bold">
-                    <a class="nav-link" href="/conectate">Conéctate</a>
+                <li class="nav-item fw-bold"
+                    *ngIf="aliasSesion == undefined || aliasSesion == null || aliasSesion.trim() == '';else menuDashboard">
+                    <a class="font-monospace nav-link" routerLink="/login">Conéctate</a>
                 </li>
-                <li class="nav-item fw-bold">
-                    <a class="nav-link" href="/registrate">Regístrate</a>
+                <li class="nav-item fw-bold"
+                    *ngIf="aliasSesion == undefined || aliasSesion == null || aliasSesion.trim() == ''">
+                    <a class="font-monospace nav-link" routerLink="/register">Regístrate</a>
                 </li>
+
+                <ng-template #menuDashboard>
+                    <div *ngIf="imagenEstaOk == true" class="rounded-circle"
+                    style="width:4rem; height:4rem; background-color: white; background-image: url({{imageProfileUrl}}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
+                    <li class="nav-item dropdown align-self-center">
+                        <a class="nav-link text-uppercase font-monospace fw-bold dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            {{aliasSesion}}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" routerLink="/profile">Perfil</a></li>
+                            <li *ngIf="rolSesion == 'Administrador'"><a class="dropdown-item" routerLink="/adminuser">Administrador</a></li>
+                            <li><a class="dropdown-item" routerLink="/dashboard">Panel</a></li>
+                            <li><button class="dropdown-item" (click)="logOut()">logOut</button></li>
+                        </ul>
+                    </li>
+                </ng-template>
             </ul>
-            <!-- 
-            <form class="d-flex">
-                <div class="btn-group m-2 gap-1">
-                    <button class="btn btn-info" type="submit">Iniciar Sección</button>
-                    <button class="btn btn-info" type="submit">Registrate</button>
-                </div>
-            </form>
-            -->
         </div>
     </div>
 </nav>

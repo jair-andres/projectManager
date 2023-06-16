@@ -1,0 +1,191 @@
+<div class="container-fluid d-flex flex-column p-0 m-0 min-vh-100">
+    <app-menu></app-menu>
+    <app-notification></app-notification>
+    <div class="container-fluid d-flex flex-grow-1 p-0">
+        <div class="w-100 d-flex flex-column align-items-center flex-shrink-1 p-2">
+            <button type="button" class="btn btn-outline-purple font-monospace align-self-start" routerLink="/dashboard">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                </svg>
+                Volver al panel
+            </button>
+            <div class="col col-md-9 col-lg-7 col-xl-6">
+                <div class="w-100 d-flex justify-content-between align-items-center">
+                <h3 class="text-purple">Informaciones generales</h3>
+                <button type="button" class="btn btn-purple" (click)="ActualizarProyecto()">Actualizar el proyecto</button>
+                </div>
+                
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingNombreProyecto" placeholder="Nombre del proyecto" [(ngModel)]="nombreProyecto" autocomplete="off">
+                    <label for="floatingNombreProyecto">Nombre del proyecto</label>
+                </div>
+                <div class="form-floating textarea mb-3 h-auto">
+                    <textarea class="form-control" id="floatingDescripcion" rows="5"
+                            placeholder="Descripcion..." [(ngModel)]="descripcion"></textarea>
+                    <label for="floatingDescripcion">Descripcion</label>
+                </div>
+                <div class="form-floating textarea mb-3 h-auto">
+                    <textarea class="form-control" id="floatingObjetivos" rows="5"
+                            placeholder="Objetivos..." [(ngModel)]="objetivo"></textarea>
+                    <label for="floatingObjetivo">Objetivos</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="floatingDateEntrega" [(ngModel)]="fechaEntrega" autocomplete="off">
+                    <label for="floatingInputAsunto">Fecha de entrega del proyecto</label>
+                </div>
+                <div class="input-group form-floating mb-3"><span class="input-group-text">$</span>
+                    <input type="number" class="form-control rounded-end" id="floatingProsupuesto" placeholder="Prosupuesto" [(ngModel)]="prosupuesto" autocomplete="off">
+                    <label class="ms-5" for="floatingProsupuesto">Prosupuesto</label>
+                </div>
+                <h3 class="text-purple text-center">Miembros</h3>
+                <div class="row px-3 d-flex flex-wrap" *ngIf="miembros.length > 0">
+                    <hr>
+                    <div class="p-2 me-2 mb-2 text-light bg-purple w-auto rounded" *ngFor="let miembro of miembrosInfo">
+                        {{miembro.alias}}
+                    <button type="button" class="btn-close btn-close-white ms-2" aria-label="Close" (click)="QuitarMiembros(miembro._id)"></button>
+                    </div>
+                    <hr>
+                </div>
+                <app-searchbar [miembros]="miembros" (result)="ActualizarMiembros($event)"></app-searchbar>
+            </div>
+            <h3 class="text-purple text-center">Tareas</h3>
+            <div class="row px-3 d-flex flex-wrap pb-3" *ngIf="tareas.length > 0">
+                <div *ngFor="let tarea of tareasInfo" class="col">
+                    <div class="card bg-purple bg-opacity-25 border border-purple h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <p class="fw-bold text-purple ps-1 mb-0 me-2">Encargado :</p>
+                            <div *ngFor="let miembro of miembrosInfo">
+                                <div *ngIf="tarea.keyEncargado == miembro._id">
+                                    <p class="p-0 m-0"> {{miembro.alias}}</p>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-outline-purple ms-auto"(click)="AbrirCambiarEncargadoModal(tarea._id)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInputTarea" placeholder="Titulo de la tarea" autocomplete="off" [(ngModel)]="tarea.titulo">
+                            <label for="floatingInputTarea">Titulo Tarea</label>
+                        </div>
+                        <div class="form-floating textarea mb-3 h-auto">
+                            <textarea class="form-control" id="floatingDescripcionTarea" rows="5" placeholder="Descripcion..." 
+                                    autocomplete="off" [(ngModel)]="tarea.descripcion"></textarea>
+                            <label for="floatingDescripcionTarea">Descripcion</label>
+                        </div>
+                        <div class="w-100 mb-3">
+                            <p class="fw-bold text-purple ps-1 mb-0">Estado :</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="estado_{{tarea.keyEncargado}}" id="estado_01{{tarea.keyEncargado}}" value="Nuevo" [(ngModel)]="tarea.estado" autocomplete="off">
+                                <label class="form-check-label" for="estado_01{{tarea.keyEncargado}}">
+                                Nuevo
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="estado_{{tarea.keyEncargado}}" id="estado_02{{tarea.keyEncargado}}" value="Pendiente" [(ngModel)]="tarea.estado" autocomplete="off">
+                                <label class="form-check-label" for="estado_02{{tarea.keyEncargado}}">
+                                    Pendiente
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="estado_{{tarea.keyEncargado}}" id="estado_03{{tarea.keyEncargado}}" value="Resuelto" [(ngModel)]="tarea.estado" autocomplete="off">
+                                <label class="form-check-label" for="estado_03{{tarea.keyEncargado}}">
+                                    Resuelto
+                                </label>
+                            </div>
+                        </div>
+                        <div class="w-100 d-flex justify-content-between align-items-center">
+                            <p class="fw-bold text-purple ps-1 mb-0">Actividades :</p>
+                            <span class="text-purple btn" (click)="NuevaActividad(tarea._id)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div id="actividadesContainer" *ngFor="let actividad of tarea.actividades">
+                            <div class="input-group mb-3">
+                                <div class="input-group-text">
+                                    <input class="form-check-input mt-0" type="checkbox" value="true" [(ngModel)]="actividad.finalisada" aria-label="Checkbox for following text input" *ngIf="actividad.finalisada; else unChecked" checked (change)="CheckActividad(tarea.actividades.indexOf(actividad),tarea._id)">
+                                    <ng-template #unChecked>
+                                        <input class="form-check-input mt-0" type="checkbox" value="true" aria-label="Checkbox for following text input" (change)="CheckActividad(tarea.actividades.indexOf(actividad),tarea._id)">
+                                    </ng-template>
+                                </div>
+                                <input type="text" class="form-control" id="actividadesInput_{{actividad.id}}" [(ngModel)]="actividad.actividad" placeholder="Actididad..." autocomplete="off">
+                                <span class="input-group-text">
+                                    <button type="button" class=" btn-close ms-2" aria-label="Close" (click)="QuitarActividad(tarea.actividades.indexOf(actividad),tarea._id)"></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="floatingInputFechaInicio" placeholder="Fecha de inicio" autocomplete="off" [(ngModel)]="tarea.fechaInicio">
+                            <label for="floatingInputFechaInicio">Fecha de inicio</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="floatingInputFechaEntrega" placeholder="Fecha de entrega" autocomplete="off" [(ngModel)]="tarea.fechaFinal">
+                            <label for="floatingInputFechaEntrega">Fecha de entrega</label>
+                        </div>
+                        <div class="w-100">
+                            <p class="fw-bold text-purple ps-1 mb-0">Comentarios :</p>
+                            <div *ngFor="let com of tarea.comentarios">
+                                <div *ngFor="let miembro of miembrosInfo">
+                                    <div class="d-flex flex-column border border-1 border-purple bg-light rounded mb-2" *ngIf="com.autorId == miembro._id">
+                                        <p class="mb-1 p-1 ">{{com.comentario}}</p>
+                                        <div class="d-flex justify-content-end">
+                                            <small class="text-end text-purple-dark bg-purple bg-opacity-25 rounded p-1">{{miembro.alias}}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="form-group textarea w-100">
+                                    <textarea class="form-control" id="formControlComentariosNuevo{{tarea._id}}"
+                                    placeholder="Nuevo comentario..."></textarea>
+                                    <button type="button" class="btn btn-outline-purple font-monospace align-self-start w-100" (click)="EnviarComentario(tarea._id)">Enviar</button>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="card-footer d-flex bg-light justify-content-end">
+                        <button type="button" class="btn btn-outline-danger me-2" (click)="QuieroEliminarTarea(tarea._id)">Eliminar</button>
+                        <button type="button" class="btn btn-purple" (click)="ActualizarUnaTarea(tarea._id)">Actualizar la tarea</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL cambiar Encargado de una tarea -->
+    <div class="modal fade" id="cambiarEncargadoModal" tabindex="-1" aria-labelledby="cambiarEncargadoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="cambiarEncargadoModalLabel">Buscar nuevo encargado</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="search" class="form-control" id="floatingSearchEncargado" list="datalistOptionsEncargado" placeholder="Buscar miembros" autocomplete="off" [(ngModel)]="busquedaEncargado" (ngModelChange)="CambiarEncargado()">
+                        <label for="floatingSearchEncargado">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                            Buscar
+                        </label>
+                        <datalist id="datalistOptionsEncargado" >
+                            <option *ngFor="let user of resultadoBusquedaEncargado" value={{user.alias}}>
+                        </datalist>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-purple" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-purple" (click)="AnadirNuevoEncargado()">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>
+
+
