@@ -67,7 +67,6 @@ export class CreateProjectComponent implements OnInit{
   }
 
   GuardarProyecto(){
-    // console.log("On lance GuardarProyecto()")
     let arrayIdMiembros:any[] = []
     this.miembros.map( miembro => arrayIdMiembros.push(miembro.id))
 
@@ -90,7 +89,6 @@ export class CreateProjectComponent implements OnInit{
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
-        //this.msg.Load(res.mensaje, "success", 5000)
         this.ProyectoIsOk = true
         this.idDelProyectoDespuesGuardarLo = res.id
         this.nombreProyecto = ""
@@ -99,16 +97,12 @@ export class CreateProjectComponent implements OnInit{
         this.fechaEntregaProyecto = ""
         this.prosupuesto = null
         this.tareas.map( tarea => this.RegistrarTarea(this.idDelProyectoDespuesGuardarLo, tarea))
-        // console.log("ENTRE la fonction map sur tareas pour lancer RegistrarTarea() et la fonction map sur miembros")
         this.miembros.map( miembro => this.EditarMisProyectos(this.idDelProyectoDespuesGuardarLo, miembro.id))
       }
     })
   }
 
   RegistrarTarea(idProyecto:string, tarea:any){
-    // console.log("On lance RegistrarTarea()")
-    // console.log("idProyecto => ", idProyecto)
-    // console.log("tarea => ",tarea)
     let post = {
       hots:this.peticion.urllocal,
       path:"Tareas/Guardar",
@@ -124,29 +118,22 @@ export class CreateProjectComponent implements OnInit{
       }
     }
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      // console.log("RES de RegistrarTarea()")
-      // console.log("POST => ",post)
-      // console.log("RES TAREA =>",res)
+      
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
-        //this.msg.Load(res.mensaje, "success", 5000)
         let idTempoDeLaTarea = res.id
-        // console.log(`Tarea ${idTempoDeLaTarea} registrada en la colleccion de Tareas`)
         this.tareasDelProyecto.push(idTempoDeLaTarea)
         if(this.tareasDelProyecto.length == this.tareas.length){
-          // console.log(`tareasDelProyecto.length = ${this.tareasDelProyecto.length} VS tareas.length = ${this.tareas.length}`)
           this.TareaIsOk = true
           this.ActualizarProyectoConSusTareas(this.idDelProyectoDespuesGuardarLo, this.tareasDelProyecto)
         }
-        // this.tareasYencargado.push({usuario:tarea.keyEncargado,idTarea:res.id})
         this.EditarTareasDeUnUsuario(tarea.keyEncargado,idTempoDeLaTarea)
       }
     })
   }
 
   ActualizarProyectoConSusTareas(idProyecto:string,arrayIdTareas:any){
-    // console.log("On lance ActualizarProyectoConSusTareas()")
     let post = {
       hots:this.peticion.urllocal,
       path:"Proyectos/Actualizar",
@@ -159,15 +146,12 @@ export class CreateProjectComponent implements OnInit{
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
-        //this.msg.Load(res.mensaje, "success", 5000)
-        // console.log("Array con id de as tareas actualizado en el proyecto")
         this.TareasEnProyectoIsOk = true
       }
     })
   }
 
   EditarTareasDeUnUsuario(idUsuario:string, idTarea:string){
-    // console.log("On lance EditarTareasDeUnUsuario()")
     let post = {
       hots:this.peticion.urllocal,
       path:"Usuarios/CargarId",
@@ -186,7 +170,6 @@ export class CreateProjectComponent implements OnInit{
   }
 
   ActualizarUsuarioConTarea(idUsuario:string, idTarea:string){
-    // console.log("ActualizarUsuarioConTarea()")
     this.tareasDeUnUsuario.push(idTarea)
     let post = {
       hots:this.peticion.urllocal,
@@ -200,9 +183,7 @@ export class CreateProjectComponent implements OnInit{
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
-        //this.msg.Load(res.mensaje, "success", 5000)
         this.countTareasEnUsuariosIsOk++
-        // console.log("FIN ActualizarUsuarioConTarea "+idTarea)
         if(this.countTareasEnUsuariosIsOk == this.miembros.length){
           this.TareasEnUsuariosIsOk = true
         }
@@ -229,7 +210,6 @@ export class CreateProjectComponent implements OnInit{
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
-        // res.datos[0].misProyectos ? this.misProyectos = res?.datos[0]?.misProyectos : this.misProyectos = []
         this.misProyectos = res?.datos[0]?.misProyectos
         this.ActualizarProyectosDeLosUsuarios(idProyecto, idMiembro)
       }
@@ -254,9 +234,7 @@ export class CreateProjectComponent implements OnInit{
         this.route.navigate(['dashboard'])
         location.reload()
       } else {
-        //this.msg.Load(res.mensaje, "success", 5000)
         this.countProyectoEnUsuariosIsOk++
-        // console.log("FIN ActualizarProyectosDeLosUsuarios : "+idMiembro)
         if(this.countProyectoEnUsuariosIsOk == this.miembros.length){
           this.ProyectoEnUsuariosIsOk = true
         }
@@ -297,45 +275,5 @@ export class CreateProjectComponent implements OnInit{
     let quitarLa:any = this.tareas.splice(indexTarea,1)
     let mensaje:string = `Tarea eliminado con éxito`
     this.msg.Load(mensaje, "success", 5000)
-  }
-
-  // CONSOLE.LOG
-  consoleMiembros(){
-    console.log(this.miembros)
-  }
-  consoleTareas(){
-    console.log(this.tareas)
-  }
-
-  consoleTODO(){
-  console.log("id ",this.id)
-  console.log("alias ",this.alias)
-  console.log("email ",this.email)
-  //
-  console.log("nombreProyecto ",this.nombreProyecto)
-  console.log("descripcionProyecto ",this.descripcionProyecto)
-  console.log("objetivoProyecto ",this.objetivoProyecto)
-  console.log("fechaEntregaProyecto ",this.fechaEntregaProyecto)
-  console.log("keyUser ",this.keyUser)
-  console.log("prosupuesto ",this.prosupuesto)
-  //
-  console.log("miembros ",this.miembros)
-  console.log("miembrosLength ",this.miembrosLength)
-  console.log("tareas ",this.tareas)
-  console.log("tareasLength ",this.tareasLength)
-  //
-  console.log("misProyectos ",this.misProyectos)
-  console.log("tareasDeUnUsuario ",this.tareasDeUnUsuario)
-  //
-  console.log("idDelProyectoDespuesGuardarLo ",this.idDelProyectoDespuesGuardarLo)
-  console.log("tareasDelProyecto ",this.tareasDelProyecto)
-  //
-  console.log("ProyectoIsOk ",this.ProyectoIsOk)
-  console.log("TareaIsOk ",this.TareaIsOk)
-  console.log("TareasEnProyectoIsOk ",this.TareasEnProyectoIsOk)
-  console.log("TareasEnUsuariosIsOk ",this.TareasEnUsuariosIsOk)
-  console.log("countTareasEnUsuariosIsOk ",this.countTareasEnUsuariosIsOk)
-  console.log("ProyectoEnUsuariosIsOk ",this.ProyectoEnUsuariosIsOk)
-  console.log("countProyectoEnUsuariosIsOk ",this.countProyectoEnUsuariosIsOk)
   }
 }

@@ -42,7 +42,6 @@ export class ProfileComponent implements OnInit {
       this.imageProfileUrl = `${this.peticion.urllocal}back/perfiles/${this.id}.png`
       this.checkIfImageExists(this.imageProfileUrl, (exists:any) => {
         if (exists) {
-          // console.log('Image exists. ')
           this.imagenEstaOk = true
         }
       })
@@ -52,7 +51,6 @@ export class ProfileComponent implements OnInit {
   }
 
   EditarId(id:string){
-   /*  console.log("Usamos EditarId") */
     this.path = '/files/back/perfiles/' + id
     let post = {
       hots:this.peticion.urllocal,
@@ -132,8 +130,6 @@ export class ProfileComponent implements OnInit {
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
         this.logOut()
-        // this.route.navigate(['profile'])
-        // location.reload()
       }
     })
   }

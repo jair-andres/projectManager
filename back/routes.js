@@ -85,7 +85,6 @@ app.post("/miData",function(request, response) {
   response.json({
     id:request.session.idUser,
     alias:request.session.alias,
-    // nombre:request.session.nombre,
     email:request.session.email,
     password:request.session.password,
     rol:request.session.rol})

@@ -13,19 +13,6 @@ export class InfoComponent {
   email:string = ""
   nombre:string = ""
   
-  // miData() {
-  //   let post = {
-  //     hots:this.peticion.urllocal,
-  //     path:"miData",
-  //     payload:{}
-  //   }
-  
-  //   this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-  //     this.email = res.id
-  //     // console.log("segunda validacion:  ", this.idUsuario);
-  //   })
-  // }
-  
   GuardarNewsletters(){
     let post = {
       hots:this.peticion.urllocal,
@@ -37,7 +24,6 @@ export class InfoComponent {
     }
   
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log(res)
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {

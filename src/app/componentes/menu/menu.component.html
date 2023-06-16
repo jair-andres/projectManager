@@ -37,29 +37,12 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" routerLink="/profile">Perfil</a></li>
-                            <li *ngIf="rolSesion == 'Administrador'"
-                            ><a class="dropdown-item" routerLink="/adminuser">Administrador</a></li>
+                            <li *ngIf="rolSesion == 'Administrador'"><a class="dropdown-item" routerLink="/adminuser">Administrador</a></li>
                             <li><a class="dropdown-item" routerLink="/dashboard">Panel</a></li>
                             <li><button class="dropdown-item" (click)="logOut()">logOut</button></li>
                         </ul>
                     </li>
                 </ng-template>
-                <!-- 
-                <ng-template #menuDashboard>
-                    <div class="dropdown">
-                        <button class="btn btn-purple dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            {{aliasSesion}}
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" routerLink="/dashboard">Panel</a></li>
-                            <li><a class="dropdown-item" routerLink="/user">Perfil</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            <li><button class="dropdown-item" (click)="logOut()">logOut</button></li>
-                        </ul>
-                    </div>
-                </ng-template>
-                -->
             </ul>
         </div>
     </div>

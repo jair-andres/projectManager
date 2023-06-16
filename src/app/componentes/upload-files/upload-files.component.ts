@@ -37,11 +37,9 @@ export class UploadFilesComponent {
 
 
   upload():void{
-
     this.progress = 0
     this.archivoseleccionado = this.selectedFiles.item(0)
     this.imagenprofile = this.urldestino + this.path + this.fileName + ".png"
-    console.log(this.imagenprofile)
     this.uploadService.upload(this.archivoseleccionado,this.urldestino + this.path,this.fileName).subscribe(
       (event:any) => {
         if(event.type === HttpEventType.UploadProgress){
@@ -57,25 +55,16 @@ export class UploadFilesComponent {
             this.actualizarImagenUsuario(this.idUsuario)
           },2000)
         }
-
-
       },err =>{
         this.progress = 0
         this.nombrearchivo = "Seleciona el Archivo"
         this.mensaje = "Se Presento un error al Subir el Archivo"
       })
-
       this.selectedFiles = undefined
-
-
-
-
   }
 
   actualizarImagenUsuario(idUsuario:string){
-    console.log("PATH ===> ",this.path)
     this.testUrl = this.urldestino + "/back/perfiles/"+ idUsuario + ".png"
-    console.log(this.testUrl)
     let post = {
       hots:this.peticion.urllocal,
       path:"Usuarios/Actualizar",
@@ -85,7 +74,6 @@ export class UploadFilesComponent {
       }
     }
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log(res)
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {

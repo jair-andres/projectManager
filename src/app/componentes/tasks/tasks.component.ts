@@ -116,7 +116,6 @@ export class TasksComponent implements OnInit {
     }
     this.peticion.Post(post.host + post.path, post.payload).then((res:any) => {
       this.unaTarea=res?.datos[0]
-      console.log("Una tarea :",this.unaTarea);
       this.idTarea = res?.datos[0]._id
       this.titulo = res?.datos[0].titulo
       this.descripcion = res?.datos[0].descripcion
@@ -177,14 +176,12 @@ export class TasksComponent implements OnInit {
   }
 
   QuieroEliminarEstaTarea(idTarea:string, tituloTarea:string){
-    console.log("Eliminar esta tarea :",idTarea,tituloTarea)
     this.EditarUnaTarea(idTarea,false)
     let foo = idTarea
     this.eliminarTareaModal.show(idTarea)
   }
 
   EliminarEstaTarea(idTarea:string){
-    console.log("Si!!! Elimino esta tarea!!! => ",idTarea)
     let post = {
       hots:this.peticion.urllocal,
       path:"Tareas/Eliminar",
@@ -198,24 +195,14 @@ export class TasksComponent implements OnInit {
       } else {
         this.msg.Load(res.mensaje, "success", 5000)
         this.eliminarTareaModal.toggle();
-        // Quitar la tarea en misTareas del Usuario
         let indexParaMisTareasUsuarios:number = this.misTareasUsuario.indexOf(idTarea)
-        console.log("INDEX 1 => ",indexParaMisTareasUsuarios)
         this.misTareasUsuario.splice(indexParaMisTareasUsuarios,1)
-        console.log("Nouveau this.misTareasUsuario : ",this.misTareasUsuario)
-        // Quitar la tarea en tareas de proyecto
         let indexParaTareasDelProyecto:number = this.tareasDelProyecto.indexOf(idTarea)
-        console.log("INDEX 2 => ",indexParaTareasDelProyecto)
         this.tareasDelProyecto.splice(indexParaTareasDelProyecto,1)
-        console.log("Nouveau this.tareasDelProyecto : ",this.misTareasUsuario)
-        // Actualizacion en Usuarios y Proyectos
         this.ActualizarMisTareasEnUsuario(this.miId)
         this.ActualizarTareasEnProyecto(this.keyProyecto)
       }
     })
-    // Eliminar de la base Tarea
-    // Actuaizar misTareas en la base Usuario
-    // Actualizar tareas en la base Proyecto
   }
 
   ActualizarMisTareasEnUsuario(idUsuario:string){
@@ -252,12 +239,5 @@ export class TasksComponent implements OnInit {
         this.msg.Load(res.mensaje, "success", 5000)
       }
     })
-  }
-
-  consoleActividades(){
-    console.log(this.actividades)
-  }
-  consoleTareas(){
-    console.log(this.tareas)
   }
 }

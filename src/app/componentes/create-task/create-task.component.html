@@ -44,9 +44,6 @@
                             </svg>
                         </button>
                     </div>
-                    <!--
-                    <button (click)="consoleActividades()">console.log(actividades)</button>
-                    -->
                     <div id="actividadesContainer" class=" mb-3" >
                         <div class="input-group mb-3" *ngFor="let acto of actividades">
                             <input type="text" class="form-control" id="actividades_{{actividades.indexOf(acto)}}" [(ngModel)]="acto.actividad" placeholder="Actididad..." autocomplete="off">

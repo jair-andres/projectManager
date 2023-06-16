@@ -47,15 +47,10 @@ export class MenuComponent implements OnInit {
       this.imageProfileUrl = `${this.peticion.urllocal}back/perfiles/${this.id}.png`
       this.checkIfImageExists(this.imageProfileUrl, (exists:any) => {
         if (exists) {
-          // console.log('Image exists. ')
           this.imagenEstaOk = true
         }
       })
     })
-    // console.log("=== CONSOLE.LOG DE MENU COMPONENT ===")
-    // console.log(this.res)
-    // console.log(this.rolSesion)
-    // console.log(typeof(this.rolSesion))
   }
 
   checkIfImageExists(urlparam:string, callback:any) {

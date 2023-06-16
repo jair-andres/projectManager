@@ -1,19 +1,6 @@
 var tareasModel = require("../modelos/tareasModel.js").tareasModel;
 var tareasController = {};
 
-// tareasController.Consultar = function (request, response) {
-//   tareasModel.Consultar(null, function (respuesta) {
-//     if (respuesta.state == false) {
-//       response.json({
-//         state: false,
-//         mensaje: "se presento un error al guardar",
-//       });
-//     } else {
-//       response.json(respuesta);
-//     }
-//   });
-// }
-
 tareasController.Guardar = function (request, response) {
   var post = {
     titulo: request.body.titulo,

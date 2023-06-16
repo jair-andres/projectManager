@@ -50,14 +50,11 @@ export class ProjectsComponent implements OnInit {
     }
     this.peticion.Post(post.host + post.path, post.payload).then((res:any) => {
       this.proyectos=res?.datos[0].misProyectosinfo
-      console.log("Cargar todos mis proyectos",this.proyectos)
     })
   }
 
   EliminarIdConModal(id:string, conModal:boolean){
-    console.log(id)
     this.id = id
-
     let post = {
       hots:this.peticion.urllocal,
       path:"Proyectos/CargarId",
@@ -65,9 +62,7 @@ export class ProjectsComponent implements OnInit {
         id:this.id
       }
     }
-
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log(res)
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
@@ -75,7 +70,6 @@ export class ProjectsComponent implements OnInit {
         
     }
   })
-
     if(conModal == true){
       this.modal.show();
     }
@@ -86,14 +80,10 @@ export class ProjectsComponent implements OnInit {
     let foo = id
     this.EliminarIdConModal(foo,false)
     this.modalEliminar.show()
-    console.log(id);
-    
   } 
 
   Eliminar(id:string){
     this.id = id
-    console.log(id)
-
     let post = {
       host:this.peticion.urllocal,
       path:"Proyectos/Eliminar",
@@ -102,7 +92,6 @@ export class ProjectsComponent implements OnInit {
       }
     }
     this.peticion.Post(post.host + post.path, post.payload).then((res:any) => {
-
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {

@@ -44,7 +44,6 @@ export class CreateTaskComponent implements OnInit{
       }
     }
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      // console.log(res)
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
@@ -53,9 +52,6 @@ export class CreateTaskComponent implements OnInit{
     })
   }
 
-  consoleActividades(){
-    console.log(this.actividades)
-  }
   crearActividades(){
     this.hayActividades = true
     let idTempo:string = this.actividades.length
@@ -66,7 +62,6 @@ export class CreateTaskComponent implements OnInit{
     )
   }
   quitarActividad(indexActividad:any){
-    // console.log("ID => ",indexActividad)
     let quitarActo:any = this.actividades.splice(indexActividad,1)
     let mensaje:string = "Actividad elmininada con  éxito"
     this.msg.Load(mensaje, "success", 5000)

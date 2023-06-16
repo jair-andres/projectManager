@@ -55,7 +55,7 @@ tareasModel.CargarTodas = function(post, callback) {
 }
 
 tareasModel.CargarId = function(post, callback) {
-  MyModel.find({_id:post.id},{titulo:1, fechaInicio:1, estado:1, keyEncargado:1, keyProyecto:1,descripcion:1,fechaFinal:1,actividades:1},(error,documentos) =>{
+  MyModel.find({_id:post.id},{titulo:1, fechaInicio:1, estado:1, keyEncargado:1, keyProyecto:1,descripcion:1,fechaFinal:1,actividades:1,comentarios:1},(error,documentos) =>{
       if (error) {
           console.log(error)
           return callback({state:false})

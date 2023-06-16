@@ -32,7 +32,6 @@ export class ProyectosDatalleComponent implements OnInit {
     console.log(this.idProyectos);
   }
 
-  // Post -> Info del proyecto con actividades y miembros
   detalleProducto() {
     let post = {
       host:this.peticion.urllocal,
@@ -42,21 +41,10 @@ export class ProyectosDatalleComponent implements OnInit {
       }
     }
     this.peticion.Post(post.host + post.path, post.payload).then((res:any) => {
-      // Detalle del proyecto
       this.detalleProyecto=res?.datos[0]
-      // Info lider
       this.lider = res?.datos[0].lider
-      //Infor mienbros
       this.miembrosInfo = res?.datos[0].miembrosInfo
-      console.log("miembros...",this.miembrosInfo);
-
-      //Info Tareas
       this.tareasInfo = res?.datos[0].tareasInfo
-      console.log("Cargar detalle proyecto : ",this.detalleProyecto)
     })
   }
-  // Crear -> Proyecto -> reenviar
-  // Editar tareas
-  // Editar miembros
-
 }

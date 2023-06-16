@@ -20,7 +20,6 @@ export class ContactComponent implements OnInit {
   observacion:string = ""
 
   ngOnInit(): void {
-    console.log("on lance ngOnInit()")
     this.miData()
   }
 
@@ -34,7 +33,6 @@ export class ContactComponent implements OnInit {
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
       console.log("RESSSSS =>",res)
       this.idUsuario = res.id
-      // console.log("segunda validacion:  ", this.idUsuario);
     })
   }
 
@@ -50,18 +48,8 @@ export class ContactComponent implements OnInit {
         observacion:this.observacion
       }
     }
-    // if(this.idUsuario){
-    //   console.log("idUsuario is OK =>", this.idUsuario)
-    //   console.log(post.payload)
-    //   console.log(typeof(post.payload))
-    // } else {
-    //   console.log("idUsuario is NOOOOOOT OK !!!")
-    //   console.log(post.payload)
-    //   console.log(typeof(post.payload))
-    // }
 
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      console.log(res)
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {

@@ -72,7 +72,6 @@ export class UpdateProjectComponent implements OnInit {
 
   idProyectoGet() {
     this.idProyecto = this.activateRoute.snapshot.paramMap.get('idProject')
-    console.log("ID del proyecto : ",this.idProyecto);
     this.detalleProducto(this.idProyecto)
   }
 
@@ -90,7 +89,6 @@ export class UpdateProjectComponent implements OnInit {
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         this.detalleProyecto=res?.datos[0]
-        console.log(this.detalleProyecto)
         this.nombreProyecto = res?.datos[0].nombreProyecto
         this.descripcion = res?.datos[0].descripcion
         this.objetivo = res?.datos[0].objetivo
@@ -99,7 +97,6 @@ export class UpdateProjectComponent implements OnInit {
         this.prosupuesto = res?.datos[0].prosupuesto
         this.miembros = res?.datos[0].miembros
         this.tareas = res?.datos[0].tareas
-
         this.tareasInfo = res?.datos[0].tareasInfo
         this.miembrosInfo = res?.datos[0].miembrosInfo
       }
@@ -107,42 +104,7 @@ export class UpdateProjectComponent implements OnInit {
     })
   }
 
-  consoleTODO(){
-    console.log("this.miId : ",this.miId)
-    console.log("this.miAlias : ",this.miAlias)
-  
-    console.log("this.idProyecto : ",this.idProyecto)
-    console.log("this.detalleProyecto : ",this.detalleProyecto)
-    console.log("this.nombreProyecto : ",this.nombreProyecto)
-    console.log("this.descripcion : ",this.descripcion)
-    console.log("this.objetivo : ",this.objetivo)
-    console.log("this.keyUser : ",this.keyUser)
-    console.log("this.fechaEntrega : ",this.fechaEntrega)
-    console.log("this.prosupuesto : ",this.prosupuesto)
-    console.log("this.miembros : ",this.miembros)
-    console.log("this.tareas : ",this.tareas)
-
-    console.log("this.tareasInfo : ",this.tareasInfo)
-    console.log("this.miembrosInfo : ",this.miembrosInfo)
-
-    console.log("this.busquedaEncargado : ",this.busquedaEncargado)
-    console.log("this.resultadoBusquedaEncargado : ",this.resultadoBusquedaEncargado)
-    console.log("this.idTemporalTarea : ",this.idTemporalTarea)
-    console.log("this.miembrosEliminados : ",this.miembrosEliminados)
-    console.log("this.eliminadosInfo : ",this.eliminadosInfo)
-    console.log("this.ProyectoIsOk : ",this.ProyectoIsOk)
-    console.log("this.TareaIsOk : ",this.TareaIsOk)
-    console.log("this.TareasEnUsuariosIsOk : ",this.TareasEnUsuariosIsOk)
-    console.log("this.countTareasEnUsuariosIsOk : ",this.countTareasEnUsuariosIsOk)
-    console.log("this.EliminadosIsOk : ",this.EliminadosIsOk)
-    console.log("this.countEliminadosIsOk : ",this.countEliminadosIsOk)
-    console.log("this.ProyectoEnUsuariosIsOk : ",this.ProyectoEnUsuariosIsOk)
-    console.log("this.countProyectoEnUsuariosIsOk : ",this.countProyectoEnUsuariosIsOk)
-    // console.log("this.nuevoComentario : ",this.nuevoComentario)
-  }
-
   ActualizarMiembros(newArrayMembers:any[]){
-    console.log("newArrayMembers ===>",newArrayMembers[0].id)
     this.miembros.push(newArrayMembers[0].id)
     if(this.miembrosEliminados.indexOf(newArrayMembers[0].id) !== -1){
       let indexTempo = this.miembrosEliminados.indexOf(newArrayMembers[0].id)
@@ -163,7 +125,6 @@ export class UpdateProjectComponent implements OnInit {
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
         LocalNuevoMiembro = res.datos[0]
-        console.log("LocalNuevoMiembro : ",LocalNuevoMiembro)
         this.miembrosInfo.push(LocalNuevoMiembro)
       }
     })
@@ -171,18 +132,14 @@ export class UpdateProjectComponent implements OnInit {
   }
 
   QuitarMiembros(idMiembro:string){
-    // console.log("ID => ",idMiembro)
     this.miembrosEliminados.push(idMiembro)
     let quitarDeMiembros:number = this.miembros.indexOf(idMiembro)
     this.miembros.splice(quitarDeMiembros,1)
-    //
     let foe:any = (elArray:any) => elArray._id == idMiembro
     let quitarDeMiembrosInfo:number = this.miembrosInfo.findIndex(foe)
-    // console.log("Quitar este index en miembrosInfo: ",quitarDeMiembrosInfo)
     let suNombre:string = this.miembrosInfo[quitarDeMiembrosInfo]?.alias
     let miembroInfoEliminado = this.miembrosInfo.splice(quitarDeMiembrosInfo,1)
     this.eliminadosInfo.push(miembroInfoEliminado[0])
-    console.log(this.eliminadosInfo)
     let mensaje:string = `${suNombre} eliminado con éxito`
     this.msg.Load(mensaje, "success", 5000)
   }
@@ -193,7 +150,6 @@ export class UpdateProjectComponent implements OnInit {
   }
 
   CambiarEncargado(){
-    console.log("cambiar encargado")
     let post = {
       hots:this.peticion.urllocal,
       path:"Usuarios/Buscar",
@@ -202,7 +158,6 @@ export class UpdateProjectComponent implements OnInit {
       }
     }
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
-      // console.log(res)
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
@@ -212,7 +167,6 @@ export class UpdateProjectComponent implements OnInit {
   }
 
   AnadirNuevoEncargado(){
-    console.log("AnadirNuevoEncargado")
     let foa:any = (elArray:any) => elArray._id == this.idTemporalTarea
     let indexDeLaTarea:number = this.tareasInfo.findIndex(foa)
     this.tareasInfo[indexDeLaTarea].keyEncargado = this.resultadoBusquedaEncargado[0]._id
@@ -221,7 +175,6 @@ export class UpdateProjectComponent implements OnInit {
   }
 
   NuevaActividad(idTarea:string){
-    console.log("Queremos añadir una nueva actividad")
     let fuo:any = (elArray:any) => elArray._id == idTarea
     let indexDeLaTareaDondeEstaLaActividad:number = this.tareasInfo.findIndex(fuo)
     let idTempo:string = this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].actividades.length
@@ -233,43 +186,31 @@ export class UpdateProjectComponent implements OnInit {
   }
 
   CheckActividad(indexActividad:any, idTarea:string){
-    console.log(`Tarea ${idTarea} con Actividad Index : ${indexActividad}`)
     let fuo:any = (elArray:any) => elArray._id == idTarea
     let indexDeLaTareaDondeEstaLaActividad:number = this.tareasInfo.findIndex(fuo)
     if(this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].actividades[indexActividad].finalisada == false){
-      console.log("Je passe à true ==> ",this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].actividades[indexActividad].finalisada)
       this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].actividades[indexActividad].finalisada = true
     } else {
-      console.log("Je passe à false ==> ",this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].actividades[indexActividad].finalisada)
       this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].actividades[indexActividad].finalisada = false
     }
     
   }
 
   QuitarActividad(indexActividad:any, idTarea:string){
-    console.log("index de la actividad : ",indexActividad)
-    console.log("id de la tarea donde estamos : ",idTarea)
     let foo:any = (elArray:any) => elArray._id == idTarea
     let indexDeLaTareaDondeEstaLaActividad:number = this.tareasInfo.findIndex(foo)
-    console.log("index de la tarea en tareasInfo : ",indexDeLaTareaDondeEstaLaActividad)
     this.tareasInfo[indexDeLaTareaDondeEstaLaActividad].actividades.splice(indexActividad,1)
     let mensaje:string = "Actividad elmininada con  éxito"
     this.msg.Load(mensaje, "success", 5000)
   }
 
   EnviarComentario(idTarea:string){
-    // console.log(idTarea)
-    // console.log(typeof(idTarea))
     let foo:any = (elArray:any) => elArray._id == idTarea
     let indexDeLaTareaDondeEstaLaActividad:number = this.tareasInfo.findIndex(foo)
     let toStringId = idTarea.toString()
-    // console.log(toStringId)
     let elId = "formControlComentariosNuevo"+idTarea
-    // console.log(elId)
     let comentarioTextarea:any = window.document.getElementById("formControlComentariosNuevo"+idTarea)
-    // console.log(comentarioTextarea)
     let nuevoComentario:string = comentarioTextarea.value
-    
     let today = new Date();
 
     let creoUnNuevoComentario:any = {
@@ -288,7 +229,6 @@ export class UpdateProjectComponent implements OnInit {
   }
 
   ActualizarUnaTarea(idTarea:string){
-    console.log("actualizar esta tarea")
     let foo:any = (elArray:any) => elArray._id == idTarea
     let indexDeLaTareaDondeEstaLaActividad:number = this.tareasInfo.findIndex(foo)
     
@@ -327,7 +267,6 @@ export class UpdateProjectComponent implements OnInit {
   }
 
   ActualizarProyecto(){
-    console.log("actualizar el proyecto : ",this.idProyecto)
     let post = {
       hots:this.peticion.urllocal,
       path:"Proyectos/Actualizar",
@@ -346,7 +285,6 @@ export class UpdateProjectComponent implements OnInit {
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
-        // this.msg.Load(res.mensaje, "success", 5000)
         this.ProyectoIsOk = true
         this.tareasInfo.map( tarea => this.ActualizarTodasLasTareas(this.idProyecto,tarea))
         this.miembrosInfo.map( miembro => this.ActualizarUsuarioConProyecto(this.idProyecto,miembro._id))
@@ -360,7 +298,6 @@ export class UpdateProjectComponent implements OnInit {
   }
 
   ActualizarTodasLasTareas(idProyecto:string, tarea:any){
-    console.log("ActualizarTodasLasTareas")
     let post = {
       hots:this.peticion.urllocal,
       path:"Tareas/Actualizar",
@@ -381,7 +318,6 @@ export class UpdateProjectComponent implements OnInit {
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
       } else {
-        // this.msg.Load(res.mensaje, "success", 5000)
         this.TareaIsOk = true
         this.ActualizarUsuarioConTarea(tarea.keyEncargado,tarea._id)
       }
@@ -389,11 +325,9 @@ export class UpdateProjectComponent implements OnInit {
   }
 
   ActualizarUsuarioConTarea(idUsuario:string, idTarea:string){
-    console.log("ActualizarUsuarioConTarea")
     let foo:any = (elArray:any) => elArray._id == idUsuario
     let indexDelUsuaruio:number = this.miembrosInfo.findIndex(foo)
     if(this.miembrosInfo[indexDelUsuaruio].misTareas.indexOf(idTarea) == -1){
-      console.log(this.miembrosInfo[indexDelUsuaruio].misTareas.indexOf(idTarea))
       this.miembrosInfo[indexDelUsuaruio].misTareas.push(idTarea)
       let post = {
         hots:this.peticion.urllocal,
@@ -412,22 +346,18 @@ export class UpdateProjectComponent implements OnInit {
       })
     }
     this.countTareasEnUsuariosIsOk++
-    // console.log("FIN ActualizarUsuarioConTarea "+idTarea)
     if(this.countTareasEnUsuariosIsOk == this.miembros.length){
       this.TareasEnUsuariosIsOk = true
     }
     if(this.ProyectoIsOk == true && this.TareaIsOk == true && this.TareasEnUsuariosIsOk == true && this.ProyectoEnUsuariosIsOk == true && this.EliminadosIsOk == true){
       this.route.navigate([`proyectos/${this.idProyecto}`])
-      //location.reload()
     }
   }
 
   ActualizarUsuarioConProyecto(idProyecto:string, idUsuario:string){
-    console.log("ActualizarUsuarioConProyecto")
     let foo:any = (elArray:any) => elArray._id == idUsuario
     let indexDelUsuaruio:number = this.miembrosInfo.findIndex(foo)
     if(this.miembrosInfo[indexDelUsuaruio].misProyectos.indexOf(idProyecto) == -1){
-      console.log(this.miembrosInfo[indexDelUsuaruio].misProyectos.indexOf(idProyecto))
       this.miembrosInfo[indexDelUsuaruio].misProyectos.push(idProyecto)
       let post = {
         hots:this.peticion.urllocal,
@@ -451,19 +381,15 @@ export class UpdateProjectComponent implements OnInit {
     }
     if(this.ProyectoIsOk == true && this.TareaIsOk == true && this.TareasEnUsuariosIsOk == true && this.ProyectoEnUsuariosIsOk == true && this.EliminadosIsOk == true){
       this.route.navigate([`proyectos/${this.idProyecto}`])
-      //location.reload()
     }
   }
 
   ActualizarLosEliminados(idUsuario:string){
-    console.log("ActualizarLosEliminados")
-    console.log(idUsuario)
     let foo:any = (elArray:any) => elArray._id == idUsuario
     let indexDelUsuaruio:number = this.eliminadosInfo.findIndex(foo)
     if(this.eliminadosInfo[indexDelUsuaruio].misProyectos.indexOf(this.idProyecto) !== -1){
       let indexDelProyecto = this.eliminadosInfo[indexDelUsuaruio].misProyectos.indexOf(this.idProyecto)
       this.eliminadosInfo[indexDelUsuaruio].misProyectos.splice(indexDelProyecto,1)
-      console.log("this.eliminadosInfo[indexDelUsuaruio].misProyectos : ",this.eliminadosInfo[indexDelUsuaruio].misProyectos)
     }
     this.tareas.map( (tareaIdEnTareas:any) => {
       this.eliminadosInfo[indexDelUsuaruio].misTareas.map( (tareaIdEnUsuario:any) => {
@@ -471,7 +397,6 @@ export class UpdateProjectComponent implements OnInit {
           if(this.eliminadosInfo[indexDelUsuaruio].misTareas.indexOf(tareaIdEnTareas) !== -1){
             let indexDeLaTarea = this.eliminadosInfo[indexDelUsuaruio].misTareas.indexOf(tareaIdEnTareas)
             this.eliminadosInfo[indexDelUsuaruio].misTareas.splice(indexDeLaTarea,1)
-            console.log("this.eliminadosInfo[indexDelUsuaruio].misTareas :",this.eliminadosInfo[indexDelUsuaruio].misTareas)
           }
         }
       })
@@ -488,8 +413,6 @@ export class UpdateProjectComponent implements OnInit {
     this.peticion.Post(post.hots + post.path,post.payload).then((res:any) => {
       if(res.state == false){
         this.msg.Load(res.mensaje, "danger", 5000)
-      } else {
-        // this.msg.Load(res.mensaje, "success", 5000)
       }
     })
     this.countEliminadosIsOk++
@@ -498,7 +421,6 @@ export class UpdateProjectComponent implements OnInit {
     }
     if(this.ProyectoIsOk == true && this.TareaIsOk == true && this.TareasEnUsuariosIsOk == true && this.ProyectoEnUsuariosIsOk == true && this.EliminadosIsOk == true){
       this.route.navigate([`proyectos/${this.idProyecto}`])
-      //location.reload()
     }
   }
 }
